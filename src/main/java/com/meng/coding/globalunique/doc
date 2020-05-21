@@ -2,4 +2,6 @@
 1.UUID：  过长 不自增
 2.数据库自增id,独立表生成自增id作为其他表的唯一值：数据库高可用、并发量低、扩容(步长需要修改)、主从不同步（主库挂了id可能会冲突）
 3.号段模式：批量获取ids，一次性获取n个id  https://github.com/didi/tinyid
-4.雪花算法：64bit
+4.雪花算法：   百度https://github.com/baidu/uid-generator
+  美团leaf https://tech.meituan.com/2017/04/21/mt-leaf.html  https://github.com/MrSorrow/Leaf
+  https://blog.csdn.net/bskfnvjtlyzmv867/article/details/90247036
