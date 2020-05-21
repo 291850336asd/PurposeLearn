@@ -1,0 +1,15 @@
+UUID(Universally Unique Identifier)的标准型式包含32个16进制数字，以连字号分为五段，形式为8-4-4-4-12的36个字符，示例：550e8400-e29b-41d4-a716-446655440000
+优点：
+性能非常高：本地生成，没有网络消耗。
+缺点：
+
+不易于存储：UUID太长，16字节128位，通常以36长度的字符串表示，很多场景不适用。
+信息不安全：基于MAC地址生成UUID的算法可能会造成MAC地址泄露，这个漏洞曾被用于寻找梅丽莎病毒的制作者位置。
+
+ID作为主键时在特定的环境会存在一些问题，比如做DB主键的场景下，UUID就非常不适用：
+
+① MySQL官方有明确的建议主键要尽量越短越好[4]，36个字符长度的UUID不符合要求。
+
+All indexes other than the clustered index are known as secondary indexes. In InnoDB, each record in a secondary index contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.*** If the primary key is long, the secondary indexes use more space, so it is advantageous to have a short primary key***.
+
+② 对MySQL索引不利：如果作为数据库主键，在InnoDB引擎下，UUID的无序性可能会引起数据位置频繁变动，严重影响性能。
