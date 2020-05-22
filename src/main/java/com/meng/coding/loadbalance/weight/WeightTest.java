@@ -1,6 +1,7 @@
 package com.meng.coding.loadbalance.weight;
 
-import com.meng.coding.ServerIps;
+
+import com.meng.coding.loadbalance.ServerIps;
 
 import java.util.ArrayList;
 import java.util.List;

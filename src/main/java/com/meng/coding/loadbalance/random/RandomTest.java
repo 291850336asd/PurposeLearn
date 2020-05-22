@@ -1,6 +1,6 @@
 package com.meng.coding.loadbalance.random;
 
-import com.meng.coding.ServerIps;
+import com.meng.coding.loadbalance.ServerIps;
 
 import java.util.Random;
 

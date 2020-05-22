@@ -1,6 +1,7 @@
 package com.meng.coding.loadbalance.RoundRobinTest;
 
-import com.meng.coding.ServerIps;
+
+import com.meng.coding.loadbalance.ServerIps;
 
 public class RoundRobinTest {
 
