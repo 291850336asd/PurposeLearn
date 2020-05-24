@@ -1,0 +1,3 @@
+SimpleProtocol=com.meng.coding.spi.dubbo.simple.SimpleProtocol
+SimpleProtocol2=com.meng.coding.spi.dubbo.simple.SimpleProtocol2
+com.meng.coding.spi.dubbo.simple.SimpleWrapperProtocol

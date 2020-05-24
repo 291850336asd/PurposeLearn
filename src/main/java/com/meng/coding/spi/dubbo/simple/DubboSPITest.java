@@ -1,4 +1,4 @@
-package com.meng.coding.spi.dubbo;
+package com.meng.coding.spi.dubbo.simple;
 
 import org.apache.dubbo.common.extension.ExtensionLoader;
 
