@@ -1,5 +1,10 @@
 package com.meng.coding;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 /**
  * Hello world!
  *
@@ -9,7 +14,6 @@ public class App
     public static void main( String[] args )
     {
 
-        System.exit(1);
 ////        System.out.println( Math.abs("15510010709".hashCode())%8 +1 );//8  32  E304000000040539181   8   24
 //        sql(32,8,24,8,"15510010709","E304000000040539181");
 ////        System.out.println( Math.abs("18511077646".hashCode())%8 +1 );//3  11  E849000000040538810   2   18
@@ -42,33 +46,56 @@ public class App
 //        sql(24,8,28,4,"12222222228","E29000000040505863");
 ////        System.out.println( Math.abs("12222222229".hashCode())%8 +1 );//1  25  E29000000040538937    4   4
 //        sql(25,1,4,4,"12222222229","E29000000040538937");
-        sql(Math.abs("15901279448".hashCode())%32 +1,
-                Math.abs("15901279448".hashCode())%8 +1,
-                Math.abs("E849000000040539030".hashCode())%32 +1,
-                Math.abs("E849000000040539030".hashCode())%8 +1,
-                "15901279448","E849000000040539030");
+//        sql(Math.abs("15901279448".hashCode())%32 +1,
+//                Math.abs("15901279448".hashCode())%8 +1,
+//                Math.abs("E849000000040539030".hashCode())%32 +1,
+//                Math.abs("E849000000040539030".hashCode())%8 +1,
+//                "15901279448","E849000000040539030");
 
+//        System.out.println(Math.abs("18280518543\\".hashCode()) % 32 + 1);
+      //  System.out.println(Math.abs("18280518543".hashCode()) % 32 + 1);
+//        System.out.println(Math.abs("18280518004".hashCode()) % 32 + 1);
+//        System.out.println(Math.abs("18280518051".hashCode()) % 32 + 1);
+//        System.out.println(Math.abs("18280518141".hashCode()) % 32 + 1);
+//        System.out.println(Math.abs("18280518220".hashCode()) % 32 + 1);
+//        System.out.println(Math.abs("18280518499".hashCode()) % 32 + 1);
+//        System.out.println(Math.abs("18280518514".hashCode()) % 32 + 1);
+//        System.out.println(Math.abs("18280518543".hashCode()) % 32 + 1);
+//        System.out.println(Math.abs("18280518549".hashCode()) % 32 + 1);
+//        List<String> data = new ArrayList<>();
+//        data.add("18280518543");
+//        data.add("18280518543\\");
+//        Map<Integer, List<String>> integerListMap = data.stream().collect(Collectors.groupingBy(App::getShardByMemberNo));
+//        System.out.println(integerListMap);
 
-
+//        for(int i=1;i<=32;i++){
+//            sql(i);
+//        }
 
     }
 
+    public static   int getShardByMemberNo(Object shardKey){
+        int hashCode = shardKey.hashCode();
+        int shard = hashCode % 32;
+        return (Math.abs(shard) + 1);
+    }
+    public static   void sql(int shard){
+        String memShard = shard > 9 ? String.valueOf(shard) : "0"+ shard;
+        for(int rawMem = 1;rawMem<=8;rawMem++){
+            System.out.println("REPLACE   INTO cmc_member_shard_" + memShard + ".`mobile_member_map`(mobile,member_no) SELECT mobile,member_no FROM cmcmember" + rawMem + ".`mobile_member_map` WHERE shard_no = " + shard + ";");
+//            System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`contraint_member` SELECT * FROM cmcmember" + rawMem + ".`contraint_member` WHERE shard_no = " + shard + ";");
+//            System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`member_contact_rel` SELECT * FROM cmcmember" + rawMem +".`member_contact_rel` WHERE  shard_no = " + shard + ";");
+//            System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`member_convert` SELECT * FROM cmcmember" + rawMem + ".`member_convert` WHERE  shard_no = " + shard + ";");
+//            System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`member_filmtype_rel` SELECT * FROM cmcmember" + rawMem + ".`member_filmtype_rel` WHERE  shard_no = " + shard + ";");
+//            System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`mx_member_cinema_inner_code` SELECT * FROM cmcmember" + rawMem + ".`mx_member_cinema_inner_code` WHERE  shard_no = " + shard + ";");
+//            System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`t_login_log` SELECT * FROM cmcmember" + rawMem + ".`t_login_log` WHERE  shard_no = " + shard + ";");
+//            System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`t_member_info`" +
+//                    "(`member_no`, `member_id`, `birthday`, `gender`, `nickname`, `channel_id`, `channel_ext_id`, `regist_cinema_id`, `manage_cinema_id`, `education`, `occupation`, `income`, `marry_status`, `child_num`, `contractable`, `arrival_type`, `offen_channel`, `fq_cinema_dist`, `fq_cinema_time`, `id_card_no`, `id_card_hash_no`, `identity_type`, `mobile_optin`, `weibo`, `qq`, `douban`, `address1`, `address2`, `address3`, `address4`, `country_id`, `province_id`, `city_id`, `zip_code`, `create_time`, `operator_id`, `operator_name`, `level`, `points`, `update_time`, `regiest_type`, `old_member_id`, `mobile`, `recruit_employee_no`, `recruit_employee_name`, `email`, `head_url`, `status`, `is_delete`, `phone`, `register_channel_code`, `shard_no`) " +
+//                    "SELECT `member_no`, `member_id`, `birthday`, `gender`, `nickname`, `channel_id`, `channel_ext_id`, `regist_cinema_id`, `manage_cinema_id`, `education`, `occupation`, `income`, `marry_status`, `child_num`, `contractable`, `arrival_type`, `offen_channel`, `fq_cinema_dist`, `fq_cinema_time`, `id_card_no`, `id_card_hash_no`, `identity_type`, `mobile_optin`, `weibo`, `qq`, `douban`, `address1`, `address2`, `address3`, `address4`, `country_id`, `province_id`, `city_id`, `zip_code`, `create_time`, `operator_id`, `operator_name`, `level`, `points`, `update_time`, `regiest_type`, `old_member_id`, `mobile`, `recruit_employee_no`, `recruit_employee_name`, `email`, `head_url`, `status`, `is_delete`, `phone`, `register_channel_code`, `shard_no` " +
+//                    "FROM cmcmember" + rawMem + ".`t_member_info` WHERE  shard_no = " + shard + ";");
+//            System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`t_mobile_log` SELECT * FROM cmcmember" + rawMem + ".`t_mobile_log` WHERE  shard_no = " + shard + ";");
+//            System.out.println();
+        }
 
-    public static   void sql(int mobileShard1, int rawMobile,int memShard1, int rawMem,String mobile, String memberNo){
-        String mobileShard = mobileShard1 > 9 ? String.valueOf(mobileShard1) : "0"+ mobileShard1;
-        String memShard = memShard1 > 9 ? String.valueOf(memShard1) : "0"+ memShard1;
-        System.out.println("INSERT INTO cmc_member_shard_" + mobileShard + ".`mobile_member_map` SELECT * FROM cmcmember" + rawMobile + ".`mobile_member_map` WHERE mobile = '" + mobile + "';");
-        System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`contraint_member` SELECT * FROM cmcmember" + rawMem + ".`contraint_member` WHERE member_no = '" + memberNo + "';");
-        System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`member_contact_rel` SELECT * FROM cmcmember" + rawMem +".`member_contact_rel` WHERE  member_no = '" + memberNo + "';");
-        System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`member_convert` SELECT * FROM cmcmember" + rawMem + ".`member_convert` WHERE  member_no = '" + memberNo + "';");
-        System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`member_filmtype_rel` SELECT * FROM cmcmember" + rawMem + ".`member_filmtype_rel` WHERE  member_no = '" + memberNo + "';");
-        System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`mx_member_cinema_inner_code` SELECT * FROM cmcmember" + rawMem + ".`mx_member_cinema_inner_code` WHERE  member_no = '" + memberNo + "';");
-        System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`t_login_log` SELECT * FROM cmcmember" + rawMem + ".`t_login_log` WHERE  member_no = '" + memberNo + "';");
-        System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`t_member_info`" +
-                "(`member_no`, `member_id`, `birthday`, `gender`, `nickname`, `channel_id`, `channel_ext_id`, `regist_cinema_id`, `manage_cinema_id`, `education`, `occupation`, `income`, `marry_status`, `child_num`, `contractable`, `arrival_type`, `offen_channel`, `fq_cinema_dist`, `fq_cinema_time`, `id_card_no`, `id_card_hash_no`, `identity_type`, `mobile_optin`, `weibo`, `qq`, `douban`, `address1`, `address2`, `address3`, `address4`, `country_id`, `province_id`, `city_id`, `zip_code`, `create_time`, `operator_id`, `operator_name`, `level`, `points`, `update_time`, `regiest_type`, `old_member_id`, `mobile`, `recruit_employee_no`, `recruit_employee_name`, `email`, `head_url`, `status`, `is_delete`, `phone`, `register_channel_code`, `shard_no`) " +
-                "SELECT `member_no`, `member_id`, `birthday`, `gender`, `nickname`, `channel_id`, `channel_ext_id`, `regist_cinema_id`, `manage_cinema_id`, `education`, `occupation`, `income`, `marry_status`, `child_num`, `contractable`, `arrival_type`, `offen_channel`, `fq_cinema_dist`, `fq_cinema_time`, `id_card_no`, `id_card_hash_no`, `identity_type`, `mobile_optin`, `weibo`, `qq`, `douban`, `address1`, `address2`, `address3`, `address4`, `country_id`, `province_id`, `city_id`, `zip_code`, `create_time`, `operator_id`, `operator_name`, `level`, `points`, `update_time`, `regiest_type`, `old_member_id`, `mobile`, `recruit_employee_no`, `recruit_employee_name`, `email`, `head_url`, `status`, `is_delete`, `phone`, `register_channel_code`, `shard_no` " +
-                "FROM cmcmember" + rawMem + ".`t_member_info` WHERE  member_no = '" + memberNo + "';");
-        System.out.println("INSERT INTO cmc_member_shard_" + memShard + ".`t_mobile_log` SELECT * FROM cmcmember" + rawMem + ".`t_mobile_log` WHERE  member_no = '" + memberNo + "';");
-        System.out.println();
     }
 }
