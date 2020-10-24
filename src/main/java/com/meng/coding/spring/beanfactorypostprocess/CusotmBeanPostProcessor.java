@@ -9,13 +9,13 @@ public class CusotmBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("before  " + beanName + "  " + bean.toString());
+        System.out.println(beanName + "  postProcessBeforeInitialization  ");
         return bean;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("after  " + beanName + "  " + bean.toString());
+        System.out.println(beanName + "  postProcessAfterInitialization  ");
         return bean;
     }
 }

@@ -8,8 +8,6 @@ public class App
 {
     public static void main( String[] args )
     {
-
-        System.exit(1);
 ////        System.out.println( Math.abs("15510010709".hashCode())%8 +1 );//8  32  E304000000040539181   8   24
 //        sql(32,8,24,8,"15510010709","E304000000040539181");
 ////        System.out.println( Math.abs("18511077646".hashCode())%8 +1 );//3  11  E849000000040538810   2   18
@@ -42,13 +40,13 @@ public class App
 //        sql(24,8,28,4,"12222222228","E29000000040505863");
 ////        System.out.println( Math.abs("12222222229".hashCode())%8 +1 );//1  25  E29000000040538937    4   4
 //        sql(25,1,4,4,"12222222229","E29000000040538937");
-        sql(Math.abs("15901279448".hashCode())%32 +1,
-                Math.abs("15901279448".hashCode())%8 +1,
-                Math.abs("E849000000040539030".hashCode())%32 +1,
-                Math.abs("E849000000040539030".hashCode())%8 +1,
-                "15901279448","E849000000040539030");
+//        sql(Math.abs("15901279448".hashCode())%32 +1,
+//                Math.abs("15901279448".hashCode())%8 +1,
+//                Math.abs("E849000000040539030".hashCode())%32 +1,
+//                Math.abs("E849000000040539030".hashCode())%8 +1,
+//                "15901279448","E849000000040539030");
 
-
+        System.out.println(Math.abs("E510000000140202669".hashCode())%8 +1);
 
 
     }

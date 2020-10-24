@@ -12,12 +12,12 @@ public class IndexService {
     UserService userService;
 
     public IndexService(){
-        System.out.println("index Service init");
+        System.out.println("indexService init");
     }
 
 
     @PostConstruct
     public void aa(){
-        System.out.println("post construct " + this.getClass().getName());
+        System.out.println(this.getClass().getName() + "  post construct ");
     }
 }
