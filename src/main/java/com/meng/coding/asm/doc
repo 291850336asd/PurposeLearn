@@ -1,0 +1,23 @@
+https://www.yuque.com/mikaelzero/asm
+https://asm.ow2.io/
+
+ASM 提供了三个基于 ClassVisitor API 的核心组件，用于生成和变化类:
+• ClassReader类分析以字节数组形式给出的已编译类，并针对在其accept方法参数
+中传送的 ClassVisitor 实例，调用相应的 visitXxx 方法。这个类可以看作一个事
+件产生器。
+• ClassWriter 类是 ClassVisitor 抽象类的一个子类，它直接以二进制形式生成编
+译后的类。它会生成一个字节数组形式的输出，其中包含了已编译类，可以用
+toByteArray 方法来提取。这个类可以看作一个事件使用器。
+• ClassVisitor类将它收到的所有方法调用都委托给另一个ClassVisitor类。这个
+类可以看作一个事件筛选器。
+
+
+
+ILOAD, LLOAD, FLOAD, DLOAD 和 ALOAD 指令读取一个局部变量，并将它的值压到操
+作数栈中。它们的参数是必须读取的局部变量的索引 i。ILOAD 用于加载一个 boolean、byte、
+char、short 或 int 局部变量。LLOAD、FLOAD 和 DLOAD 分别用于加载 long、float 或 double
+值。(LLOAD 和 DLOAD 实际加载两个槽 i 和 i+1)。最后，ALOAD 用于加载任意非基元值，即对
+象和数组引用。与之对应，ISTORE、LSTORE、FSTORE、DSTORE 和 ASTORE 指令从操作数栈
+中弹出一个值，并将它存储在由其索引 i 指定的局部变量中。
+POP弹出栈顶部的值，DUP压入顶部栈值的一个副本，
+SWAP 弹出两个值，并按逆序压入它们

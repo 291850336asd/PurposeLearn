@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_purpose-learn" default="compile.module.purpose-learn">
+  <dirname property="module.purpose-learn.basedir" file="${ant.file.module_purpose-learn}"/>
+  
+  <property name="module.jdk.home.purpose-learn" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.purpose-learn" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.purpose-learn" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.purpose-learn" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="purpose-learn.output.dir" value="${module.purpose-learn.basedir}/target/classes"/>
+  <property name="purpose-learn.testoutput.dir" value="${module.purpose-learn.basedir}/target/test-classes"/>
+  
+  <path id="purpose-learn.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="purpose-learn.module.production.classpath">
+    <path refid="${module.jdk.classpath.purpose-learn}"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.0.13.release.classpath"/>
+    <path refid="library.maven:_junit:junit:4.11.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.apache.dubbo:dubbo:2.7.7.classpath"/>
+    <path refid="library.maven:_com.alibaba.spring:spring-context-support:1.0.6.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.20.0-ga.classpath"/>
+    <path refid="library.maven:_io.netty:netty-all:4.1.25.final.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.5.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.20.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-recipes:4.0.1.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-framework:4.0.1.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-client:4.0.1.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+    <path refid="library.maven:_org.apache.zookeeper:zookeeper:3.4.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-log4j12:1.7.25.classpath"/>
+    <path refid="library.maven:_jline:jline:0.9.94.classpath"/>
+    <path refid="library.maven:_org.apache.yetus:audience-annotations:0.5.0.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.3.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.3.classpath"/>
+    <path refid="library.maven:_log4j:log4j:1.2.17.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.1.6.release.classpath"/>
+    <path refid="library.maven:_org.mybatis:mybatis-spring:2.0.3.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.mybatis:mybatis:3.5.3.classpath"/>
+  </path>
+  
+  <path id="purpose-learn.runtime.production.module.classpath">
+    <pathelement location="${purpose-learn.output.dir}"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.0.13.release.classpath"/>
+    <path refid="library.maven:_junit:junit:4.11.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.apache.dubbo:dubbo:2.7.7.classpath"/>
+    <path refid="library.maven:_com.alibaba.spring:spring-context-support:1.0.6.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.20.0-ga.classpath"/>
+    <path refid="library.maven:_io.netty:netty-all:4.1.25.final.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.5.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.20.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-recipes:4.0.1.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-framework:4.0.1.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-client:4.0.1.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+    <path refid="library.maven:_org.apache.zookeeper:zookeeper:3.4.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-log4j12:1.7.25.classpath"/>
+    <path refid="library.maven:_jline:jline:0.9.94.classpath"/>
+    <path refid="library.maven:_org.apache.yetus:audience-annotations:0.5.0.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.3.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.3.classpath"/>
+    <path refid="library.maven:_log4j:log4j:1.2.17.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.1.6.release.classpath"/>
+    <path refid="library.maven:_org.mybatis:mybatis-spring:2.0.3.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.mybatis:mybatis:3.5.3.classpath"/>
+  </path>
+  
+  <path id="purpose-learn.module.classpath">
+    <path refid="${module.jdk.classpath.purpose-learn}"/>
+    <pathelement location="${purpose-learn.output.dir}"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.0.13.release.classpath"/>
+    <path refid="library.maven:_junit:junit:4.11.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.apache.dubbo:dubbo:2.7.7.classpath"/>
+    <path refid="library.maven:_com.alibaba.spring:spring-context-support:1.0.6.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.20.0-ga.classpath"/>
+    <path refid="library.maven:_io.netty:netty-all:4.1.25.final.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.5.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.20.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-recipes:4.0.1.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-framework:4.0.1.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-client:4.0.1.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+    <path refid="library.maven:_org.apache.zookeeper:zookeeper:3.4.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-log4j12:1.7.25.classpath"/>
+    <path refid="library.maven:_jline:jline:0.9.94.classpath"/>
+    <path refid="library.maven:_org.apache.yetus:audience-annotations:0.5.0.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.3.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.3.classpath"/>
+    <path refid="library.maven:_log4j:log4j:1.2.17.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.1.6.release.classpath"/>
+    <path refid="library.maven:_org.mybatis:mybatis-spring:2.0.3.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.mybatis:mybatis:3.5.3.classpath"/>
+  </path>
+  
+  <path id="purpose-learn.runtime.module.classpath">
+    <pathelement location="${purpose-learn.testoutput.dir}"/>
+    <pathelement location="${purpose-learn.output.dir}"/>
+    <path refid="library.maven:_org.springframework:spring-context:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-aop:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-beans:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-core:5.0.13.release.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-expression:5.0.13.release.classpath"/>
+    <path refid="library.maven:_junit:junit:4.11.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="library.maven:_org.apache.dubbo:dubbo:2.7.7.classpath"/>
+    <path refid="library.maven:_com.alibaba.spring:spring-context-support:1.0.6.classpath"/>
+    <path refid="library.maven:_org.javassist:javassist:3.20.0-ga.classpath"/>
+    <path refid="library.maven:_io.netty:netty-all:4.1.25.final.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.5.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.20.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-recipes:4.0.1.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-framework:4.0.1.classpath"/>
+    <path refid="library.maven:_org.apache.curator:curator-client:4.0.1.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:20.0.classpath"/>
+    <path refid="library.maven:_org.apache.zookeeper:zookeeper:3.4.13.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-log4j12:1.7.25.classpath"/>
+    <path refid="library.maven:_jline:jline:0.9.94.classpath"/>
+    <path refid="library.maven:_org.apache.yetus:audience-annotations:0.5.0.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-jcl:2.3.classpath"/>
+    <path refid="library.maven:_org.apache.logging.log4j:log4j-api:2.3.classpath"/>
+    <path refid="library.maven:_log4j:log4j:1.2.17.classpath"/>
+    <path refid="library.maven:_org.springframework:spring-jcl:5.1.6.release.classpath"/>
+    <path refid="library.maven:_org.mybatis:mybatis-spring:2.0.3.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_org.mybatis:mybatis:3.5.3.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.purpose-learn">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.purpose-learn">
+    <patternset refid="excluded.from.module.purpose-learn"/>
+  </patternset>
+  
+  <path id="purpose-learn.module.sourcepath">
+    <dirset dir="${module.purpose-learn.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="purpose-learn.module.test.sourcepath">
+    <dirset dir="${module.purpose-learn.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.purpose-learn" depends="compile.module.purpose-learn.production,compile.module.purpose-learn.tests" description="Compile module purpose-learn"/>
+  
+  <target name="compile.module.purpose-learn.production" depends="register.custom.compilers" description="Compile module purpose-learn; production classes">
+    <mkdir dir="${purpose-learn.output.dir}"/>
+    <javac2 destdir="${purpose-learn.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.purpose-learn}/javac">
+      <compilerarg line="${compiler.args.purpose-learn}"/>
+      <bootclasspath refid="purpose-learn.module.bootclasspath"/>
+      <classpath refid="purpose-learn.module.production.classpath"/>
+      <src refid="purpose-learn.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.purpose-learn"/>
+    </javac2>
+    
+    <copy todir="${purpose-learn.output.dir}">
+      <fileset dir="${module.purpose-learn.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.purpose-learn.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.purpose-learn.tests" depends="register.custom.compilers,compile.module.purpose-learn.production" description="compile module purpose-learn; test classes" unless="skip.tests">
+    <mkdir dir="${purpose-learn.testoutput.dir}"/>
+    <javac2 destdir="${purpose-learn.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.purpose-learn}/javac">
+      <compilerarg line="${compiler.args.purpose-learn}"/>
+      <bootclasspath refid="purpose-learn.module.bootclasspath"/>
+      <classpath refid="purpose-learn.module.classpath"/>
+      <src refid="purpose-learn.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.purpose-learn"/>
+    </javac2>
+    
+    <copy todir="${purpose-learn.testoutput.dir}">
+      <fileset dir="${module.purpose-learn.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.purpose-learn" description="cleanup module">
+    <delete dir="${purpose-learn.output.dir}"/>
+    <delete dir="${purpose-learn.testoutput.dir}"/>
+  </target>
+</project>
