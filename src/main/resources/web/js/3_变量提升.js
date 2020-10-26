@@ -6,7 +6,7 @@
  * var a= 10;
  * 声明declare: var a;
  * 定义defined：a=10;
- *
+ *var、function 没有优先级，自上而下查找提升，不会重复声明
  *
  */
 
@@ -20,3 +20,35 @@ var a= 12; //创建值12，不需要在声明a了（变量提升阶段完成了�
 a= 13;
 console.log(a); //13
 console.log(b); //报错，b is not defined
+
+
+/**
+ * 全局下的变量提升
+ *  func=函数，提升阶段赋值了
+ */
+func();
+function func(){
+    var d = 12;//d不会变量提升,未执行时存的字符串
+    console.log("ok");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
