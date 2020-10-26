@@ -39,6 +39,21 @@ parseFloat("1.6px") + parseInt("1.2px") + typeof parseInt(null)     //2.6number
 isNaN(Number(!!Number(parseInt("0.8")))) // false
 typeof !parseInt(null) + !isNaN(null) //booleantrue
 
+let result = 10 + false + undefined + [] + 'Tencent' + null + true + {};
+console.log(result); //NaNTencentnulltrue[object Object]
+//NaN任何数字都是NaN
+//特殊性 加号一边出现字符串或者对象，也不一定是字符串拼接：例如++/+
+//++"10";  值为11
+// 10 + []; 值为10
+// 10 + ["1"];值为"101"
+{} + 0; 值为 0 ，左边认为是代码块，不参与运算
+   //例如 function fn(){}  +0
+({}+0) //值为 "[object Object]0"
+(function fun(){} + 0); //值为"function fun(){}0"
+0 + {};值为   “0[object Object]”
+({"a":"a"}) + 1; 值为“[object Object]1”
++{} //值为NaN， {}先转为[object Object],然后在转换为数字
+
 
 把其他类型转换为字符串
   1.能使用的办法
