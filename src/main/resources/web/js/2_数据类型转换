@@ -25,6 +25,7 @@ parseFloat比parseInt多识别一个小数点
 parseInt("a1");  //NaN
 parseInt("1a"); // 1
 parseInt('') // NaN
+parseInt(undefined); //NaN
 Number('') // 0
 isNaN("") //false  ''隐式转换为0
 parseInt(null)  // NaN
@@ -113,4 +114,12 @@ null == 0 值为 false
 思考：
 let arr = [10.18,0,10,25,23];
 arr = arr.map(parseInt);
-console.log(arr);
+console.log(arr);  //[10, NaN, 2, 2, 11]
+相当于
+arr = arr.map((item,index) =>{
+   return parseInt(item.index);
+});
+parseInt(value,radix);//第二个参数为进制,不写或者为0都是认为是默认为10，
+                      //如果是以0X开头，则认为是16，进制取值范围2-32之间，如果不在这个区间，结果是NaN
+                      //从value左侧开始查找符合进制的字符，遇到非法字符则结束查找
+
