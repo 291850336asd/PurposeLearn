@@ -110,4 +110,7 @@ null == 0 值为 false
 ![] == false 值为 true
    首先数组取反， 只有‘0、NaN、null、undefined、空字符串’五个值会变成布尔的FALSE,其余都是true，则[]为true,![]为false
 
-
+思考：
+let arr = [10.18,0,10,25,23];
+arr = arr.map(parseInt);
+console.log(arr);
