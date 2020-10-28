@@ -112,4 +112,25 @@ A(2);  // 4   alert(a+b++); 中的a是原来A a的变量
 
 
 
+//-----------------------
+var fnA= [];
+for(var i = 0; i<5;i++){
+    fnA[i] = function () {
+        return i;
+    }
+}
+fnA[0]();//5
+fnA[4]();//5
+
+//-----------------
+var fnA= [];
+for(var i = 0; i<5;i++){
+    fnA[i] = function (i) {
+        return function () {
+            return i;
+        };
+    }(i);
+}
+fnA[0]();//0
+fnA[4]();//4
 
