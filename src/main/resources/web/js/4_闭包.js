@@ -75,22 +75,21 @@ console.log(x);//8
 
 
 //闭包的常见方式
-//1.
+//方式1.
 function  fun() {
     var x = 0;
     return function () {
         return ++x;
     }
 }
-//2.
+//方式2.
 function fn() {
     return {
         name:"xxx"
     };
 }
 var obj = fn();
-
-//3.
+//方式3.
 function fn() {
     let x = 0;
     document.body.onclick = function () {
@@ -98,19 +97,18 @@ function fn() {
     }
 }
 
-
 /**
- *
+ * 示例1
  */
-let a= 0,b=9;
+let a= 10,b=9;
 function A(a) {
     A = function (b) {
         alert(a+b++);
     };
     alert(a++);
 }
-A(1);  //1
-A(2);  // 4
+A(1);  //1  A(1)执行完后，原来的A a上下文并不会被释放
+A(2);  // 4   alert(a+b++); 中的a是原来A a的变量
 
 
 
