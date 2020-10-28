@@ -99,8 +99,18 @@ function fn() {
 }
 
 
-
-
+/**
+ *
+ */
+let a= 0,b=9;
+function A(a) {
+    A = function (b) {
+        alert(a+b++);
+    };
+    alert(a++);
+}
+A(1);  //1
+A(2);  // 4
 
 
 
