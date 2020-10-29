@@ -112,7 +112,7 @@ A(2);  // 4   alert(a+b++); 中的a是原来A a的变量
 
 
 
-//-----------------------
+//----------问题-------------
 var fnA= [];
 for(var i = 0; i<5;i++){
     fnA[i] = function () {
@@ -122,7 +122,7 @@ for(var i = 0; i<5;i++){
 fnA[0]();//5
 fnA[4]();//5
 
-//-----------------
+//-------闭包解决循环赋值的问题  方案1-1----------
 var fnA= [];
 for(var i = 0; i<5;i++){
     fnA[i] = function (i) {
@@ -134,3 +134,49 @@ for(var i = 0; i<5;i++){
 fnA[0]();//0
 fnA[4]();//4
 
+//-------闭包解决循环赋值的问题  方案1-2----------
+var fnA= [];
+for(var i = 0; i<5;i++){
+    (function(i) {
+        fnA[i] = function () {
+            return i;
+        };
+    })(i);
+}
+fnA[0]();//0
+fnA[4]();//4
+
+
+//-------闭包解决循环赋值的问题  方案1-3  let----------优于以上的代码
+//还是基于闭包的的机制，但是不是自己去执行函数创建，而是利用es6中let产生私有上下文实现
+var fnA= [];
+for(let i = 0; i<5;i++){   //此处会产生块级上下文，每轮循环都会产生一个私有的上下文，循环结束父级上线文将会被销毁
+                           //首先for let会产生 父级上下文生成变量i
+                           //for循环体会产生私有上下文并产生自己的变量i,每次循环完会将父级上下文释放,因为i独立，私有上下文会影响父类中的i,但是每轮循环结束后私有上下文中的变量不受父级影响
+    fnA[i] = function () {
+        return i;
+    }
+}
+fnA[0]();//0
+fnA[4]();//4
+
+
+//-----------自定义属性解决循环赋值的问题  方案2------不会产生闭包，但是还是会循环产生堆内存-------
+//事先把信息存储到属性身上，后期在其他操作上需要用到直接获取即可
+//例如button循环绑定事件时，给每个button添加自定义属性
+for (let i = 0; i < buttonList.length; i++) {
+    buttonList[i].myIndex = i;
+    buttonList[i].onclick= function () {
+        console.log(this.myIndex);
+    }
+}
+
+//-----------事件代理机制  自定义标签  解决循环赋值的问题  方案3  性能会提高>=40%-------
+// <button data-index = "1">button </button>
+document.body.onclick = function (ev) {
+    let target = ev.target;
+    if(target.tagName === "BUTTON"){
+        let index = + target.getAttribute("data-index"); // + 转数字
+        console.log(index);
+    }
+}
