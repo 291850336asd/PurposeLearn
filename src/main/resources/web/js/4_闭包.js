@@ -29,7 +29,7 @@
  *
  */
 let x= 5;
-function fn(x) {//行参变量也属于私有变量
+function fn(x) {//形参变量也属于私有变量
     return function (y) {
         console.log(y + (++x));
     }
@@ -180,3 +180,8 @@ document.body.onclick = function (ev) {
         console.log(index);
     }
 }
+
+
+
+
+

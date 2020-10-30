@@ -179,12 +179,47 @@ console.log(e) // 1
 
 
 
+//..............块级作用域变量提升.......................
+
+//全局上下文变量提升会产生foo变量
+{
+    function foo() { //新版本浏览器中   块级作用域 只声明,由于全局变量提升此处会对全局的变量进行赋值，即会将当先上线文的foo值映射给全局上下文中的foo
+    }
+    foo = 1;
+}
+console.log(foo);//foo() {}
 
 
+//全局上下文变量提升会产生foo变量
+{
+    //形成块级上下文:两次 声明+定义 foo
+    function foo(n) {  //由于全局变量提升此处会对全局的变量进行赋值，即会将当先上线文的foo值映射给全局上下文中的foo,此时当前上下文中的foo=foo(m){}
+    }
+    foo = 1;
+    function foo(m) { //由于全局变量提升此处会对全局的变量进行赋值，即会将当先上线文的foo值映射给全局上下文中的foo,此时当前上下文中的foo=1
+    }
+}
+console.log(foo);//1
 
 
+//......................
+var x = 1;
+function func(x,y=function anonymous1() {x =2;}) {
+    x = 3;
+    y();
+    console.log(x);
+}
+func(5); //2
+console.log(x);//1
 
-
-
-
+//............
+var x = 1;
+function func(x,y=function anonymous1() {x =2;}) {
+    var x = 3; // 在新版本浏览器中如果形参有默认值，参数类型随意，不管有没有传参，在函数体内出现了基于var\let\const变量声明（let\const不能重复声明即不能和形参名一致），除了生成自身的上下文，
+               // 函数体还会产生新的块级上下文并且只有声明的x变量才属于新生成的块级上下文，操蛋玩意
+    y();
+    console.log(x);//导致此处的x跟anonymous1和func形成的上下文没有关系
+}
+func(5); //3
+console.log(x);//1
 
