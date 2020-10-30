@@ -117,9 +117,9 @@ arr = arr.map(parseInt);
 console.log(arr);  //[10, NaN, 2, 2, 11]
 相当于
 arr = arr.map((item,index) =>{
-   return parseInt(item.index);
+   return parseInt(item,index);
 });
 parseInt(value,radix);//第二个参数为进制,不写或者为0都是认为是默认为10，
-                      //如果是以0X开头，则认为是16，进制取值范围2-32之间，如果不在这个区间，结果是NaN
+                      //如果是以0X开头，则认为是16，进制取值范围2-36之间，如果不在这个区间，结果是NaN
                       //从value左侧开始查找符合进制的字符，遇到非法字符则结束查找
 

@@ -25,6 +25,7 @@
  * number
  *   NAN:not a numbner
  *        NAN==NAN -> false
+ *         NAN===NAN -> false
  *        isNaN("ss") -> true
  *        Object.is(NaN,NaN)  ->true
  *        任何值 == NAN -> false
