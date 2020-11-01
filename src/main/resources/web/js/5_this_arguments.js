@@ -35,7 +35,7 @@ obj.fn();//this =》obj;
 var num =10;
 var obj = { num:20 };
 obj.fn = (function (num) {
-    this.num = num + 3;
+    this.num = num * 3;
     num++;
     return function (n) {
         //console.log(this);
@@ -47,14 +47,50 @@ obj.fn = (function (num) {
 var fn = obj.fn;
 fn(5);// 输出22   //此时的this是window,没有‘.’则this就是window
 obj.fn(10);//23
-console.log(num,obj.num);//28 30
+console.log(num,obj.num);//65 30
 
 
 
+(function () {
+    var val = 1;
+    var json ={
+        val:10,//属性
+        dbl:function () {
+          val *=2; //val是变量，不是自己的私有变量，是自执行函数创建出来的上下文中的变量
+        }
+    };
+    json.dbl();
+    alert(json.val + val);  //"12";alert输出的都是字符串
+})();
 
 
+//.........arguments............
+var a = 4;
+function b(x,y,a) {
+    /**
+     *  EC(b)
+     *    x = 1, y=2, a =3
+     *   作用域链：EC(B). EC(G)
+     *   初始化this:window
+     *   初始化arguments=>{0:1,1:2,3:3,length:3}
+     *       在非严格模式下：初始化的arguments和行参建立一个‘映射’机制，并且映射机制只能在这个阶段建立
+     *                       arguments跟传值有关，传值的才有映射关系，默认值不形成映射关系，并且只要传递实参，arguments中就有值，不传值就是一个空的数组集合
+     *       严格模式下不存在映射机制
+     *
+     */
+    console.log(a); //3
+    arguments[2] = 10;
+    console.log(a);// 10
 
+}
+a = b(1,2,3);
+console.log(a); // undefined
 
-
-
+//.........arguments............
+var a = 4;
+function b(x,y,a) {
+   a = 3;
+   console.log(arguments[2]); //undefined
+}
+a = b(1,2);
 

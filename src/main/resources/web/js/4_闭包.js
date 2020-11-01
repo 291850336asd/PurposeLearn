@@ -183,5 +183,59 @@ document.body.onclick = function (ev) {
 
 
 
+//..................................
+var a= 9;
+function fn() {
+    a =0;
+    return function (b) {
+        return b + a++;
+    }
+}
+var f= fn();
+console.log(f(5)); // 5;
+console.log(fn()(5)); // 5
+console.log(f(5));//6
+console.log(a); // 2
+
+
+
+
+function fun(n,o) {
+    console.log(o);
+    return {
+        fun: function (m) {
+            return fun(m,n);//注意此处会执行后返回
+        }
+    };
+}
+var c = fun(0).fun(1); // undefined 0
+c.fun(2); // 1
+c.fun(3); // 1
+
+
+var b =10;
+(function b() {  //匿名函数具名化，名字只能在内部使用，且默认无法被重新赋值，除非这个函数名在函数体中被重新声明过
+    b =20;
+    console.log(b);  //function b(){ ... }
+})();
+console.log(b);
+
+
+
+var b =10;
+(function b() {  //匿名函数具名化，名字只能在内部使用，且默认无法被重新赋值，除非这个函数名在函数体中被重新声明过
+    console.log(b);// undefined
+    var b =20;
+    console.log(b);  //20
+})();
+console.log(b);
+
+
+
+
+
+
+
+
 
 
