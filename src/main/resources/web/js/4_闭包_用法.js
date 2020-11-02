@@ -341,4 +341,140 @@ var B = function( window, noGlobal ) {
 })();
 
 
-//.......................................................
+//................惰性函数....函数重构...................................
+/**
+ * 懒 能执行一次绝不执行二次
+ */
+
+//这样写每次都需要判断window.getComputedStyle，没必要，第一次执行已经知道兼容性了
+function getCss(element, attr) {
+    if(window.getComputedStyle){
+        return window.getComputedStyle(element)[attr];
+    }
+    //IE678
+    return element.currentStyle[attr];
+}
+console.log(getCss(document.body, "width"));
+console.log(getCss(document.body, "padding"));
+//...........
+let isCompatible = 'getComputedStyle' in window;
+function getCss(element, attr) {
+    if(isCompatible){
+        return window.getComputedStyle(element)[attr];
+    }
+    //IE678
+    return element.currentStyle[attr];
+}
+console.log(getCss(document.body, "width"));
+console.log(getCss(document.body, "padding"));
+//.......惰性思想....
+function getCss(element, attr) {
+    if(window.getComputedStyle){
+        getCss = function (element, attr) {
+            return window.getComputedStyle(element)[attr];
+        }
+
+    } else{
+        //IE678
+        getCss = function (element, attr) {
+            return element.currentStyle[attr];
+        }
+    }
+    return getCss(element, attr);
+}
+console.log(getCss(document.body, "width"));
+console.log(getCss(document.body, "padding"));
+
+
+//.............闭包柯里化函数.....预处理思想........................
+let res = fn(1,2)(3);
+console.log(res); //实现  1 + 2 + 3 =>6
+function fn(...outterArgs) {
+    return function anonymous(...innerArgs) {
+        let arr = outterArgs.concat(innerArgs);
+        return arr.reduce(function (total, item) {
+            return total + item;
+        })
+    }
+}
+//自定义reduce
+function reduce(arr, callback, init) {
+    let arrindex = 0;
+    if(init === "undefined"){
+         init = arr[0];
+         arrindex++;
+    }
+    for (let i = arrindex; i < arr.length; i++) {
+        init = callback(init, arr[i], i);
+    }
+    return init;
+
+}
+let arr = [10, 20, 30, 40, 50];
+let result = reduce(arr, function (result, item, index) {
+    return result + item;
+}, 0);
+console.log(result);
+
+result = reduce(arr, function (result, item, index) {
+    return result + item;
+}, 100);
+console.log(result);
+
+
+//..............Compose函数........................................
+const add1 = (x) => x+1;
+const mul3 = (x) => x*3;
+const div2 = (x) => x/2;
+console.log(div2(mul3(add1(add1(0)))));
+//这样写可读性太差，我们可以构建一个compose函数,他接受任意多个函数作为参数（这些函数都只能接收一个参数），然后compose返回的也是一个函数，达到以下效果
+const opera = compose(div2,mul3,add1, add1);
+console.log(opera(0));//相当于div2(mul3(add1(add1(0))))
+console.log(opera(2));//相当于div2(mul3(add1(add1(2))))
+console.log(opera());
+//方式1
+function compose(...funcs) {
+    return function opera(x) {
+        if(funcs.length === 0){
+            return x;
+        }
+        if(funcs.length === 1){
+            return funcs[0](x);
+        }
+
+        return funcs.reduceRight(function (result, item, index) {
+            if(index === funcs.length-2){
+                return item(result(x));
+            } else {
+               return item(result);
+            }
+        });
+    }
+}
+//方式2
+const add1 = (x) => x+1;
+const mul3 = (x) => x*3;
+const div2 = (x) => x/2;
+console.log(div2(mul3(add1(add1(0)))));
+//这样写可读性太差，我们可以构建一个compose函数,他接受任意多个函数作为参数（这些函数都只能接收一个参数），然后compose返回的也是一个函数，达到以下效果
+const opera = compose(div2,mul3,add1, add1);
+console.log(opera(0));//相当于div2(mul3(add1(add1(0))))
+console.log(opera(2));//相当于div2(mul3(add1(add1(2))))
+console.log(opera());
+function compose(...funcs) {
+    if(funcs.length === 0){
+       return arg =>{
+           return arg;
+       }
+    }
+    if(funcs.length === 1){
+        return funcs[0];
+    }
+
+    return funcs.reduce((a,b)=> {
+        return (...args) => {
+            a(b(...args));
+        }
+    });
+
+}
