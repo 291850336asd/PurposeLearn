@@ -11,6 +11,8 @@
  * 基于var\function 在全局上下文中声明的全局变量,会映射到window上而且一个修改另一个也会修改
  *
  * 函数每次执行都会形成全新的私有上下文
+ *
+ * 严格模式：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode
  */
 
 /**

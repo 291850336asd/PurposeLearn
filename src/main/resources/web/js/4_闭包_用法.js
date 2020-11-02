@@ -199,7 +199,7 @@ console.log(a); // 2
 
 
 
-
+//---------套娃-------------------
 function fun(n,o) {
     console.log(o);
     return {
@@ -232,10 +232,113 @@ console.log(b);
 
 
 
+//没有对象和函数的情况下，编写代码经常出现‘全局变量污染’
+//.........怎么使用...........................................................................
+/**
+ *模块化/单例模式设计 （利用闭包的保护和对象的分组特征一起实现）
+ *每一个对象都是Object的单独实例
+ *   1.let obj = {}; //字面量方式
+ *   2.let obj = new Object();//构造函数方式，后台语言只有这种方式
+ *
+ *
+ * AModule  对象名且是命名空间，分组特征
+ */
+let AModule = (function () {
+    let step = 0;
+    function fn() {
+
+    }
+    function query() {
+    }
+    function privateFn(){ //私有方法
+
+    }
+    //我们想把私有的东西暴露出去供外面调用、
+    // 1. // 瑕疵：不能给外部暴露太多方法，否则出现‘全局变量污染’
+    window.query = query;
+
+    // 2. 基于对象（分组）的方法，把需要暴露的方法，都放置到一个空间下  好的方案
+    return {
+        fn, query,step,
+        init() {
+            //控制业务板块中我们先执行谁，再执行谁
+        }
+    }
+})()
+
+function f1() {
+    AModule.query();
+}
 
 
+//..........jquery 模块化实现..................................
+//https://code.jquery.com/jquery-3.5.1.js
+var A = typeof window !== "undefined" ? window : this; //根据执行环境返回全局对象
+//利用暂时性死区：一个未被声明的变量在typeof检测时不会报错，只是返回“undefined”
+//检测window是否存在
+//  + JS在浏览器中执行：是存在window的
+//  + JS在node中只执行：不存在window，全局对象是global
 
 
+var B = function( window, noGlobal ) {
+    //如果是在浏览器环境22中执行的js代码
+    //   + window就是window   noGlobla为undefined
+    //如果是node下执行 则 window是global ,noGlobal 为true
+    "use strict";
+    var jquery = function (select, context) {
+        return new jQuery.fn.init(select, context);
+    };
+
+    jQuery.fn = jQuery.prototype = {
+
+    }
+
+    //浏览器环境下:暴露给全局变量两个变量，只都是jquery
+    if (typeof noGlobal === "undefined" ) {
+        window.jQuery = window.$ = jQuery;
+    }
+    return jquery;
+};
+(function (global, factory) {
+    "use strict";
+    // 严格模式：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode
+    //验证是否支持CommonJS/ES6Module规范
+    if(typeof module === "object" && typeof  module.exports === "object"){
+        // 代码是基于node环境下的或者是基于webpack打包的项目
+        module.exports = global.document ? factory(global, true) :function (w) {
+            if(!w.document){
+                throw new Error("jquery requires a window with a document");
+            }
+            return factory(w);
+
+        };
+    } else {
+        // 运行在浏览器或者webview中
+        factory(global);
+    }
+})(A, B);
 
 
+//.........................类库、插件、ui组件、框架...............................
+/**
+ * 在我们的项目中编写自己的类库、插件、ui组件、框架的时候，我们需要基于闭包的机制进行’私有化’处理
+ *   + 能够在浏览器中运行
+ *   + 也支持CommonJS、ES6Module规范(node\webpack)
+ */
+(function () {
+    function Banner() {
 
+    }
+    //浏览器环境
+    if(typeof window !== "undefined"){
+        window.Banner = Banner;
+    }
+    //支持CommonJS\ESModule
+    if(typeof module !== "undefined" && typeof module.exports != "undefined"){
+        module.exports = Banner;
+    }
+
+})();
+
+
+//.......................................................
