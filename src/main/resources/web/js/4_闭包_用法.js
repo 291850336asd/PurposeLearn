@@ -478,3 +478,82 @@ function compose(...funcs) {
     });
 
 }
+
+//.............防抖动防抖：对于频繁触发某个操作，我们只识别一次（只触发一次函数） ..................................
+//点击做啥事情，一般都是防抖为主
+// 防抖函数    点击做啥事情，一般都是防抖为主
+// func[function]:最后要触发执行的函数
+// wait[number]: 频繁的设定界限  多少时间点击算频繁
+// immediate[boolean]: = true 触发第一次点击的  =false最后一次点击的  默认是最后一次点击的
+// return 可以被调用执行的函数
+function debounce(func,wait = 300,immediate = false){
+    console.log('debounce',this)  // debounce在click执行之前执行 是debounce的执行结果给了click  这个时候 debounce里面的this 应该是window
+
+    let timer = null
+    return function anonymous(...params){
+        console.log('ANY',this)  // 这个是click在页面中点击执行的 this指向元素本身
+
+        let now = immediate && timer === null;
+        // 如果是立即执行，
+        now ? func.call(this,...params) : null;
+
+        // 每次点击都把之前设置的定时器清除
+        clearTimeout(timer)
+
+        // 重新设置一个新的定时器监听wait时间内是否触发第二次
+        timer = setTimeout(()=>{
+            // 手动恢复初始状态
+            timer = null;
+
+            // this 是当前的元素
+            // wait这么久的等待中，没有触发第二次
+            !immediate ? func.call(this,...params) : null;
+        },wait)
+    }
+}
+
+function handle(){
+    setTimeout(()=>{
+        console.log('OK')
+    },1000)
+}
+
+//document.body.onclick = handle; //如果疯狂点击submit，handle会触发很多次，那么一秒后会输出很多OK。
+
+//body.onclick = function(){
+//    // 在匿名函数中 我们控制handle 只执行一次
+//}
+
+document.body.onclick = debounce(handle,500,true);
+
+
+//.......节流：在一段频繁操作中，可以触发多次，但是触发的频率由自己制定........................
+//滚动scroll，文本框输入过程中的模糊匹配keydown都用节流
+//例如：每次滚动过程中，浏览器都有最快反应时间（谷歌一般是5-6ms,ie一般是13-17ms）,只要反应过来就会触发一次函数，也就是说谷歌每5ms就会触发一次，过于频繁
+function throttle(func, wait = 300) {
+    let timer=null,
+        previous = 0;//上一次触发时间
+    return function anonymous(...params) {
+        let now = new Date(),
+            remaining = wait - (now - previous) // 还差多长时间 达到一次触发频率
+        if(remaining<=0){
+            // 两次操作间隔时间已经超过wait了 可以触发了
+            window.clearTimeout(timer)
+            previous = now
+            timer = null
+            func.call(this,...params)
+        }else if(!timer){
+            // 不符合触发的频率 设置定时器等待
+            timer = setTimeout(()=>{
+                timer = null
+                previous = new Date()
+                func.call(this,...params)
+            },remaining)
+        }
+    }
+}
+function handle() {
+    console.log(ok);
+}
+// window.scroll = handle; // 谷歌每5ms就会触发一次，过于频繁
+window.scroll = throttle(handle);//每300ms触发一次
