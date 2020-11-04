@@ -50,3 +50,52 @@ f2.getY(); // 200
 Fn.prototype.getY(); // undefined
 f1.__proto__.getZ();// error y is not defined
 Fn.prototype.getZ(); // error y is not defined
+
+//....................原型重定向.....................................、
+//原型重定向是为了批量给原型扩充方法
+//新定向的原型对象上没有constructor,结构不完整
+//浏览器默认生成的原型对象因为缺少引用会被释放掉，可能导致原始加入的属性方法丢失
+//内置的原型对象不允许重定向
+function fun() {
+    this.a = 0;
+    this.b = function () {
+        alert(this.a);
+    }
+}
+fun.prototype.getAA = function(){};//丢失
+fun.prototype = { // 原型重定向
+    b: function() {
+        this.a = 20;
+        alert(this.a);
+    },
+    c: function () {
+        this.a = 30;
+        alert(this.a);
+    }
+}
+var my_fun=new fun();
+my_fun.b(); // 0
+my_fun.c();// 30
+//为了防止丢失，如果原型上没有其他方法则添加constructor
+fun.prototype = { // 原型重定向
+    constructor: fun,
+    b: function() {
+        this.a = 20;
+        alert(this.a);
+    },
+    c: function () {
+        this.a = 30;
+        alert(this.a);
+    }
+}
+//为了防止丢失，如果原型上有其他方法则使用对象合并
+fun.prototype = Object.assign(Fn.prototype, {
+    b: function() {
+        this.a = 20;
+        alert(this.a);
+    },
+    c: function () {
+        this.a = 30;
+        alert(this.a);
+    }
+})
