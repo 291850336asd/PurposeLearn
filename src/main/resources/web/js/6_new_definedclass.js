@@ -20,6 +20,8 @@ console.log(window.total);// undefined
  *  3.函数如果没有返回值则把当前对象返回，如果有返回值不是引用类型也不以当前返回值为主，返回的还是当前对象
  *      如果返回的是引用类型值，则以返回对象为主
  *  4.this.xxx都是给当前实例对象设置的私有属性方法
+ *let res = new sum(10,20);这种写法成为构造函数模式
+ *
  */
 // 一般约定自己构造的类，首字母大写
 function Fn(x, y) {
@@ -36,3 +38,12 @@ let res2 = new Fn;//这些写Fn也会执行
                   // new Fn 不带参数列表new   优先级 18
                   //并且new Fn(10,20) 优先级高于new Fn
 console.log(res2);//{total: NaN, say: ƒ}
+console.log(res.say == res2.say) ;// false
+
+console.log(res instanceof Fn);//检测res是否是Fn的实例  instanceof 有坑慎用
+
+//  检测属性是否属于这个对象 使用 in,无论属于私有还是公有结果都是true
+console.log('say' in res);// true
+console.log('str' in res);// false
+// 检测属性是否属于这个对象的私有属性 使用 hasOwnProperty,必须是私有属性才是true
+console.log(res.hasOwnProperty('say')); //true
