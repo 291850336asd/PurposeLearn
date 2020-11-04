@@ -47,3 +47,91 @@ console.log('say' in res);// true
 console.log('str' in res);// false
 // 检测属性是否属于这个对象的私有属性 使用 hasOwnProperty,必须是私有属性才是true
 console.log(res.hasOwnProperty('say')); //true
+
+///////////////////////////////////////////////////////////////////////////////////
+function Dog(name) {
+    this.name = name;
+}
+Dog.prototype.bark = function () {
+    console.log('wangwang');
+}
+Dog.prototype.sayName = function () {
+    console.log('my name is ' + this.name);
+}
+let sanmao = new Dog('三毛');
+sanmao.sayName();//my name is 三毛
+sanmao.bark(); //wangwang
+
+//..............重写内置new...........................
+function Dog(name) {
+    this.name = name;
+}
+Dog.prototype.bark = function () {
+    console.log('wangwang');
+}
+Dog.prototype.sayName = function () {
+    console.log('my name is ' + this.name);
+}
+
+/**
+ *
+ * @param Func 想创建哪个函数就传这个函数
+ * @param args  参数
+ * @private
+ */
+function _new(Func,...args) {
+    //=>完成你的代码
+    // 首先创建实例对象
+    var obj = {};
+    obj.__proto__ = Func.prototype; //ie浏览器不允许使用__proto__
+    console.log(obj instanceof Func); // true
+    //把函数当做普通函数执行
+    let res = Func.call(obj,...args);//基于call强制改变上下文中的this，Func函数执行时的this是obj
+    // 根据返回结果决定返回什么
+    if(res != null && ((typeof res === 'object') || (typeof res === 'function'))){
+        return res;
+    }
+    return obj;
+}
+let sanmao = _new(Dog, '三毛');
+sanmao.bark(); //=>"wangwang"
+sanmao.sayName(); //=>"my name is 三毛"
+console.log(sanmao instanceof Dog); //=>true
+
+
+//..........ie浏览器不允许使用__proto__....此方案在ie6以上支持................
+Object.create(); //Object prototype may only be an Object or null: undefined
+Object.create(null); // 创建一个空对象，但是此对象的__proto__ = null;
+let obj = { xxx:"xxxx" }
+Object.create(obj); //创建一个空对象{}，并且空对象.__proto__指向obj
+
+//解决方案  此方案在ie6以上支持
+function _new(Func,...args) {
+    //=>完成你的代码
+    // 首先创建实例对象
+    var obj =  Object.create(Func.prototype); //  此方案在ie9及以上支持
+    console.log(obj instanceof Func); // true
+    //把函数当做普通函数执行
+    let res = Func.call(obj,...args);//基于call强制改变上下文中的this，Func函数执行时的this是obj
+    // 根据返回结果决定返回什么
+    if(res != null && ((typeof res === 'object') || (typeof res === 'function'))){
+        return res;
+    }
+    return obj;
+}
+let sanmao = _new(Dog, '三毛');
+sanmao.bark(); //=>"wangwang"
+sanmao.sayName(); //=>"my name is 三毛"
+console.log(sanmao instanceof Dog); //=>true
+
+//..........Object.create兼容性方案....重写Object.create...........
+Object.create = function create(obj) {
+    if(obj == null || typeof obj !== 'object'){
+        throw new TypeError("Object prototype may only be an Object")
+    }
+    function Temp() {
+
+    }
+    Temp.prototype = obj;
+    return new Temp;
+}
