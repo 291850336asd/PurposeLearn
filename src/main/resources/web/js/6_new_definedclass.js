@@ -99,7 +99,7 @@ sanmao.sayName(); //=>"my name is 三毛"
 console.log(sanmao instanceof Dog); //=>true
 
 
-//..........ie浏览器不允许使用__proto__....此方案在ie6以上支持................
+//..........ie浏览器不允许使用__proto__....此方案在ie9以上支持................
 Object.create(); //Object prototype may only be an Object or null: undefined
 Object.create(null); // 创建一个空对象，但是此对象的__proto__ = null;
 let obj = { xxx:"xxxx" }
@@ -135,3 +135,4 @@ Object.create = function create(obj) {
     Temp.prototype = obj;
     return new Temp;
 }
+

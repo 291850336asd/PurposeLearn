@@ -15,6 +15,18 @@
  *   + 大部分数据对象除了基本数据类型
  *   + 类的原型 prototype
  *   + 函数也是对象‘函数的三种角色’
+ *
+ *
+ * JS 中创建变量的存储值有两中方案
+ *   + 字面量方式
+ *   + 构造函数方式
+ *   不论哪一种方法，创造出来的值都是所属类的实例
+ * 【基本数据类型值】
+ *   + 字面量创造出来的值是基本类型
+ *   + 构造函数创造出来的是引用数据类型
+ *       特殊性：Symbol和BigInt不是构造函数，不能使用new创建
+ * 【引用数据类型】
+ *   + 两种创建方法的结果是一样的
  */
 function Fn() {
     this.x = 100;
@@ -99,3 +111,43 @@ fun.prototype = Object.assign(Fn.prototype, {
         alert(this.a);
     }
 })
+
+
+//.................向内置类原型扩展方法.....................................
+//调用起来方便
+//数组去重
+let arr = [1,3,4,5,7,8,5,7,3,1];
+var set = new Set(arr);
+console.log(Array.from(set));
+//扩展Array方法
+let arr = [1,3,4,5,7,8,5,7,3,1];
+//自定义的属性方法名最好设置前缀：myXXX,为了防止自己的方法覆盖默认的方法
+Array.prototype.myUnique = function myUnique() {
+    // 保证this是当前数组
+    if(!Array.isArray(this)){
+        throw new TypeError("确保操作的是一个数组");
+    }
+    return Array.from( new Set(this))
+}
+arr = arr.myUnique();
+//.............................
+let n = 10;
+const validateNum = function validateNum(num){
+    num = Number(num);
+    return isNaN(num)? 0 : num;
+}
+Number.prototype = Object.assign(Number.prototype,{
+    plus: function (val) {
+        console.log(typeof this);//object  this一定是一个引用类型的值
+        // 对象 + 数字 ：大部分情况下会转换成字符串拼接，除 {} + 数字 以及对象有原始值[[PrimitiveValue]]
+        // 把对象转换为数字，首先调用valueOf方法获取原始值（number、string、boolean、Date有原始值）
+        //                如果有原始值则直接获取原始值结果并且参与到运算中，如果没有原始值则继续调用toString转换为字符
+        return this + validateNum(val);
+    },
+    minus: function (val) {
+        return this - validateNum(val);
+    }
+})
+
+let m = n.plus(10).minus(5); //n.plus 此时n是引用类型的值,隐式转换
+console.log(m);//=>15（10+10-5）
