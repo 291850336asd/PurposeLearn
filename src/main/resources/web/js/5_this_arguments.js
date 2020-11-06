@@ -6,13 +6,15 @@
  * 可以按照一下规律确实执行主体是谁：
  *   + 给当前元素的某个事件行为绑定方法，事件触发，方法中的this是当前元素本身
  *       例如给body的click绑定方法，则方法中的this就是body,(特殊情况 ie678下基于attachEvent实现的DOM2事件绑定，绑定方法中的this不是元素本身，而是window)
-*    + 函数执行，先看函数名之前是否有‘.’,有‘.’，‘.’前是谁this就是谁,没有‘.’则this就是window（在js的严格模式下，没有'.',方法中的this是undefined）
- *       use strict;//在当前上下文起作用,只对当前和下级上下文起作用
-*        匿名函数中的this,一般都是window、undefined
- *       回调函数中的this一般都是window、undefined,除非特殊处理了
- *   + 构造函数中的this是当前实例
- *   + 箭头函数没有自己的this，用到的this是上下文中的this
- *   + 基于call\appply\bind可以强制改变this指向
+ *   + 函数执行，先看函数名之前是否有‘.’,有‘.’，‘.’前是谁this就是谁,没有‘.’则this就是window（在js的严格模式下，没有'.',方法中的this是undefined）
+ *       + 匿名函数（自执行函数、回调函数）一般this也是window、undefined，除非做了特殊处理
+ *       + 括号表达式中有多项只取最后一项作,但是this为window
+ *       + use strict;//在当前上下文起作用,只对当前和下级上下文起作用
+ *         匿名函数中的this,一般都是window、undefined
+ *         回调函数中的this一般都是window、undefined,除非特殊处理了
+ *   + new构造函数中的this是当前实例
+ *   + 箭头函数没有自己的this，用到的this是上下文中的this,以及{ }块级上下文里面没有this，如果代码中遇到this也不是函数自己的，而是它所在的上级上下文的this
+ *   + 基于call\appply\bind可以强制改变this指向,对箭头函数没用
  *
  */
 
@@ -48,9 +50,53 @@ var fn = obj.fn;
 fn(5);// 输出22   //此时的this是window,没有‘.’则this就是window
 obj.fn(10);//23
 console.log(num,obj.num);//65 30
+////////////////
+[1,2].sort(function (a, b) {
+    console.log(this); //window
+});
+[1,2].forEach(function (item,index) {
+    console.log(this); //window
+});
+[1,2].forEach(function (item,index) { //foreach做了特殊处理，传递的第二个参数是为了改变会调函数中的this指向
+    console.log(this); //obj
+}, obj);
 
-
-
+(obj.fn)(); //  this -> obj;
+(10,20,obj.fn)(); //  this -> window;
+//////////////////
+let obj = {
+    name: "obj",
+    fn(){
+        console.log(this); // obj
+        setTimeout(function () {
+            this.name = "aa"; //window.name
+            console.log(this); // window 这个回调函数
+        },1000);
+    }
+};
+//
+let obj = {
+    name: "obj",
+    fn(){
+        let _this = this; // obj
+        setTimeout(() => {
+            _this.name = "aaa"; // _this -> obj;
+            console.log(this); //window
+        },1000);
+    }
+};
+//
+let obj = {
+    name: "obj",
+    fn(){
+        let _this = this; // obj
+        setTimeout(function () {
+            _this.name = "aa";// obj.name
+            console.log(this); // window 这个回调函数
+        },1000);
+    }
+};
+//////////
 (function () {
     var val = 1;
     var json ={
@@ -83,7 +129,7 @@ function b(x,y,a) {
     console.log(a);// 10
 
 }
-a = b(1,2,3);
+a = b(1,2,3); //b没有返回值就是undefined
 console.log(a); // undefined
 
 //.........arguments............
@@ -93,4 +139,125 @@ function b(x,y,a) {
    console.log(arguments[2]); //undefined
 }
 a = b(1,2);
+
+//....................call\appply\bind................................
+/**
+ * fun.call(obj,...args)  立即执行
+ *    首先fun基于原型链找到Function.prototype.call方法，并且把call方法执行
+ *    call中的this就是fn,传递给call方法的第一个实参就是未来改变fn中的this,...args是传给fun的实参信息
+ *    并且接受fn执行的返回结果，作为返回值给外部
+ *    fun.call(10,20);//  this-> 10 Number
+ *    fun.call();fun.call(null);//如果不传参数或者传递的是null/undefinded,在js非严格模式下this-》window。在严格模式下this->undefined
+ *
+ * fun.apply(obj,[args])
+ *    跟call没有区别，唯一区别参数只能是[10,20]数组，表现形式不一样call需要把参数一个一个传递给call，call在一个一个传递给fun
+ *    apply需要把参数放到数组中传递给apply,但是apply内部也是把数组每一项一个一个传给fun
+ *
+ * fun.bind(obj,...args)
+ *    call、apply在执行函数时会立即把函数执行，并改变this
+ *    bind是预先处理，执行bind只会预先把函数需要改变的this等信息存储起来，但是此时函数并不会执行并返回一个匿名函数，
+ *    当后期执行匿名函数时才会把需要执行的函数执行，并且改变this的预设值
+ *
+ */
+const  fn = function fn(x, y) {
+    console.log(this.name);
+    console.log(x + y);
+    return this;
+}
+window.name = "window";
+let obj = {
+    name: "obj"
+}
+fn(10, 20); // window  this -> window
+let res = fn.call(obj, 10, 20); //obj  this-> obj
+res == obj ;// true
+fn.bind(obj, 10 ,20)();
+let resapp = fn.apply(obj, [10,20]);
+resapp == res;// true
+obj.fn(); //this->obj   obj.fn is not a function
+
+setTimeout(fn.call(obj, 10, 20), 1000);// 错误处理，这种在设置是fn.call已经执行，相当于把fn.call返回的结果绑定给定时器，会报Uncaught SyntaxError: Unexpected identifier
+setTimeout(fn.bind(obj, 10 ,20), 1000);
+setTimeout(function () {
+    fn.call(obj, 10, 20)
+},1000);
+
+const  fn = function fn(x, y, ev) {
+    console.log(this.name);
+    console.log(x + y);
+    return this;
+};
+document.body.click = fn.bind(obj, 10, 20);
+document.body.click = function (ev) {
+    fn.call(obj,10 ,20, ev);
+};
+
+//................fun.bind(obj,...args)自定义实现..........................
+
+Function.prototype.bind = function bind(context, ...params) { //运行时参数是10,20
+    //此时this是.bind之前的对象fn
+    //context 为需要改变this成context
+    // return function anonyous(...args) {
+    //     //此处的this是body
+    // }
+    return (...args) => { //运行时 参数是 ev
+        //此时this 上级上下文 fn
+        this.apply(context, params.concat(args));
+        // this.call(context, ...params.concat(args));
+    }
+};
+const  fn = function fn(x, y, ev) {
+    console.log(this.name);
+    console.log(x + y);
+    return this;
+};
+let obj = {
+    name: "obj"
+}
+document.body.click = fn.bind(obj, 10, 20);
+
+
+//................fun.call(obj,...args)自定义实现..........................
+const  fn = function fn(x, y, ev) {
+    console.log(this.name);
+    console.log(x + y);
+    return this;
+};
+let obj = {
+    name: "obj"
+}
+//fn 和obj 本来没关系
+obj.fn = fn;
+obj.fn(10, 20);//此时中this->obj;
+delete obj.fn;
+////call实现同理
+Function.prototype.call = function call(context, ...params) {
+    //细节点：对于context类型处理，基本数据类型无法设置键值对
+    context == null ? window : null;
+    if(!/^(object|function)$/i.test(typeof context)){
+        //基本数据类型
+        // context = new context.constructor(context); //但是对于Symbol\BigInt不友好，没有构造函数
+        context = Object(context);//直接变成引用类型值
+    }
+
+
+    let res;
+    //this -> fn
+    //context->obj 为需要改变this成context
+    // context['my_' + this.name] = this; // this-> fn //可能产生命名冲突
+    let key = Symbol("key");
+    context[key] = this;
+    res = context[key](...params);//函数中this->obj
+    delete context[key];
+    return res;
+};
+const  fn = function fn(x, y) {
+    console.log(this.name);
+    console.log(x + y);
+    return this;
+};
+let obj = {
+    name: "obj"
+}
+let res = fn.call(obj, 10, 20);
 
