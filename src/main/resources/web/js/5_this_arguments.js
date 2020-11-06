@@ -240,7 +240,6 @@ Function.prototype.call = function call(context, ...params) {
         context = Object(context);//直接变成引用类型值
     }
 
-
     let res;
     //this -> fn
     //context->obj 为需要改变this成context
