@@ -5,6 +5,8 @@
  * 每个对象（普通对象、prototype、实例、函等数）都具备：_proto_原型链,属性值是当前实例所属类的原型
  * 实例._proto_ === 类.prototype
  * 函数._proto_ === Function.prototype
+ * Object._proto_._proto_ = Object.prototype
+ * Function.._proto_ = Function.prototype
  * Object是Function的一个实例，Function也是Object的一个实例（骚操作）
  * 每个实例对象（ object ）都有一个私有属性（称之为 __proto__ （隐式原型））指向它的构造函数的原型对象（prototype ）。
  *     该原型对象也有一个自己的原型对象( __proto__ ) ，层层向上直到一个对象的原型对象为 null。根据定义，null 没有原型，并作为这个原型链中的最后一个环节
@@ -163,6 +165,42 @@ console.log(m);//=>15（10+10-5）
  * 所有的函数都有三种角色
  *   + 普通函数
  *   + 构造函数 new执行
- *   + 键值对 属性名：属性值
+ *   + 普通对象
  * 这三个角色没有必然联系
+ *
+ * Function.prototype上有call/apply/bind三种改变THIS的方案，所有函数都可以调用这三个方法
  */
+
+
+
+function Foo() {
+    getName = function () {
+        console.log(1);
+
+    }
+    this.getX = function () {//还有this产生生成的函数才会对 new Foo()时产生影响
+
+    }
+    return this;
+}
+
+Foo.getName = function () { //把Foo当做普通对象设置私有键值对，注意此处的Foo是对象，并不会引起Foo函数的变化
+    console.log(2);
+}
+Foo.prototype.getName = function () { // 把Foo当做类，扩展Foo的原型方法
+    console.log(3);
+}
+var getName =function () { //全局getName赋值
+    console.log(4);
+}
+function getName() {
+    console.log(5);
+}
+Foo.getName(); // 2  当做普通对象处理
+getName(); // 4  //全局getName
+Foo().getName(); // 1  //普通函数 Foo()返回的this是window ,并且全局getName被修改
+getName(); // 1 //全局getName
+//以下涉及运算符优先级的问题 xx.xx 优先级19  new Foo优先级18  new Foo()带参数优先级19  ，优先级一样一般从左到右
+new Foo.getName(); // 2  new函数会把函数当做普通函数执行
+new Foo().getName(); // 3 //首先创造new Foo()实例，再调用getName ,会调用Foo函数上的方法
+new new Foo().getName(); // 3  执行let a= new Foo() ,然后执行new a.getName()，会执行原型上的getName
