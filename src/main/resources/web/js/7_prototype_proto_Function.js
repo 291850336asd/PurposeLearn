@@ -204,3 +204,4 @@ getName(); // 1 //全局getName
 new Foo.getName(); // 2  new函数会把函数当做普通函数执行
 new Foo().getName(); // 3 //首先创造new Foo()实例，再调用getName ,会调用Foo函数上的方法
 new new Foo().getName(); // 3  执行let a= new Foo() ,然后执行new a.getName()，会执行原型上的getName
+
