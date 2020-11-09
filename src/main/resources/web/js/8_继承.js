@@ -55,3 +55,24 @@ Child.prototype.getY = function getY(){
 }
 
 let c1 = new Child;
+
+
+// JS中第二种继承方案：Call继承    父类私有的当作子类实例私有的，但是没有继承父类prototype上的。
+function Parent(){
+    this.x = 100;
+
+}
+Parent.prototype.getX = function getX(){
+    return this.x
+}
+
+function Child(){
+    // 在子类的构造函数中，把父类当作普通方法执行（没有父类实例，父类原型上的那些东西也就和它没关系了）
+    Parent.call(this) // this->Child的实例c1  拷贝式的
+    this.y = 200
+}
+Child.prototype.getY = function getY(){
+    return this.y;
+}
+
+let c1 = new Child;
