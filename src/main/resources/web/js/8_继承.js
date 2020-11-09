@@ -121,7 +121,7 @@ class Parent{
 // 继承 extends Parent  注意：继承后一定要在constructor第一行加上super()  类似于寄生组合继承
 class Child extends Parent{
     constructor(){
-        super()
+        super();// 必须加否则new会报错，must call super constructor
         this.y=100
     }
     // 原型上的方法
