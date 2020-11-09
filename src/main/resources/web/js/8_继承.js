@@ -97,8 +97,7 @@ function Child(){
 Child.prototype.__proto__ = Parent.prototype;  //只获取父类的原型，也就是公共方法和属性，私有获取不到。 其实也是原型继承。
 // 另一种写法
 Child.prototype = Object.create(Parent.prototype)
-// 此时原型重定向 强加一个构造函数
-Child.prototype.constructor = Child;
+Child.prototype.constructor = Child; //// 此时原型重定向 强加一个构造函数
 
 Child.prototype.getY = function getY(){
     return this.y;
