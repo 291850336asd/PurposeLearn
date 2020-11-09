@@ -28,7 +28,8 @@ Parent.prototype.getX = function getX(){
 function Child(){
     this.y = 200
 }
-Child.prototype = new Parent; // 原型继承
+Child.prototype = new Pa rent; // 原型继承
+Child.prototype.constructor = Child;
 Child.prototype.getY = function getY(){
     return this.y;
 }
@@ -94,7 +95,7 @@ function Child(){
 }
 
 // IE 不能直接访问 __proto__
-Child.prototype.__proto__ = Parent.prototype;  //只获取父类的原型，也就是公共方法和属性，私有获取不到。 其实也是原型继承。
+Child.prototype.__proto__ = Parent.prototype ;  //只获取父类的原型，也就是公共方法和属性，私有获取不到。 其实也是原型继承。
 // 另一种写法
 Child.prototype = Object.create(Parent.prototype)
 Child.prototype.constructor = Child; //// 此时原型重定向 强加一个构造函数
