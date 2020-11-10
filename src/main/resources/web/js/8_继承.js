@@ -28,7 +28,7 @@ Parent.prototype.getX = function getX(){
 function Child(){
     this.y = 200
 }
-Child.prototype = new Pa rent; // 原型继承
+Child.prototype = new Parent; // 原型继承
 Child.prototype.constructor = Child;
 Child.prototype.getY = function getY(){
     return this.y;
