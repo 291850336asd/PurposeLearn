@@ -205,3 +205,176 @@ new Foo.getName(); // 2  new函数会把函数当做普通函数执行
 new Foo().getName(); // 3 //首先创造new Foo()实例，再调用getName ,会调用Foo函数上的方法
 new new Foo().getName(); // 3  执行let a= new Foo() ,然后执行new a.getName()，会执行原型上的getName
 
+
+//................示例.........................
+function Fn() {
+    let a = 1;
+    this.a = a;
+}
+Fn.prototype.say = function () {
+    this.a = 2;
+}
+Fn.prototype = new Fn;
+let f1 = new Fn;
+Fn.prototype.b = function () {
+    this.a = 3;
+}
+console.log(f1.a);  // 1
+console.log(f1.prototype); //undefined
+console.log(f1.b); // ƒ () { this.a = 3; }
+console.log(f1.hasOwnProperty('b')); // false
+console.log('b' in f1); // true
+console.log(f1.prototype == Fn); // false
+console.log(f1.constructor == Fn); // true
+
+//.......................
+let obj = {
+    2: 3,
+    3: 4,
+    4: 1,
+    length: 2,
+    push: Array.prototype.push //数组追加object[length++] = value;
+}
+obj.push(1); //相当于 obj[2] = 1
+obj.push(2); //相当于 obj[3] = 3
+obj.push(0); //相当于 obj[4] = 0
+obj.push(0);
+console.log(obj); //{2: 1, 3: 2, 4: 0, 5: 0, length: 6, push: ƒ}
+
+Symbol.toPrimitive
+//...............................................
+
+/**
+ *   var a = ?;
+ *   if (a == 1 && a == 2 && a == 3) {
+ *     console.log('OK');
+ *   }
+ *思路：基本类型无法满足
+ *      两边类型不一致会转化为一样的
+ *      对象 == 字符串，会把对象转换为字符串
+ *      剩下的都是转换为数字
+ *      所以 a只能是对象
+ *      对象转数字，对象先转换判断Symbol.toPrimitive获取原始值,如果不存在，原始值一般指的是基本类型值
+ *      继续调用对象的valueof方法(基本类型、日期)，如果获取的结果并不是原始值，则继续调用对象的toString方法
+ *      先转为字符串，再转换为数字
+ *      Object.prototype.valueof获取的是引用类型的值，数组、正则、函数所属类的原型上没有valueof,调用的是 Object.prototype.valueof
+ *      Date.prototype.valueof获取日期对象的原始值距离1970年的毫秒数
+ *
+ *
+ *      var a = {
+ *          //valueof 、toString、Symbol.toPrimitive 重写任意即可
+ *          [Symbol.toPrimitive](hint) {
+ *             //浏览器默认调用时，会默认传递hint,储存当前对象可能转换为什么值
+ *             console.log(hint);
+ *          }
+ *      }
+ */
+
+//方案一：利用对象转换机制，重写方法
+var a = {
+    value: 0,
+    //valueof 、toString、Symbol.toPrimitive 重写任意即可
+    [Symbol.toPrimitive](hint) {
+        //浏览器默认调用时，会默认传递hint,储存当前对象可能转换为什么值
+        // default:可能转换为数字或字符串  a + 1
+        // number: 数字  例如：数学运算符 a-1
+        // string
+        // ...
+        console.log(hint);
+        return this.value ++;
+    }
+};
+if (a == 1 && a == 2 && a == 3) {
+    console.log('OK');
+}
+
+//或者
+var a =  [1,2,3];
+a.toString = a.shift();
+if (a == 1 && a == 2 && a == 3) {
+    console.log('OK');
+}
+
+let i = 0;
+//方案二：利用数据劫持 Object.defineProperty\Proxy
+Object.defineProperty(window, 'a', {
+   get() {
+       //window.a 触发getter函数
+       return ++i;
+   },
+    set(value){
+       //  window.a = x; 触发setter函数
+    }
+});
+if (a == 1 && a == 2 && a == 3) {
+    console.log('OK');
+}
+
+
+// ..............................................
+let utils = (function(){
+    /*
+     * toArray：转换为数组的方法
+     *   @params
+     *      不固定数量，不固定类型
+     *   @return
+     *      [Array] 返回的处理后的新数组
+     */
+    function toArray(...args){
+        //=>实现你的代码（多种办法实现）
+        return Array.from(args); // es5中的方法，不兼容es2015
+        return [...args];  es6中的展开运算符
+
+        // let arr = [];
+        // for (let j = 0; j < args.length; j++) {
+        //     arr.push(args[j]);
+        // }
+        // return arr;
+        return [].slice.call(args);
+    }
+
+    return {
+        toArray
+    };
+})();
+let ary = utils.toArray(10,20,30); //=>[10,20,30]
+ary = utils.toArray('A',10,20,30); //=>['A',10,20,30]
+
+/////
+let utils = (function(){
+    /*
+     * toArray：转换为数组的方法
+     *   @params
+     *      不固定数量，不固定类型
+     *   @return
+     *      [Array] 返回的处理后的新数组
+     *
+     */
+    function toArray(){
+        //arguments 类数组需要转换
+        return [...arguments];  es6中的展开运算符
+
+        // let arr = [];
+        // for (let j = 0; j < arguments.length; j++) {
+        //     arr.push(args[j]);
+        // }
+        // return arr;
+        return [].slice.call(arguments);
+    }
+
+    return {
+        toArray
+    };
+})();
+let ary = utils.toArray(10,20,30); //=>[10,20,30]
+ary = utils.toArray('A',10,20,30); //=>['A',10,20,30]
+
+
+
+// 类数组
+let obj = {0:10, 1: 20, 2:30, length:3};
+Array.prototype.forEach.call(obj, (item, index)=> {
+    console.log(item + '--' + index);
+}); // 正常输出
+
+obj.forEach(); //报错 obj.foreach is not a function
