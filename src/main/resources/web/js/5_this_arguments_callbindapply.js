@@ -260,3 +260,18 @@ let obj = {
 }
 let res = fn.call(obj, 10, 20);
 
+
+//......call 深层理解..................
+var name = "zhuzhu";
+function A(x, y) {
+    var res = x + y;
+    console.log(res, this.name);
+}
+function B(x, y) {
+    var res = x - y;
+    console.log(res, this.name);
+}
+B.call(A, 40 , 30); // 10 "A"
+B.call.call(A, 20, 10);
+Function.prototype.call(A, 60, 50);
+Function.prototype.call.call.call(A, 80, 70);
