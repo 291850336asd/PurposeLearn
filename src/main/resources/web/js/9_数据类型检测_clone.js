@@ -68,10 +68,36 @@ let p1 = new Person();
 console.log(({}).toString.call(p1)); //[object Person]
 
 //重写 instanceof
+/**
+ *
+ * @param obj
+ * @param constructor
+ */
 function instance_of(obj, constructor){
+    if(obj == null || !/^(object|function)$/i.test(typeof obj)) return false
+    if(typeof constructor !== 'function')  throw new TypeError("Right-hand side of 'instanceof' is not callable")
 
+    //let proto = obj.__proto__, //兼容性问题不可用
+    let proto = Object.getPrototypeOf(obj),
+
+        prototype = constructor.prototype;
+
+    while(true){
+        // 找到Object.prototype.__proto__都没有相等的，则证明不是当前类的实例
+        if(proto === null) return false
+        // 找到对象的原型链包含类的原型，则证明对象是类的一个实例
+        if( proto === prototype) return true
+        // 一级级查找即可
+        // proto = proto.__proto__;
+        proto = Object.getPrototypeOf(proto)
+    }
 }
-
+console.log(instance_of([], Array)); // true
+console.log(instance_of([], Object));// true
+console.log(instance_of([], RegExp));// false
+console.log(instance_of(10, Number));// false
+console.log(instance_of(new Number(10), Number)); // true
+console.log(instance_of([], {})); //报错
 
 //............克隆.................
 //=>浅克隆：只复制对象或者数组的第一级内容

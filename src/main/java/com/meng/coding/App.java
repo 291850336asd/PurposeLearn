@@ -13,8 +13,9 @@ public class App
 {
     public static void main( String[] args )
     {
-//        System.out.println(Math.abs("15720980164".hashCode())%32 +1);
-//        System.out.println(1082699512%32 +1);
+        System.out.println(Math.abs("E510000000140202919".hashCode())%32 +1);
+        System.out.println(Math.abs("18049404087".hashCode())%32 +1);
+        System.out.println(1015660509%32 +1);
 
 
 
