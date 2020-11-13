@@ -261,7 +261,7 @@ let obj = {
 let res = fn.call(obj, 10, 20);
 
 
-//......call 深层理解..................
+//......call 深层理解..................基于Function.prototype.call = function call(context, ...params)分析即可
 var name = "zhuzhu";
 function A(x, y) {
     var res = x + y;
@@ -272,6 +272,21 @@ function B(x, y) {
     console.log(res, this.name);
 }
 B.call(A, 40 , 30); // 10 "A"
-B.call.call(A, 20, 10);
-Function.prototype.call(A, 60, 50);
-Function.prototype.call.call.call(A, 80, 70);
+B.call.call.call(A, 20, 10); // NaN, undefined
+//B.call.call.call(A, 20, 10);
+//开始 this->B.call.call   context->A
+// A.key = call
+//相当于把call.call(A,20, 10)执行  A.key= call 相当于 A.call(10, 20) 即CALL第二次执行
+// this->A  context-> new Number(20)   params-> 10
+//结果 NaN, undefined
+Function.prototype.call(A, 60, 50);  //没有任何输出
+//Function.prototype.call(A, 60, 50);
+// 开始 this->Function.prototype context->A parmas->60,50
+//A.key = Function.prototype  相当于 Function.prototype(60,50)
+//Function.prototype 为匿名空函数 即啥都不处理即没有任何输出
+Function.prototype.call.call.call(A, 80, 70);// NaN, undefined
+//Function.prototype.call.call.call(A, 80, 70);
+// 开始 this->Function.prototype.call.call context->A parmas->80, 70
+//A.key = Function.prototype.call.call  相当于 call.call(A, 80, 70) 即CALL第二次执行
+// this->A  context-> new Number(80)   params-> 70
+//结果 NaN, undefined
