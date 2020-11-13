@@ -91,6 +91,12 @@ setTimeout(() => {
 }, 15);
 console.log(9);
 //输出结果： 2 4  AA:xxxms  5 7 9 3 1 6 8
+
+//...........promise............
+/**
+ * Promise ：es6新增的内置类，主要用来规划异步编程
+ */
+
 //
 //...........async await........es7语法糖
 //async控制当前函数返回的是promise 和then很相似，函数执行不报错返回成功的promise实例，报错则返回失败的
@@ -113,8 +119,8 @@ function fn() {
     })
 };
 async function func() {
-    await fn(); //等待promise执行完成，在执行下面的代码
-    console.log("end");
+    let res = await fn(); //等待promise执行完成，在执行下面的代码
+    console.log(res);// ok
 }
 
 
