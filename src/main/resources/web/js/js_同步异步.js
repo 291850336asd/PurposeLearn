@@ -18,7 +18,10 @@
  *
  * EventLoop 事件循环机制
  *    + 宏任务 macrotask
+ *         定时器、事件绑定、ajax/fetch等网络请求等
  *    + 微任务 microtask  优先级高
+ *         promise:then\resolve\reject通知注册的onfulfiled/onrejected方法执行
+ *         async\await
  *
  * 浏览器加载页面，默认开辟一个任务队列（优先级队列）
  * 如果代码中遇到异步任务，则放置到‘任务队列’中（定时器：宏任务）
@@ -89,7 +92,32 @@ setTimeout(() => {
 console.log(9);
 //输出结果： 2 4  AA:xxxms  5 7 9 3 1 6 8
 //
+//...........async await........es7语法糖
+//async控制当前函数返回的是promise 和then很相似，函数执行不报错返回成功的promise实例，报错则返回失败的
+//return的值或者报错的原因就是promise实例的结果，如果return返回是是一个promise新实例，则新实例的结果影响返回promise的结果
+//async最常见的应用就是为了修饰函数，让函数中可以使用await(想要使用await,所在的函数必须是async修饰的)
+//await 等待一个promise成功之后开始执行，修饰promise实例
+async function func() {
+    console.log(10);
+    return 10;
+}
+console.log(func());//Promise {<fulfilled>: 10}
 //
-//
-//
-//
+
+function fn() {
+    return new Promise((resolve,reject) =>{
+        setTimeout(()=>{
+            console.log("异步完成")
+            resolve("ok");//修改状态为成功
+        },1000)
+    })
+};
+async function func() {
+    await fn(); //等待promise执行完成，在执行下面的代码
+    console.log("end");
+}
+
+
+
+
+
