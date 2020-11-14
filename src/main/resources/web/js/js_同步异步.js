@@ -92,10 +92,91 @@ setTimeout(() => {
 console.log(9);
 //输出结果： 2 4  AA:xxxms  5 7 9 3 1 6 8
 
-//...........promise............
+//.................promise.................
+//https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise
 /**
  * Promise ：es6新增的内置类，主要用来规划异步编程
  */
+//需求，基于JQ中提供的ajax从服务器获取数据
+
+//回调地狱
+let data={};
+$.ajax({
+    url:"/api/info",
+    success: function (result) {
+        //获取数据后
+        data = result;
+        $.ajax({
+            url: `/api/score?id = ${data.id}`,
+            success: function (result) {
+                //获取数据后
+                $.ajax({
+                    url: `/api/paiming?score = ${result.score}`,
+                    success: function (result) {
+                        //获取排名信息
+                    }
+                });
+            }
+        });
+    }
+});
+//解决方案1
+function queryInfo() {
+    return new Promise(resolve => {
+        $.ajax({
+            url: '/api/info',
+            success: function (result) {
+                //获取数据后
+                resolve(result);
+            }
+        });
+    })
+}
+function queryScore(id) {
+    return new Promise(resolve => {
+        $.ajax({
+            url: `/api/score?id = ${id}`,
+            success: function (result) {
+                resolve(result);
+            }
+        });
+    })
+}
+function querypaiming(score) {
+    return new Promise(resolve => {
+        $.ajax({
+            url: `/api/paiming?score = ${score}`,
+            success: function (result) {
+                resolve(result);
+            }
+        });
+    })
+}
+//写法一 基于promise解决
+queryInfo().then(result =>{
+    return queryScore(result.id);
+}).then(result => {
+    return querypaiming(result.score);
+}).then(result => {
+    //获取排名信息
+});
+//写法 基于async\await解决
+(async function () {
+    let result = await queryInfo();
+    result = await queryScore(result.id);
+    result = await  querypaiming(result.score);
+    //获取排名信息
+})();
+
+
+
+
+
+
+
+
+
+
 
 //
 //...........async await........es7语法糖
