@@ -112,11 +112,22 @@ console.log("no");
 // promise实例属性
 //   +[[PromiseState]] promise状态  待定（pending）: 初始状态，既没有被兑现，也没有被拒绝。
 //          + 待定（pending）: 初始状态，既没有被兑现，也没有被拒绝。
-//          + 已兑现（fulfilled/resolved）: 意味着操作成功完成。
+//          + 已兑现（fulfilled）: 意味着操作成功完成。
 //          + 已拒绝（rejected）: 意味着操作失败。
 //   +[[PromiseResult]] promise结果
 //          + 初始值undefined
 //          + 不论是成功还是失败，成功或者失败都会赋值给他
+// 只要promise从pending变为fulfiled或者rejected,则状态就不能再改变了
+
+
+let p1 = new Promise((resolve, reject)=>{
+    setTimeout(()=>{
+        let ran = Math.random();
+        ran < 0.5 ? reject("NO") : resolve("ok");
+    },1000);
+});
+
+
 //回调地狱
 let data={};
 $.ajax({
