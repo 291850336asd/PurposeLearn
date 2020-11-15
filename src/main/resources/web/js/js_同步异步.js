@@ -97,8 +97,26 @@ console.log(9);
 /**
  * Promise ：es6新增的内置类，主要用来规划异步编程
  */
-//需求，基于JQ中提供的ajax从服务器获取数据
+//
+let p1 = new Promise((resolve, reject)=>{
+   console.log("ok");
+});
+console.log("no");
+//结果 ok no
 
+
+// promise本身是同步的，是用来管理异步的，new promise会立即执行executor(resolve, reject){}函数，并创建返回promise实例
+// executor一般管理异步操作，操作成功执行resolve，让promise实例状态时成功并获取结果，失败执行执行reject让实例状态为失败并获取原因
+//   + resolve函数：函数执行会把promise状态改成成功
+//   + reject函数：函数执行会把promise状态改成失败
+// promise实例属性
+//   +[[PromiseState]] promise状态  待定（pending）: 初始状态，既没有被兑现，也没有被拒绝。
+//          + 待定（pending）: 初始状态，既没有被兑现，也没有被拒绝。
+//          + 已兑现（fulfilled/resolved）: 意味着操作成功完成。
+//          + 已拒绝（rejected）: 意味着操作失败。
+//   +[[PromiseResult]] promise结果
+//          + 初始值undefined
+//          + 不论是成功还是失败，成功或者失败都会赋值给他
 //回调地狱
 let data={};
 $.ajax({
@@ -151,7 +169,7 @@ function querypaiming(score) {
             }
         });
     })
-}
+}0
 //写法一 基于promise解决
 queryInfo().then(result =>{
     return queryScore(result.id);
