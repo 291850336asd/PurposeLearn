@@ -53,7 +53,10 @@
             }
             this.resolveFunc = resolveFunc;
             this.rejectFunc = rejectFunc;
-
+            //每次执行then返回一个新的实例
+            return new MyPromise(function (resolve, reject) {
+                
+            })
         }
     };
 //返回一个状态成功的MyPromise
@@ -85,7 +88,17 @@ var p1 = new MyPromise(function (resolve, reject) {
 });
 var p2 = p1.then(result => {
     console.log("成功 ->" + result);
+    return "P1 OK";
 }, reason => {
     console.log("失败 ->" + reason);
+    return "P1 NO";
 });
+var p3 = p2.then(result => {
+    console.log("P2成功 ->" + result);
+    return "P2 OK";
+}, reason => {
+    console.log("P2失败 ->" + reason);
+    return "P2 NO";
+});
+
 
