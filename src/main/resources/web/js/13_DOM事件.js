@@ -158,8 +158,54 @@ document.body.ontouchstart = function (ev) {
  * @param ev
  */
 
-// 禁用右键菜单（后续可能要改为自己的菜单）
+
+
+/**
+ * A标签默认行为
+ *  + 页面跳转 <a href="网址">
+ *  + 锚点定位，定位到当前页面当中指定ID位置 <a href="#id"> id为其它元素id
+ *
+ *  第一种阻止默认行为
+ *      <a href="javascript:;">
+ */
+// <a href= "www.baidu.com" id= "link">跳转</a>
+link.onclick = function(ev){
+    ev.preventDefault();//阻止默认行为
+};
+//或
+link.onclick = function(ev){
+    return false;//阻止默认行为
+};
+/**
+ * 禁用右键菜单（改为自己的菜单）
+ */
 window.oncontextmenu = function (ev) {
-    ev.preventDefault()
+    ev.preventDefault();//阻止默认行为
+    //如果没有右键菜单则创建一个
+    let contextMenu = document.querySelector(".contentmenu");
+    if(!contextMenu){
+        contextMenu = document.createElement('div');
+        contextMenu.className = 'contextMenu';//自定义样式即可
+        contextMenu.innerHTML = "<url><li>跳转到首页</li><li>跳转到详情</li><li>逗你玩</li></url>";
+        contextMenu.body.appendChild(contextMenu);
+    }
+    contextMenu.style.left = `${ev.clientX + 10}px`;
+    contextMenu.style.top = `${ev.clientY + 10}px`;
+
+    //点击其它内容，右键菜单消失
+    window.onclick = function (ev) {
+        let target = ev.target, targetTag = target.tagName;
+        if(targetTag === 'LI'){
+            target = target.parentNode;
+            targetTag = target.tagName;
+        }
+        if(targetTag === "UL" && target.parentNode.className === "contextnemu"){
+            return;
+        }
+        let contextMenu = document.querySelector(".contentmenu");
+        if(contextMenu){
+            document.body.removeChild(contextMenu);
+        }
+    }
 }
 
