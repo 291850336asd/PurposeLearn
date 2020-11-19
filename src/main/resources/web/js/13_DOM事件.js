@@ -84,5 +84,82 @@
  *
  * 事件对象
  *    给当前元素的某个事件绑定方法，当事件触发，方法执行时不仅把方法执行而且还会给方法默认传递一个实参，就是事件对象
+ *    存储当前事件操作及触发相关信息的（浏览器本身记录的，记录的是当前操作的信息，和在哪个函数无关）
  *
  */
+
+
+/**
+ * 鼠标事件对象 MouseEvent
+ *   + clientX/clientY 鼠标触发点距离当前窗口的X/Y坐标
+ *   + pageX/pageY 鼠标出发点距离BODY的X/Y坐标
+ *   + type 事件类型
+ *   + target/srcElement 获取当前事件源（当前操作的元素）
+ *   + path 传播路径
+ *   + ev.prventDefault() / ev.returnValue=false 阻止默认行为
+ *   + ev.stopPropagation / ev.cancelBubble=true 阻止冒泡传播
+ *   + ...
+ */
+let n = null;
+document.body.addEventListener("click", function (ev) { //MouseEvent
+    n = ev;
+});
+document.body.addEventListener("click", function (ev) {
+    n === ev;  // true  当前函数触发后，两个函数中获取的ev是同一个
+});
+
+
+/**
+ * 键盘事件对象
+ *   + key/code 存储按键的名字 貌似不准
+ *   + which/keyCode 获取键盘码
+ *   + 方向键 左37 上38 右39 下40
+ *   + Space 32
+ *   + BackSpace 8
+ *   + Del 46  MAC电脑中没有BackSpace，delete键是8
+ *   + Enter 13
+ *   + Shift 16
+ *   + Ctrl 17
+ *   + Alt 18
+ *   + altKey 是否按下alt键（组合按键）
+ *   + ctrlKey 是否按下ctrl键（组合按键）
+ *   + shiftKey 是否按下shift键（组合按键）
+ *   + ...
+ * @param ev  KeyboardEvent
+ *
+ */
+document.body.onkeydown = function (ev) {
+};
+
+
+/**
+ * 手指事件对象（移动端）
+ *    + changedTouched / touches 都是用来记录手指新的，常用的是changedTouches，
+ *        获取的结果都是一个TouchList集合，记录每一个手指信息
+ *    + 手指按下、移动、离开屏幕changedTouches都存储了对应的手指信息，哪怕离开屏幕后，存储的也是最后一次手指在屏幕
+ *       中的信息；而touches在手指离开屏幕后，就没有任何信息了只获取离开前的信息
+ *    +  ev.changedTouches[0]; 获取第一根手指信息
+ * @param ev  TouchEvent
+ */
+document.body.ontouchstart = function (ev) {
+    let point = ev.changedTouches[0];
+    console.log(point);
+};
+
+
+/**
+ * 默认行为：浏览器会赋予元素很多默认的行为操作
+ *    + 鼠标右键菜单
+ *    + 点击A标签实现页面跳转
+ *    + 部分浏览器会记录输入信息，在下一次输入的时候有模糊匹配
+ *    + 键盘按下会输入内容
+ *    + ...
+ *  我们可以基于ev.preventDefault()来禁用这些默认行为
+ * @param ev
+ */
+
+// 禁用右键菜单（后续可能要改为自己的菜单）
+window.oncontextmenu = function (ev) {
+    ev.preventDefault()
+}
+
