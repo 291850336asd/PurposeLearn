@@ -13,7 +13,6 @@
  *    + 冒泡阶段
  *    + 目标阶段
  *    + 捕获阶段
- *    + mouseenter VS mouseover
  *
  * <div class="box">
  *     <div class="outer">
@@ -87,19 +86,57 @@ let inner = document.querySelector(".inner");
  */
 
 
-document.body.onclick = function (ev) {
-    let target = ev.target;
-    let targetClass = target.className;
-    if(targetClass === 'inner'){
-        console.log("inner");
-        return;
-    }
-    if(targetClass === 'outer'){
-        console.log("outer");
-        return;
-    }
-    if(targetClass === 'box'){
-        console.log("box");
-        return;
-    }
-}
+// document.body.onclick = function (ev) {
+//     let target = ev.target;
+//     let targetClass = target.className;
+//     if(targetClass === 'inner'){
+//         console.log("inner");
+//         return;
+//     }
+//     if(targetClass === 'outer'){
+//         console.log("outer");
+//         return;
+//     }
+//     if(targetClass === 'box'){
+//         console.log("box");
+//         return;
+//     }
+// };
+
+
+
+/**
+ *  mouseenter VS mouseover
+ *  先触发over再触发enter事件
+ *  先触发out 再触发leave
+ *
+ *  mouseenter只要不离开所在区域不管上层有没有元素都只触发一次，且不存在冒泡行为,leave同理
+ *
+ *  mouseover 只要获取鼠标点就会触发，且存在冒泡行为
+ *  mouseout  存在冒泡行为
+ *  over out 很少用触发过于频繁
+ */
+outer.onmouseover = function (ev) {
+    console.log("outer over");
+};
+outer.onmouseout = function (ev) {
+    console.log("outer out");
+};
+outer.onmouseenter = function (ev) {
+    console.log("outer enter");
+};
+outer.onmouseleave = function (ev) {
+    console.log("outer leave");
+};
+inner.onmouseover = function (ev) {
+    console.log("inner over");
+};
+inner.onmouseout = function (ev) {
+    console.log("inner out");
+};
+inner.onmouseenter = function (ev) {
+    console.log("inner enter");
+};
+inner.onmouseleave = function (ev) {
+    console.log("inner leave");
+};
