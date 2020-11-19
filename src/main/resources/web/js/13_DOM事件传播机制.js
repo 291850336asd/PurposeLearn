@@ -45,29 +45,29 @@
 let box = document.querySelector(".box");
 let outer = document.querySelector(".outer");
 let inner = document.querySelector(".inner");
-//
-// inner.onclick = function (ev) {
-//     console.log("INNER == > ", ev);
-// };
-// outer.onclick = function (ev) {
-//     console.log("OUTER == > ", ev);
-// };
-// box.onclick = function (ev) {
-//     console.log("BOX == > ", ev);
-//     ev.stopPropagation(); // 阻止事件冒泡传播
-// };
-// window.document.body.onclick = function (ev) {
-//     console.log("BODY == > ", ev);
-// };
-// window.document.onclick = function (ev) {
-//     console.log("DOCUMENT == > ", ev);
-// };
-// window.onclick = function (ev) {
-//     console.log("WINDOW == > ", ev);
-// };
-// box.addEventListener('click',function (ev) {
-//     console.log("BOX_  EventListener == > ", ev); //先执行
-// }, true);
+
+inner.onclick = function (ev) {
+    console.log("INNER == > ", ev);
+};
+outer.onclick = function (ev) {
+    console.log("OUTER == > ", ev);
+};
+box.onclick = function (ev) {
+    console.log("BOX == > ", ev);
+    ev.stopPropagation(); // 阻止事件冒泡传播
+};
+window.document.body.onclick = function (ev) {
+    console.log("BODY == > ", ev);
+};
+window.document.onclick = function (ev) {
+    console.log("DOCUMENT == > ", ev);
+};
+window.onclick = function (ev) {
+    console.log("WINDOW == > ", ev);
+};
+box.addEventListener('click',function (ev) {
+    console.log("BOX_  EventListener == > ", ev); //先执行
+}, true);
 //需要写多个方法开辟多个内存，不是很好
 
 
@@ -86,22 +86,22 @@ let inner = document.querySelector(".inner");
  */
 
 
-// document.body.onclick = function (ev) {
-//     let target = ev.target;
-//     let targetClass = target.className;
-//     if(targetClass === 'inner'){
-//         console.log("inner");
-//         return;
-//     }
-//     if(targetClass === 'outer'){
-//         console.log("outer");
-//         return;
-//     }
-//     if(targetClass === 'box'){
-//         console.log("box");
-//         return;
-//     }
-// };
+document.body.onclick = function (ev) {
+    let target = ev.target;
+    let targetClass = target.className;
+    if(targetClass === 'inner'){
+        console.log("inner");
+        return;
+    }
+    if(targetClass === 'outer'){
+        console.log("outer");
+        return;
+    }
+    if(targetClass === 'box'){
+        console.log("box");
+        return;
+    }
+};
 
 
 
