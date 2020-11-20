@@ -59,7 +59,7 @@
         if(isObject(options)){
 
         }else {
-            throw new TypeError("options must be Object");
+            throw new TypeError("options must be an Object");
         }
         return new ModalPlugin();
     }
