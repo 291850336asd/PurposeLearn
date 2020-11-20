@@ -30,6 +30,7 @@
  *    + title（string）
  *    + template（string） 自定义的内容或者模板（基于es6的模板字符串拼接更丰富的内容）
  *    + buttons（array） 自定义按钮（组）
+ *    + opened[boolean] 刚打开是是否隐藏，默认是true显示
  *      {"title":"xxx",click:[callback],...}
  *    + modal[boolean] 控制遮罩层是否显示
  *    + drag[boolean] 按住头部是否允许拖拽
@@ -37,24 +38,57 @@
  *        打开onopen、关闭onclose、拖拽开始ondragstart、拖拽中ondragind、拖拽结束ondragend等
  */
 
+// 结构写法一
 (function () {
     /** 核心类 */
     function ModalPlugin() {
-
     }
+
     ModalPlugin.prototype = {
         constructor: ModalPlugin,
         version:"1.0.0"
+    };
+
+
+    function ProxyModalPlugin(options={}){
+        return new ModalPlugin();
     }
 
     //支持浏览器导入和ComonJS/ES6Module模块导入规范
     if(typeof window !== 'undefined'){
-        window.ModalPlugin = ModalPlugin;
+        window.M = window.ModalPlugin = ProxyModalPlugin;
     }
     if(typeof module === 'object' && typeof module.exports === 'object'){
-        module.exports = ModalPlugin;
+        module.exports = ProxyModalPlugin;
     }
 
 })();
+var m = new M();
 
-// new ModalPlugin([option]);
+
+
+
+// 结构写法二
+// (function () {
+//     /** 核心类 */
+//     function ModalPlugin() {
+//         return new init();
+//     }
+//     function init(){
+//     }
+//
+//     ModalPlugin.prototype = {
+//         constructor: ModalPlugin,
+//         version:"1.0.0"
+//     };
+//     init.prototype = ModalPlugin.prototype;
+//
+//     //支持浏览器导入和ComonJS/ES6Module模块导入规范
+//     if(typeof window !== 'undefined'){
+//         window.ModalPlugin = ModalPlugin;
+//     }
+//     if(typeof module === 'object' && typeof module.exports === 'object'){
+//         module.exports = ModalPlugin;
+//     }
+//
+// })();
