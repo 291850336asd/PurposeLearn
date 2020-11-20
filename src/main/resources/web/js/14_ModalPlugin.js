@@ -49,8 +49,18 @@
         version:"1.0.0"
     };
 
+    const isObject = function isObject(value) {
+        let class2Type = {};
+        var type = class2Type.toString.call(value);
+        return /Object/.test(type);
+    }
 
     function ProxyModalPlugin(options={}){
+        if(isObject(options)){
+
+        }else {
+            throw new TypeError("options must be Object");
+        }
         return new ModalPlugin();
     }
 

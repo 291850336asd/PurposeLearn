@@ -5,8 +5,8 @@
  * 每个对象（普通对象、prototype、实例、函等数）都具备：_proto_原型链,属性值是当前实例所属类的原型
  * 实例._proto_ === 类.prototype
  * 函数._proto_ === Function.prototype
- * Object._proto_._proto_ = Object.prototype
- * Function.._proto_ = Function.prototype
+ * Object.__proto__.__proto__ === Object.prototype
+ * Function._proto_ == Function.prototype
  * Object是Function的一个实例，Function也是Object的一个实例（骚操作）
  * 每个实例对象（ object ）都有一个私有属性（称之为 __proto__ （隐式原型））指向它的构造函数的原型对象（prototype ）。
  *     该原型对象也有一个自己的原型对象( __proto__ ) ，层层向上直到一个对象的原型对象为 null。根据定义，null 没有原型，并作为这个原型链中的最后一个环节
