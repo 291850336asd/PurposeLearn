@@ -53,11 +53,46 @@
         let class2Type = {};
         var type = class2Type.toString.call(value);
         return /Object/.test(type);
-    }
+    };
+
+    const props = {
+        title: {
+            type:'string',
+            default: '系统温馨提示'
+        },
+        template: {
+            type: 'string',
+            required: true
+        },
+        buttons: {
+            type: 'array',
+            default: []
+        },
+        modal: {
+            type: 'boolean',
+            default: true
+        },
+        drag: {
+            type: 'boolean',
+            default: true
+        },
+        opened: {
+            type: 'boolean',
+            default: true
+        }
+    };
 
     function ProxyModalPlugin(options={}){
+        //参数处理：格式校验  合并默认值
         if(isObject(options)){
-
+            options = Object.assign({
+                title:'系统温馨提示',
+                template:'',
+                buttons:[],
+                modal: true,
+                drag: true,
+                opened: true
+            },options);
         }else {
             throw new TypeError("options must be an Object");
         }
