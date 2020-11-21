@@ -107,7 +107,7 @@
                }
                if(val !== undefined){
                    if (toType(val) !== type) {
-                       throw new TypeError(`${key} must be an ${type}`);
+                       throw new TypeError(`${key} must be a ${type}`);
                    }
                    params[key] = val;
                    return;
