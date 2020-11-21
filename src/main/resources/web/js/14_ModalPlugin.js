@@ -52,9 +52,13 @@
     const isObject = function isObject(value) {
         let class2Type = {};
         var type = class2Type.toString.call(value);
-        return /Object/.test(type);
+        return /^\[object ([a-zA-Z]+)\]$/.exec(type)[1].toLocaleLowerCase();
     };
-
+    const toType = function toType(value) {
+        let class2Type = {};
+        var type = class2Type.toString.call(value);
+        return /Object/.test(type);
+    }
     const props = {
         title: {
             type:'string',
@@ -93,10 +97,28 @@
                 drag: true,
                 opened: true
             },options);
+            let params = {};
+            Object.keys(props).forEach(key =>{
+                //拿到每一项的规则
+               let {type, default:defaultValue,required = false} = props[key];
+               let val = options[key];
+               if(required && val === undefined){
+                   throw new TypeError(`${key} must be required`);
+               }
+               if(val !== undefined){
+                   if (toType(val) !== type) {
+                       throw new TypeError(`${key} must be an ${type}`);
+                   }
+                   params[key] = val;
+                   return;
+               }
+               params[key] = defaultValue;
+            });
+            return new ModalPlugin(params);
         }else {
             throw new TypeError("options must be an Object");
         }
-        return new ModalPlugin();
+
     }
 
     //支持浏览器导入和ComonJS/ES6Module模块导入规范
