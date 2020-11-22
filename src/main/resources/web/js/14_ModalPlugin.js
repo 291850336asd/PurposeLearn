@@ -41,12 +41,17 @@
 // 结构写法一
 (function () {
     /** 核心类 */
-    function ModalPlugin() {
+    function ModalPlugin(options) {
+        this.options = options;
+        this.init();
     }
 
     ModalPlugin.prototype = {
         constructor: ModalPlugin,
-        version:"1.0.0"
+        version:"1.0.0",
+        init(){
+
+        }
     };
 
     const isObject = function isObject(value) {
@@ -58,7 +63,9 @@
         let class2Type = {};
         var type = class2Type.toString.call(value);
         return /Object/.test(type);
-    }
+    };
+    ModalPlugin.isObject = isObject;
+    ModalPlugin.toType = toType;
     const props = {
         title: {
             type:'string',
