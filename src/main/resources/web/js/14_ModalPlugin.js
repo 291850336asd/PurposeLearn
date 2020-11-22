@@ -30,8 +30,8 @@
  *    + title（string）
  *    + template（string） 自定义的内容或者模板（基于es6的模板字符串拼接更丰富的内容）
  *    + buttons（array） 自定义按钮（组）
+ *     {"title":"xxx",click:[callback],...}
  *    + opened[boolean] 刚打开是是否隐藏，默认是true显示
- *      {"title":"xxx",click:[callback],...}
  *    + modal[boolean] 控制遮罩层是否显示
  *    + drag[boolean] 按住头部是否允许拖拽
  *    + 生命周期函数，允许用户自定义处理是事情
