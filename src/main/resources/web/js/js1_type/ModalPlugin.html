@@ -8,27 +8,65 @@
     <!-- IMPORT CSS -->
     <link rel="stylesheet" href="../css/reset.min.css">
     <link rel="stylesheet" href="../css/ModalPlugin.css">
-    <script type="text/javascript" src="../14_ModalPlugin.js"/>
+    <script  src="../14_ModalPlugin.js"></script>
 </head>
 
 <body>
-    <div class="drag_modal"></div>
-    <div class="drag_content">
-        <div class="drag_head">
-            系统温馨提示
-            <a href="javascript:;" class="drag_close"></a>
-        </div>
-        <div class="drag_main">
-            哈哈哈
-        </div>
-        <div class="drag_foot">
-            <a href="javascript:;" class="drag_button">取消</a>
-            <a href="javascript:;" class="drag_button">确定</a>
-        </div>
-    </div>
+  <button id="btn">点我哈</button>
+<script>
+    var btn = document.querySelector("#btn");
+    btn.onclick = function () {
+        let m1 = M({
+            template: `哈哈哈，今天心情很不错！！`,
+            // 回调函数的方式支持周期函数
+            onopen(m) {
+                console.log('已经打开，this和m都是当前类的实例~~');
+            },
+            onclose() {
+                console.log('已经关闭，要处理的事情都写在这个回调函数中~~');
+            }
+        });
 
-    <!-- IMPORT JS -->
-    <script src="../14_ModalPlugin.js"></script>
+        // 发布订阅的方式：可以给当前的某个周期函数绑定多个方法
+        m1.on('ondraging', function (m) {
+            console.log(this, m, 'M1拖拽中[1]');
+        });
+        m1.on('ondraging', function () {
+            console.log('M1拖拽中[2]');
+        });
+
+
+        let m2 = M({
+            template: `嘿嘿嘿，哇咔咔！！`
+        });
+        m2.on('ondraging', function () {
+            console.log('M2拖拽中[1]');
+        });
+        m2.on('ondraging', function () {
+            console.log('M2拖拽中[2]');
+        });
+
+    };
+
+    /*  btn.onclick = function () {
+             M({
+                 template: `<div class="box">
+                     <input type="text" id="username">
+                     <br>
+                     <input type="password" id="userpass">
+                 </div>`,
+                 buttons: [{
+                     text: '确定',
+                     click(m) {
+                         let username = document.querySelector('#username'),
+                             userpass = document.querySelector('#userpass');
+                         console.log(username.value, userpass.value);
+                         this.close();
+                     }
+                 }]
+             });
+         }; */
+</script>
 </body>
 
 </html>
