@@ -8,4 +8,10 @@
  *   --对于这些问题，我们一般采用图片懒加载，开始需要展示图片的问题，我们基于默认图或者空白块占位，
  *      只有当页面加载完或者滚动到所在区域时再去加载图片
  *   --base64
+ *
+ *  方案：
+ *    1.旧方案：基于盒子模型（或getBoundingClientRect）,我们判断出是否加载图片，在滚动条滚动中随时判断处理（节流）
+ *    2.新方案：IntersectionObserver基于元素的监听，一体化解决懒加载问题
+ *       IntersectionObserver基于元素的监听，当DOM元素出现或者离开视口的时候触发回调函数
+ *       new IntersectionObserver(callback,options); threshold 默认值是[0],范围：0-1，控制触发点
  */
