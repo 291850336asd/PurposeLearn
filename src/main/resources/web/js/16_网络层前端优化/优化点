@@ -1,8 +1,0 @@
-1.服务器端设置强缓存 ： expires（1.0）、cache-control（1.1）   300
-2.协商缓存：last-modified、etag     304
-3.数据缓存
-4.DNS解析  DNS预获取
-    <link rel="dns-prefetch" href="//static.360buyimg.com"/>
-    <link rel="dns-prefetch" href="//misc.360buyimg.com"/>
-    <link rel="dns-prefetch" href="//img10.360buyimg.com"/>
-    <link rel="dns-prefetch" href="//d.3.cn"/>
