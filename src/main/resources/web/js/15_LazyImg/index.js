@@ -13,7 +13,7 @@ let waterfallModule = (function () {
     const queryData = () => {
         return new Promise((resolve) => {
             let xhr = new XMLHttpRequest
-            xhr.open('get', 'data.json')
+            xhr.open('get', '../15_LazyImg/lazydata.json')
             xhr.onreadystatechange = () => { 
                 if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
                     let data = JSON.parse(xhr.responseText)
