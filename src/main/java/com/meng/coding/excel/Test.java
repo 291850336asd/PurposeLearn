@@ -8,7 +8,9 @@ import org.dhatim.fastexcel.reader.Row;
 import org.dhatim.fastexcel.reader.Sheet;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
@@ -17,20 +19,22 @@ public class Test {
     //xls 03   65536
     public static void main(String[] args) {
 //        write();
-        read();
+//        read();
     }
 
     public static void read(){
         long t1 = new Date().getTime();
         AtomicLong ii = new AtomicLong(0);
-        try (InputStream is = new FileInputStream("C:\\Users\\mtime\\Desktop\\工作\\7.xlsx"); ReadableWorkbook wb = new ReadableWorkbook(is)) {
+        try (InputStream is = new FileInputStream("C:\\Users\\mtime\\Desktop\\工作\\会员明细.xlsx"); ReadableWorkbook wb = new ReadableWorkbook(is)) {
             Sheet sheet = wb.getFirstSheet();
             try (Stream<Row> rows = sheet.openStream()) {
                 rows.forEach(r -> {
                     int cellCount = r.getCellCount();
                     for (int i = 0; i < cellCount; i++) {
-
+                        System.out.println(r.getCell(i).getText());
+                        System.out.println(r.getCell(i).getRawValue());
                     }
+                    System.out.println();
                     ii.incrementAndGet();
                 });
             }
