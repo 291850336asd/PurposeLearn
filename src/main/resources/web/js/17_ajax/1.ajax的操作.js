@@ -39,9 +39,9 @@ xhr.send(null);
  * 
  * 官方文档没有明确规定GET和POST的区别，但是大家约定俗成的按照以下的方式来搞
  *    GET传递给服务器的信息一般基于“URL地址问号传参”实现
- *       xhr.open('GET','./DATA.json?lx=1&name=zhufeng&xxx=xxx...')
+ *       xhr.open('GET','./DATA.json?lx=1&name=xx&xxx=xxx...')
  *    POST传递给服务器的信息一般基于“请求主体”实现
- * 		 xhr.send('lx=1&name=zhufeng&xxx=xxx...')
+ * 		 xhr.send('lx=1&name=sss&xxx=xxx...')
  *    客户端还可以基于设置请求头把一些简要的信息传递给服务器（COOKIE、TOKEN...）
  * 
  * 1. GET传递给服务器的信息要远远小于POST

@@ -51,17 +51,17 @@
  */
 
 var a = {},b='0',c=0;//对象的属性可以是字符串、Symbol
-a[b] = "珠峰";
+a[b] = "zhu";
 a[c] = "web";
 console.log(a[b]);//web
 
 var a = {},b=Symbol("1"),c=Symbol("1");
-a[b] = "珠峰";
+a[b] = "zhu";
 a[c] = "web";
-console.log(a[b]);//珠峰
+console.log(a[b]);//zhu
 
 var a = {},b={n:"1"},c={"sss":"222"},d=[{"bb":"ss"}];//对象属性会转化成字符串toString
-a[b] = "珠峰";
+a[b] = "zhu";
 a[c] = "web";
 a[d] = "html";
 console.log(a[b]); // html
