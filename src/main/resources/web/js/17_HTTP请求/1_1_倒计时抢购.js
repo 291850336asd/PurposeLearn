@@ -4,7 +4,7 @@
  *    倒计时抢购的当前时间应该以服务器时间为准（服务器返回的响应头信息中有服务器时间）
  * 思路：加载页面首先从服务器获取时间（尽可能减少时间差），把获取的服务器时间保存起来，以后每间隔1秒中，让获取的时间向上累加
  */
-let target = new Date("2020/05/29 22:14:50"),
+let target = new Date("2020/11/27 22:14:50"),
 	now = new Date(),
 	box = document.querySelector('#box'),
 	spanBox = box.querySelector('span'),
