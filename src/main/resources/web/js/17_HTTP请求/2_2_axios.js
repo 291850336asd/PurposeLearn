@@ -73,7 +73,7 @@ axios.post('/department/update', {
 // 关于baseURL在真实项目中的一些处理 "根据环境变量，区分不同的接口"「需要webpack的支持」
 //   + 开发环境  请求的是测试服务器接口  http://168.1.1.12:8081
 //   + 测试环境  请求的是另外服务器的接口地址(模拟的是实际上线的数据)  http://168.1.1.0:9000
-//   + 生产环境  部署到真是的服务器上  http://api.zhufengpeixun.cn
+//   + 生产环境  部署到真是的服务器上  http://api.cccc.cn
 // 我们期望：以后只需要在webpack或者其他地方指定好环境变量，项目打包或者运行的时候，自动切换接口地址
 
 /* let env = process.env.NODE_ENV; //webpack或者node中配置出来的
@@ -85,7 +85,7 @@ switch (env) {
         axios.defaults.baseURL = 'http://168.1.1.0:9000';
         break;
     case 'production':
-        axios.defaults.baseURL = 'http://api.zhufengpeixun.cn';
+        axios.defaults.baseURL = 'http://api.cccc.cn';
         break;
 } */
 
