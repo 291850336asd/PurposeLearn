@@ -172,23 +172,49 @@ import * as _ from "../utils/utils";
     //发送请求核心内容
     function AJAX(config){
         this.config = config;
+        this.GETREG = /^(GET|HEAD|OPTIONS|DELETE)$/i;
         return this.send();
     }
     AJAX.prototype = {
         constructor: AJAX,
         version: '1.0.0',
         send(){
+            let {method} = this.config;
             return new Promise((resolve, reject) => {
-                XMLHttpRequest xhr = new XMLHttpRequest();
-                xhr.open();
+                let xhr = new XMLHttpRequest();
+                xhr.open(method, this.initURL());
                 xhr.onreadystatechange = () => {
 
                 };
-                xhr.onerror = () => {
+                xhr.onerror = (error) => {
 
                 }
                 xhr.send()
             });
+        },
+        initURL(){
+            let {
+                baseURL, url, method, params, cache
+            } = this.config;
+
+            url = baseURL + url;
+            //get 请求？传参
+            if(this.GETREG.test(method)){
+                if(params){
+                    params = this.stringify(params);
+                    url += `${url.includes('?') ? '&':'?'}${params}`;
+                }
+                if(!cache){
+                    url += `${url.includes('?') ? '&':'?'}_=${Math.random()}`;
+                }
+            }
+        },
+        stringify(params){
+            let str = ``;
+            _.each(params, (key, value)=>{
+               str +=`&${key}=${value}`;
+            });
+            return str.substr(1);
         }
     }
 
