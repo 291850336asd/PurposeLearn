@@ -251,6 +251,11 @@ import * as _ from "../utils/utils";
             }
             if(flag){
                 let text = xhr.responseText;
+                switch (this.config.responseType.toLowerCase()){
+                    case 'text':
+                        break;
+
+                }
                 response.data = text;
                 return response;
             }
