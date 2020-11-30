@@ -247,12 +247,19 @@ import * as _ from "../utils/utils";
                 request: xhr,
                 status: xhr.status,
                 statusText: xhr.statusText,
-                headers: {}
+                headers: this.initHeaders(xhr)
             }
             if(flag){
                 let text = xhr.responseText;
                 switch (this.config.responseType.toLowerCase()){
-                    case 'text':
+                    case 'json':
+                        text = JSON.parse(text);
+                        break;
+                    case 'stream':
+                        text = xhr.response;
+                        break;
+                    case 'document':
+                        text = xhr.responseXML;
                         break;
 
                 }
@@ -263,6 +270,16 @@ import * as _ from "../utils/utils";
                 response,
                 message: shr.statusText
             };
+        },
+        initHeaders(xhr){
+            let allResponseHeaders = xhr.getAllResponseHeaders(),
+            headers = {};
+            allResponseHeaders = allResponseHeaders.split(/(?:\n)/g);
+            _.each(allResponseHeaders, (item, key) => {
+               let [key,value] = item.split('：');
+               headers[key] = value;
+            });
+            return headers;
         }
     };
 
