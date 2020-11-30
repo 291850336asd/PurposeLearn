@@ -179,17 +179,31 @@ import * as _ from "../utils/utils";
         constructor: AJAX,
         version: '1.0.0',
         send(){
-            let {method} = this.config;
+            let {method, validateStatus} = this.config;
             return new Promise((resolve, reject) => {
                 let xhr = new XMLHttpRequest();
                 xhr.open(method, this.initURL());
                 xhr.onreadystatechange = () => {
-
+                    //服务器有响应
+                    let {
+                        readState, status, responseTest, response
+                    } = xhr;
+                    if (!validateStatus(status)) {
+                        //状态码不符合要求，失败
+                        reject(this.initResult(false, xhr));
+                    }
+                    if(readyState === 4){
+                        //成功
+                        resolve(this.initResult(true, xhr));
+                    }
                 };
                 xhr.onerror = (error) => {
-
+                    // 服务器没有响应
+                    reject({
+                        message: error.message
+                    });
                 }
-                xhr.send()
+                xhr.send(this.initData());
             });
         },
         initURL(){
@@ -215,8 +229,37 @@ import * as _ from "../utils/utils";
                str +=`&${key}=${value}`;
             });
             return str.substr(1);
+        },
+        //POST  处理data
+        initData(){
+            let {
+                method, data, transformRequest
+            } = this.config;
+            if(this.GETREG.test(method)){
+               return null;
+            }
+            return transformRequest(data);
+        },
+        // 处理返回结果
+        initResult(flag,xhr){
+            let response = {
+                data:{},
+                request: xhr,
+                status: xhr.status,
+                statusText: xhr.statusText,
+                headers: {}
+            }
+            if(flag){
+                let text = xhr.responseText;
+                response.data = text;
+                return response;
+            }
+            return {
+                response,
+                message: shr.statusText
+            };
         }
-    }
+    };
 
     ajax['all'] = function (promiseList) {
         if(!_.isArrayLike(promiseList)){
