@@ -179,10 +179,13 @@ import * as _ from "../utils/utils";
         constructor: AJAX,
         version: '1.0.0',
         send(){
-            let {method, validateStatus} = this.config;
+            let {method, validateStatus, timeout, withCredentials} = this.config;
             return new Promise((resolve, reject) => {
                 let xhr = new XMLHttpRequest();
                 xhr.open(method, this.initURL());
+                xhr.timeout = timeout;
+                xhr.withCredentials = withCredentials;
+                xhr.headers =this.initRequestHeader(xhr);
                 xhr.onreadystatechange = () => {
                     //服务器有响应
                     let {
@@ -247,7 +250,8 @@ import * as _ from "../utils/utils";
                 request: xhr,
                 status: xhr.status,
                 statusText: xhr.statusText,
-                headers: this.initHeaders(xhr)
+                headers: this.initResponseHeaders(xhr),
+                config: this.config;
             }
             if(flag){
                 let text = xhr.responseText;
@@ -271,12 +275,32 @@ import * as _ from "../utils/utils";
                 message: shr.statusText
             };
         },
-        initHeaders(xhr){
+        initRequestHeader(xhr){
+            let {
+                headers,
+                method
+            } = this.config;
+            let alone = headers[method] || {},
+                common = headers['common'] || {};
+            delete headers['common'];
+            ['get','head','delete', 'options','post','put', 'patch'].forEach((value, index)=>{
+                delete headers[value];
+            });
+            common = _.merge(common, alone);
+            headers = _.merge(headers, common);
+            headers.each((key,value) => {
+               xhr.setRequestHeader(key, value);
+            });
+        },
+        initResponseHeaders(xhr){
             let allResponseHeaders = xhr.getAllResponseHeaders(),
             headers = {};
             allResponseHeaders = allResponseHeaders.split(/(?:\n)/g);
             _.each(allResponseHeaders, (item, key) => {
                let [key,value] = item.split('：');
+               if(!key){
+                   return;
+               }
                headers[key] = value;
             });
             return headers;
@@ -289,7 +313,7 @@ import * as _ from "../utils/utils";
         }
         return Promise.all(promiseList);
     };
-
+    ajax.stringify = AJAX.prototype.stringify;
     if(typeof window !== 'undefined'){
         window.ajax = ajax;
     }
@@ -297,3 +321,32 @@ import * as _ from "../utils/utils";
         module.exports = ajax;
     }
 })();
+
+
+ajax.defaults.withCredentials = true;
+ajax.defaults.baseURL = "http://127.0.0.1:8888";
+ajax.defaults.headers.post['Content-type'] = 'application/x-www-urlencoded';
+ajax.defaults.transformRequest = (data) => {
+  return ajax.stringify(data);
+};
+//get
+ajax({
+    url:"/user/list",
+    params:{
+        id: 1
+    },
+    cache: false
+}).then(response => {
+    console.log("ok", response);
+}).catch(reason => {
+   console.log('no', reason);
+});
+
+ajax.post('/user/login',{
+    account:'xxxx',
+    password:'xxcx'
+}).then(response => {
+    console.log("ok", response);
+}).catch(reason => {
+    console.log('no', reason);
+});
