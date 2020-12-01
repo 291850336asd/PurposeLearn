@@ -133,20 +133,97 @@ for (let item of obj){
  * 生成器对象是由一个 generator function 返回的,并且它符合可迭代协议和迭代器协议
  *    -- 无法new对象
  *    -- 函数结果返回的是当前函数的实例
+ *    -- 没有自己的this
  *    Generator.prototype.next()  返回一个由 yield表达式生成的值。   {  done: true,  value: xxx }
  *    Generator.prototype.return()   返回给定的值并结束生成器。
  *    Generator.prototype.throw()    向生成器抛出一个错误。
  */
 function* fun() {
+    console.log(this); // window
     yield 1;
     yield 2;
     yield 3;
+    return 4;
 }
 let iterator = fun();
 console.log(iterator instanceof fun); // true
-console.log(iterator.next().value);  // 1
-console.log(iterator.next().value);  // 2
-console.log(iterator.next().value);  // 3
-console.log(iterator.next().value);  // undefined
-
+console.log(iterator.next().value);  // 1  done:false
+console.log(iterator.next().value);  // 2  done:false
+console.log(iterator.next().value);  // 3  done:false
+console.log(iterator.next().value);  // 4  done:true
 new fun();// 报错，无法new对象  fun is not a constructor
+
+////
+function* fun() {
+    let x = yield 1;
+    console.log(x); //undefined
+}
+let iterator = fun();
+console.log(iterator.next());
+console.log('AAAA');
+console.log(iterator.next());
+// AAAA  undefined
+
+////
+function* fun() {
+    let x = yield 1;
+    console.log(x); //10
+}
+let iterator = fun();
+console.log(iterator.next());
+console.log('AAAA');
+console.log(iterator.next(10));
+// AAAA  10
+
+////
+function* fun1() {
+    yield 1;
+    yield 2;
+}
+function* fun2() {
+    yield 3;
+    yield fun1();
+    yield 4;
+}
+let iterator = fun2();
+console.log(iterator.next());// { done:false, value:3 }
+console.log(iterator.next());// { done:false, value:fun1 }  fun1 itterator值
+console.log(iterator.next());// { done:false, value:4 }
+console.log(iterator.next());// { done:true, value:undefined }
+console.log(iterator.next());// { done:true, value:undefined }
+
+////
+function* fun1() {
+    yield 1;
+    yield 2;
+}
+function* fun2() {
+    yield 3;
+    yield* fun1();
+    yield 4;
+}
+let iterator = fun2();
+console.log(iterator.next());// { done:false, value:3 }
+console.log(iterator.next());// { done:false, value:1 }
+console.log(iterator.next());// { done:false, value:2 }
+console.log(iterator.next());// { done:false, value:4 }
+console.log(iterator.next());// { done:true, value:undefined }
+
+////
+function* fun1() {
+    yield 1;
+    yield 2;
+}
+function* fun2() {
+    yield 3;
+    fun1(); //不会触发迭代，相当于let cc = fun1(); 不会有任何效果
+    yield 4;
+}
+let iterator = fun2();
+console.log(iterator.next());// { done:false, value:3 }
+console.log(iterator.next());// { done:false, value:4 }
+console.log(iterator.next());// { done:true, value:undefined }
+console.log(iterator.next());// { done:true, value:undefined }
+console.log(iterator.next());// { done:true, value:undefined }
+
+
