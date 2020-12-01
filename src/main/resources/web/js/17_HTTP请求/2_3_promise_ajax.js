@@ -251,7 +251,7 @@ import * as _ from "../utils/utils";
                 status: xhr.status,
                 statusText: xhr.statusText,
                 headers: this.initResponseHeaders(xhr),
-                config: this.config;
+                config: this.config
             }
             if(flag){
                 let text = xhr.responseText;
@@ -297,11 +297,11 @@ import * as _ from "../utils/utils";
             headers = {};
             allResponseHeaders = allResponseHeaders.split(/(?:\n)/g);
             _.each(allResponseHeaders, (item, key) => {
-               let [key,value] = item.split('：');
-               if(!key){
+               let [keyValue,value] = item.split('：');
+               if(!keyValue){
                    return;
                }
-               headers[key] = value;
+               headers[keyValue] = value;
             });
             return headers;
         }
