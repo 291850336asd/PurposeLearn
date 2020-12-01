@@ -1,0 +1,12 @@
+https://www.webpackjs.com/concepts/
+webpack作用：
+ -- 代码转换
+ -- 文件优化
+ -- 代码分割
+ -- 模块合并
+ -- 自动刷新
+ -- 自动发布
+ -- ...
+
+npm install xxx -D 开发环境 devDependences
+npm install xxx  生产环境 dependences
