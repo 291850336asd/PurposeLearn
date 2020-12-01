@@ -21,7 +21,7 @@
  *         定时器、事件绑定、ajax/fetch等网络请求等
  *    + 微任务 microtask  优先级高
  *         promise:then\resolve\reject通知注册的onfulfiled/onrejected方法执行
- *         async\await
+ *         async\await   就是generator 和 promise结合的语法糖
  *
  * 浏览器加载页面，默认开辟一个任务队列（优先级队列）
  * 如果代码中遇到异步任务，则放置到‘任务队列’中（定时器：宏任务）

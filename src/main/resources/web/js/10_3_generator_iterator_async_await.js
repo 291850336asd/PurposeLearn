@@ -227,3 +227,107 @@ console.log(iterator.next());// { done:true, value:undefined }
 console.log(iterator.next());// { done:true, value:undefined }
 
 
+////
+function* fun(x) {
+    yield ++x;
+    yield* fun(x);
+}
+let ss = fun(0);
+console.log(ss.next());
+console.log(ss.next());
+console.log(ss.next());
+console.log(ss.next());
+
+
+////
+const func = x=> {
+    return new Promise(resolve => {
+        setTimeout(function () {
+            resolve(++x);
+        },1000)
+    })
+};
+func(10).then(result=> {
+   console.log(result);
+   return func(result);
+}).then(result=>{
+    console.log(result)
+});
+
+/**
+ *
+ */
+const func = x=> {
+    return new Promise(resolve => {
+        setTimeout(function () {
+            resolve(++x);
+        },1000)
+    })
+};
+(async function anonymous() {
+    let x = await func(0);
+    console.log(x);
+
+    x = await func(x);
+    console.log(x);
+
+    x = await func(x);
+    console.log(x);
+})();
+
+////
+const func = x=> {
+    return new Promise(resolve => {
+        setTimeout(function () {
+            resolve(++x);
+        },1000)
+    })
+};
+function* anonymous(x) {
+    x = yield func(x);
+    console.log(x); // 想让x=1
+
+    x = yield func(x);
+    console.log(x); // 想让x=2
+
+    x = yield func(x);
+    console.log(x); // 想让x=3
+}
+let iterator = anonymous(0);
+var promiseValue = iterator.next().value;  //// iterator.next().value 是一个promise实例
+promiseValue.then(x=>{
+    var pV = iterator.next(x).value;
+    pV.then(x=>{
+       pV =  iterator.next(x).value;
+       pV.then(result => {
+           var next = iterator.next(result);
+           if(next.done){
+               console.log("finish");
+           }
+       })
+    });
+});
+//// 加强版
+/**
+ *
+ * @param generator 生成器函数
+ * @param params  传递的实际参数
+ */
+function AysncFunc(generator, ...params) {
+    const iterator  = generator(...params);
+    const next = (x) => {
+        let { value, done } = iterator.next(x);
+        if(!done){
+            value.then(result => {
+                next(result);
+            });
+        } else {
+            return;
+        }
+    };
+    next();
+}
+
+/**
+ * async await   就是generator 和 promise结合的语法糖
+ */
