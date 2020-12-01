@@ -1,9 +1,10 @@
 https://www.webpackjs.com/concepts/
 webpack作用：
- -- 代码转换
- -- 文件优化
- -- 代码分割
- -- 模块合并
+ -- 代码转换 TypeScript转js LESS\SCSS转css ES6\7转ES5 虚拟DOM转真实DOM等
+ -- 文件优化 压缩JS\CSS\HTML 压缩合并图片  图片BASE64
+ -- 代码分割 提取多个页面的公共代码、提取首屏不需要执行的部分代码等
+ -- 模块合并 把多个模块合并成一个文件
+ -- 代码校验 EsLint代码规范校验检测、单元测试等
  -- 自动刷新
  -- 自动发布
  -- ...
