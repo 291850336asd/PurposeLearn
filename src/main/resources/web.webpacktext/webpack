@@ -9,5 +9,13 @@ webpack作用：
  -- 自动发布
  -- ...
 
-npm install xxx -D 开发环境 devDependences
-npm install xxx  生产环境 dependences
+npm i install xxx -D 开发环境 devDependences   npm install xxx --save-dev
+npm i install xxx  生产环境 dependences
+i表示本地安装非全局
+webpack是基于node运行的，他的配置文件都需要遵守commonJS规范
+
+使用webpack
+  -- 初始化一个项目 npm init -y
+  -- 安装 webpack webpack-cli   npm i webpack webpack-cli --save-dev
+        + --save就是说把当前安装的包的信息存放到package.json
+        + -dev 相当于告诉webpack这是开发环境需要的包， 不加相当于是生产依赖
