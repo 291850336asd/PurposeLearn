@@ -17,7 +17,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: '首页',
             // Load a custom template (lodash by default)
-            template: './index.html'
+            template: './index.html',
+            // hash: true,
+            // minify: true  //压缩
         })
     ]
 };
