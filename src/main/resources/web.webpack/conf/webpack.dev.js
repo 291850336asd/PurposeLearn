@@ -1,2 +1,8 @@
 const baseconfig = require('./webpack.base');
-module.exports = baseconfig;
+const { merge } = require('webpack-merge');
+module.exports = merge(baseconfig, {
+    devServer: {
+        port: 9000,
+        open: true
+    }
+})
