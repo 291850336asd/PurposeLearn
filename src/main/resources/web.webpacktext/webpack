@@ -10,7 +10,7 @@ webpack作用：
  -- ...
 
 npm i install xxx -D 开发环境 devDependences   npm install xxx --save-dev
-npm i install xxx  生产环境 dependences
+npm i install xxx -S 生产环境 dependences  //-S 保证包加入到package.json中
 i表示本地安装非全局
 webpack是基于node运行的，他的配置文件都需要遵守commonJS规范
 
@@ -19,3 +19,10 @@ webpack是基于node运行的，他的配置文件都需要遵守commonJS规范
   -- 安装 webpack webpack-cli   npm i webpack webpack-cli --save-dev
         + --save就是说把当前安装的包的信息存放到package.json
         + -dev 相当于告诉webpack这是开发环境需要的包， 不加相当于是生产依赖
+
+
+package.json
+  -- devDependencies dependencies 主要就是为了方便开发查看，跟打包没有关系，打包跟依赖关系图相关
+
+
+webpack默认会找src下的index.js作为入口文件
