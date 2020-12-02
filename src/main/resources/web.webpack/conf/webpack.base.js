@@ -1,7 +1,7 @@
 // 这是webpack默认读取的配置文件
 const path = require('path');  // node默认自带
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     // 这个对象里面都是webpack的配置项
     // https://www.webpackjs.com/configuration/
