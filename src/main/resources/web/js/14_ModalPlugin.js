@@ -229,7 +229,7 @@
 
                     if (targetTag === 'A' && targetClass === "drag_button") {
                         // 自定义按钮
-                        let index = target.getAttribute('web.js.15_LazyImg.index'),
+                        let index = target.getAttribute('web.webpack.public.index'),
                             obj = _this.options.buttons[index];
                         if (!obj || (typeof obj.click !== "function")) return;
                         obj.click.call(_this, _this);

@@ -8,11 +8,12 @@ import java.util.stream.Collectors;
 public class Test {
     public static void main(String[] args) {
 
-        System.out.println(Math.abs("C3330000000079354134".hashCode())%32 + 1);//1020555
+        System.out.println(Math.abs("oN4j70ESEhKzKASsjX5P1w0Fr89U_5".hashCode())%32 + 1);//1020555
         System.out.println(Math.abs("18105075275".hashCode())%32 + 1);//1001033779
+        System.out.println(Math.abs("E510000000140202929".hashCode())%32 + 1);//1001033779
 //        System.out.println(Math.abs("15015166536".hashCode())%32 + 1);
 
-        System.out.println(1002745117%32 + 1);
+        System.out.println(1110400051%32 + 1);
 
     }
 
