@@ -71,7 +71,7 @@ local.properties
 *.iws
 .idea/
 ## .gitignore for linux
-.*
+.([^browserslist]*)
 !.gitignore
 *~
 ## .gitignore for windows
