@@ -1,5 +1,6 @@
 let a = require("./a.js");
 let {b} = require("./b.js");
+import './css/htmlcss.css'
 console.log(a);
 console.log(b);
 

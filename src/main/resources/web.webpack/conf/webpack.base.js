@@ -1,6 +1,7 @@
 // 这是webpack默认读取的配置文件
 const path = require('path');  // node默认自带
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');//可以把import的css文件单独生成一个css文件然后引入
 module.exports = {
     // 这个对象里面都是webpack的配置项
     // https://www.webpackjs.com/configuration/
@@ -16,8 +17,46 @@ module.exports = {
         filename: '[name].[hash:5].js'
     },
     plugins:[
-        new CleanWebpackPlugin()
-    ]
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename:'css/[name][hash:5].css'
+        })
+    ],
+    module:{
+        rules:[
+            // {
+            //     test: /\.css$/,
+            //     //css-loader把css转成js语法，style-loader把css转成的js语法，插入到页面中
+            //     //loader加载顺讯从右到左
+            //     use: ['style-loader', 'css-loader']
+            // }
+            {
+                test: /\.css$/,
+                // css兼容性处理  写法一
+                // postcss-loader 安装postcss-loader postcss
+                // 配置 src/postcss.config.js src/  需要安装postcss-preset-env
+                //.browserslistrc 设置浏览器兼容版本
+                // use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+                // css兼容性处理  写法二
+                // .browserslistrc 设置浏览器兼容版本
+                use: [MiniCssExtractPlugin.loader, 'css-loader', {
+                    loader: 'postcss-loader',
+                    options: {
+                        postcssOptions: {
+                            plugins: [
+                                [
+                                    "postcss-preset-env",
+                                    {
+                                        // Options
+                                    },
+                                ],
+                            ],
+                        }
+                    }
+                }]
+            }
+        ]
+    }
 };
 
 //单入口

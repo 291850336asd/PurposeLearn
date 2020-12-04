@@ -1,0 +1,14 @@
+/* 去除默认样式*/
+a {
+    text-decoration: none;
+    color: #fff;
+}
+body{
+    min-width: 1200px;
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans,sans-serif"
+}
+body div:hover {
+    cursor: default;
+}
