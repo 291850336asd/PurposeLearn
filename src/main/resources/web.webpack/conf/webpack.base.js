@@ -7,7 +7,8 @@ module.exports = {
     mode: 'development', // 控制环境 development 默认 production
     entry: {
         index: './src/index.js',
-        indexSecond:'./src/indexSecond.js'
+        indexSecond:'./src/indexSecond.js',
+        common:'./src/common.js'
     },   // 默认值为 ./src/index.js    来指定一个入口起点（或多个入口起点）。
     output:{
         // output 属性告诉 webpack 在哪里输出它所创建的 bundles，以及如何命名这些文件，默认值为 ./dist,  基本上，整个应用程序结构，都会被编译到你指定的输出路径的文件夹中

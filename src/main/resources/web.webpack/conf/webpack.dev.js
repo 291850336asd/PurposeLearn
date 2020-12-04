@@ -25,14 +25,16 @@ module.exports = merge(baseconfig, {
             title: '首页',
             // Load a custom template (lodash by default)
             template: './index.html',
-            filename:'index.html'
+            filename:'index.html',
+            chunks:['index','common']
             // hash: true,
             // minify: true  //压缩
         }),
         new HtmlWebpackPlugin({
             title: '首页2',
             template: './indexSecond.html',
-            filename:'indexSecond.html'
+            filename:'indexSecond.html',
+            chunks:['indexSecond','common']
         })
     ]
 })
