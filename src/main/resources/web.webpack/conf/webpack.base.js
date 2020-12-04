@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');//可以把import的css文件单独生成一个css文件然后引入
 // const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); //压缩css  方式1
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); //压缩css  方式2
+const TerserPlugin = require('terser-webpack-plugin');  //js压缩
 module.exports = {
     // 这个对象里面都是webpack的配置项
     // https://www.webpackjs.com/configuration/
@@ -21,7 +22,9 @@ module.exports = {
     plugins:[
         new CleanWebpackPlugin(),
         // new OptimizeCssAssetsPlugin(),
-        new CssMinimizerPlugin(),
+        new TerserPlugin({
+            parallel: true,
+        }),
         new MiniCssExtractPlugin({
             filename:'css/[name][hash:5].css'
         })
@@ -80,8 +83,17 @@ module.exports = {
                 ]
             }
         ]
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new CssMinimizerPlugin(),
+            new TerserPlugin({
+                parallel: true,
+            })
+        ],
+
     }
-};
 
 //单入口
 // module.exports = {
