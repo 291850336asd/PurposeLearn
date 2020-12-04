@@ -15,7 +15,8 @@
     "webpack-merge": "^5.4.0"
   },
   "scripts": {
-    "build": "webpack --config conf/webpack.config.js",
+    "buildprd": "webpack --config conf/webpack.config.js",
+    "builddev": "webpack --config conf/webpack.dev.js",
     "dev": "webpack-dev-server --config conf/webpack.dev.js"
   },
   "keywords": [],
