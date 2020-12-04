@@ -4,7 +4,7 @@ import './css/htmlcss.css'
 console.log(a);
 console.log(b);
 
-
+import './css/2.less'
 let xhr = new XMLHttpRequest();
 
 xhr.load = ()=>{

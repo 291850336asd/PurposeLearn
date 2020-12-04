@@ -54,6 +54,10 @@ module.exports = {
                         }
                     }
                 }]
+            },
+            {
+                test: /\.less$/,
+                use: [MiniCssExtractPlugin.loader,'css-loader','less-loader','postcss-loader']
             }
         ]
     }
