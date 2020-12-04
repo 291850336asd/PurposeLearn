@@ -65,9 +65,10 @@ module.exports = {
                     {
                         loader: 'url-loader',
                         options: {
+                            name:'img/[name].[ext]', //不设置自动在dist生成名字
                             limit: 8192
                             //url-loader 功能类似于 file-loader，但是在文件大小（单位 byte）低于指定的限制时，可以返回一个 DataURL。
-                            //当图片大小小于limit时，则直接base64
+                            //当图片大小小于limit时，则直接base64  减少服务器请求
                             //当图片大小大于limit时，url-loader将启动file-loader插件，返回图片路径
                             //limit可以设置成false,全部返回图片路径
                         }
