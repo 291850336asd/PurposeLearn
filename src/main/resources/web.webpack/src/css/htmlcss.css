@@ -2,7 +2,7 @@ body{
     background-color: burlywood;
 }
 
-div{
+.div1{
     display: inline-block;
     transform: rotate(-50deg);
 }

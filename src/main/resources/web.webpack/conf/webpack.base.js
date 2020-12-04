@@ -58,6 +58,20 @@ module.exports = {
             {
                 test: /\.less$/,
                 use: [MiniCssExtractPlugin.loader,'css-loader','less-loader','postcss-loader']
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif|icon)$/i,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192
+                            //url-loader 功能类似于 file-loader，但是在文件大小（单位 byte）低于指定的限制时，可以返回一个 DataURL。
+                            //当图片大小小于limit时，则直接base64
+                            //当图片大小大于limit时，将启动file-loader插件，返回图片路径
+                        }
+                    }
+                ]
             }
         ]
     }

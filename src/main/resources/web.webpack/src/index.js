@@ -5,6 +5,11 @@ console.log(a);
 console.log(b);
 
 import './css/2.less'
+
+import imgClose from '../public/close.png'
+let img = new Image();
+img.src = imgClose;
+document.body.appendChild(img);
 let xhr = new XMLHttpRequest();
 
 xhr.load = ()=>{
