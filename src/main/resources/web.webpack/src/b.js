@@ -10,4 +10,11 @@ class Book{
         console.log("sds")
     }
 }
+
+async function  fun(){
+    await console.log(123);
+    console.log(666);
+}
+fun();
+
 export {a, b}
