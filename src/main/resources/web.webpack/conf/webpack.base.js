@@ -26,7 +26,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'css/[name][hash:5].css'
         }),
-        new webpack.ProvidePlugin({
+        new webpack.ProvidePlugin({ //自动加载模块，而不必到处 import 或 require
             $: 'jquery',
             jQuery: 'jquery'
         })
@@ -117,6 +117,12 @@ module.exports = {
     },
     externals: {
         jquery: 'jQuery'
+    },
+    resolve: {
+        extensions: [".js", ".json",".vue", ".css"],   //自动解析确定的扩展。默认值为：[".js", ".json"]
+        alias:{ // 加快查找速度
+            '@utils' : path.resolve(__dirname, '../src/utils')
+        }
     }
 };
 //单入口
