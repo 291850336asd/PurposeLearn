@@ -38,7 +38,8 @@ module.exports = {
             OPTIONS: {
                 name: JSON.stringify("name")
             }
-        })
+        }),
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/) // 打包时忽略指定的文件 减少打包文件的体积
     ],
     module: {
         noParse: /jquery|lodash/, // 明确告诉webpack这俩包不依赖任何其他包，可以提高构建性能
@@ -123,7 +124,28 @@ module.exports = {
             // new TerserPlugin({    // js压缩
             //     parallel: true,
             // })
-        ]
+        ],
+        splitChunks:{  //分包的配置    https://webpack.js.org/plugins/split-chunks-plugin/#optimizationsplitchunks
+            chunks: "all", // 引入方式
+            minSize: 20000,
+            minChunks: 1, // 最少被使用的次数
+            // maxAsyncRequests: 5,
+            // maxInitialRequests: 3,
+            // automaticNameDelimiter: '~',
+            // name: true,
+            cacheGroups: {
+                //緩存組，符合這些条件的包后续走这个缓存
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            }
+        }
     },
     externals: {
         jquery: 'jQuery'
