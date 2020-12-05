@@ -3,7 +3,8 @@ let {b} = require("./b.js");
 import './css/htmlcss.css'
 console.log(a.default);
 console.log(b);
-
+console.log(BASE_URL)
+console.log(OPTIONS.name)
 import './css/2.less'
 
 import imgClose from '../public/close.png'

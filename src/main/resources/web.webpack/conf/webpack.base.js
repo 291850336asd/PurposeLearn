@@ -29,9 +29,19 @@ module.exports = {
         new webpack.ProvidePlugin({ //自动加载模块，而不必到处 import 或 require
             $: 'jquery',
             jQuery: 'jquery'
+        }),
+        new webpack.DefinePlugin({  // 全局常量
+            BASE_URL: '"xxxx"', // xxxx字符串
+            BASE_URL2: 'xxxx', // xxxx变量
+            BASE_URL3:  JSON.stringify("xxxx"), // xxxx字符串
+            TWO: "1+1",// 2
+            OPTIONS: {
+                name: JSON.stringify("name")
+            }
         })
     ],
     module: {
+        noParse: /jquery|lodash/, // 明确告诉webpack这俩包不依赖任何其他包，可以提高构建性能
         rules: [
             // {
             //     test: /\.css$/,
@@ -87,7 +97,7 @@ module.exports = {
             {
                 test: /\.(js)$/,
                 exclude: /(node_modules|bower_components)/,
-                use: {
+                use: ["thread-loader",{
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env'],
@@ -102,7 +112,7 @@ module.exports = {
                             ]
                         ]
                     }
-                }
+                }]
             }
         ]
     },
