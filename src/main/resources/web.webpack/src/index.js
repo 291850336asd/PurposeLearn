@@ -1,8 +1,9 @@
 let a = require("./a.js");
 let {b} = require("./b.js");
 import './css/htmlcss.css'
-console.log(a);
+console.log(a.default);
 console.log(b);
+
 
 import './css/2.less'
 

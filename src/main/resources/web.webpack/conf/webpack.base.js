@@ -1,5 +1,6 @@
 // 这是webpack默认读取的配置文件
 const path = require('path');  // node默认自带
+const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');//可以把import的css文件单独生成一个css文件然后引入
 // const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); //压缩css  方式1
@@ -24,6 +25,10 @@ module.exports = {
         // new OptimizeCssAssetsPlugin(),
         new MiniCssExtractPlugin({
             filename: 'css/[name][hash:5].css'
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
         })
     ],
     module: {
@@ -109,6 +114,9 @@ module.exports = {
             //     parallel: true,
             // })
         ]
+    },
+    externals: {
+        jquery: 'jQuery'
     }
 };
 //单入口
