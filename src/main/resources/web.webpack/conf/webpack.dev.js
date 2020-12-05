@@ -4,6 +4,7 @@ const path = require('path');
 const API = require('../mockapi/index');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = merge(baseconfig, {
+    devtool:"source-map", //有助于调试
     devServer: {
         port: 9000,
         // open: true,

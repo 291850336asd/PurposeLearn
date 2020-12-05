@@ -122,7 +122,11 @@ module.exports = {
         extensions: [".js", ".json",".vue", ".css"],   //自动解析确定的扩展。默认值为：[".js", ".json"]
         alias:{ // 加快查找速度
             '@utils' : path.resolve(__dirname, '../src/utils')
-        }
+        },
+        modules: ["node_modules"] //引入模块默认查找位置
+        // modules: [path.resolve(__dirname, "src"), "node_modules"] 如果你想要添加一个目录到模块搜索目录，此目录优先于 node_modules
+
+
     }
 };
 //单入口

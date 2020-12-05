@@ -4,7 +4,6 @@ import './css/htmlcss.css'
 console.log(a.default);
 console.log(b);
 
-
 import './css/2.less'
 
 import imgClose from '../public/close.png'
