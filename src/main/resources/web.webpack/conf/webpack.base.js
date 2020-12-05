@@ -78,6 +78,22 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.(js)$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                        plugins: [
+                           [
+                               '@babel/plugin-proposal-class-properties',
+                               {'loose':true}
+                           ]
+                        ]
+                    }
+                }
             }
         ]
     },
@@ -85,9 +101,9 @@ module.exports = {
         minimize: true,
         minimizer: [
             new CssMinimizerPlugin(), //css压缩
-            new TerserPlugin({    // js压缩
-                parallel: true,
-            })
+            // new TerserPlugin({    // js压缩
+            //     parallel: true,
+            // })
         ]
     }
 };
