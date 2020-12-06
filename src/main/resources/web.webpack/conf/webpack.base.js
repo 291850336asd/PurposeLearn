@@ -139,6 +139,16 @@ module.exports = {
                     test: /[\\/]node_modules[\\/]/,
                     priority: -10
                 },
+                jquery: {
+                    test: /jquery/,
+                    filename:'[name][hash:5].js',
+                    chunks:'initial'
+                },
+                moment: {
+                    test: /moment/,
+                    filename:'[name][hash:5].js',
+                    chunks:'initial'
+                },
                 default: {
                     minChunks: 2,
                     priority: -20,
