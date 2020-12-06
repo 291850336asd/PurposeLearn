@@ -32,6 +32,7 @@
     "html-webpack-plugin": "^4.5.0",
     "moment": "^2.29.1",
     "thread-loader": "^3.0.1",
+    "vue": "^2.6.12",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.3",
     "webpack-dev-server": "^3.11.0",
@@ -40,6 +41,7 @@
   "scripts": {
     "buildprd": "webpack --config conf/webpack.config.js",
     "builddev": "webpack --config conf/webpack.dev.js",
+    "buildvue": "webpack --config vue.dll.config.js",
     "dev": "webpack-dev-server --config conf/webpack.dev.js"
   },
   "keywords": [],

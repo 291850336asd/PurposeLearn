@@ -21,7 +21,13 @@ module.exports = {
         filename: '[name].[hash:5].js'
     },
     plugins: [
-        new CleanWebpackPlugin(),
+        new webpack.DllReferencePlugin({
+            manifest: path.resolve(__dirname, '../dist/manifest.json'),
+            //在打包编译的时候，先去manifest中查看有没有这个包，若有则直接跳过，不再打包
+        }),
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns:['**/*', "!dll_*", "!manifest*"]
+        }),
         // new OptimizeCssAssetsPlugin(),
         new MiniCssExtractPlugin({
             filename: 'css/[name][hash:5].css'

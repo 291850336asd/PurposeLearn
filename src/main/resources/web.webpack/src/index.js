@@ -2,11 +2,14 @@ let a = require("./a.js");
 let {b} = require("./b.js");
 let moent = require('moment/locale/zh-cn')
 import './css/htmlcss.css'
+import  Vue from 'vue'
 console.log(a.default);
 console.log(b);
 console.log(BASE_URL)
 console.log(OPTIONS.name)
 moent
+console.log(new Vue())
+
 import './css/2.less'
 
 import imgClose from '../public/close.png'

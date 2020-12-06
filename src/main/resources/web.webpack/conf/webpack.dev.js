@@ -8,7 +8,7 @@ module.exports = merge(baseconfig, {
     devServer: {
         port: 9000,
         // open: true,
-        contentBase: path.resolve(__dirname, "../public"),
+        contentBase:[ path.resolve(__dirname, "../public"), 'dist'],
         before: API.before,
         proxy: {
             // '/api': 'http://www.baidu.com'
