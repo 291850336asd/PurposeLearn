@@ -6,15 +6,16 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');//可以把impor
 // const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); //压缩css  方式1
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); //压缩css  方式2
 const TerserPlugin = require('terser-webpack-plugin');  //js压缩
+const FilePlugin = require('../plugin/FilePlugin');// 自定义记录打包文件大小插件
 module.exports = {
     // 这个对象里面都是webpack的配置项
     // https://www.webpackjs.com/configuration/
     mode: 'development', // 控制环境 development 默认 production
-    entry: {
+    entry: {  // 默认值为 ./src/index.js    来指定一个入口起点（或多个入口起点）。
         index: './src/index.js',
         indexSecond: './src/indexSecond.js',
         common: './src/common.js'
-    },   // 默认值为 ./src/index.js    来指定一个入口起点（或多个入口起点）。
+    },
     output: {
         // output 属性告诉 webpack 在哪里输出它所创建的 bundles，以及如何命名这些文件，默认值为 ./dist,  基本上，整个应用程序结构，都会被编译到你指定的输出路径的文件夹中
         path: path.resolve(__dirname, '../dist'),  //需要配置绝对路径
@@ -45,11 +46,20 @@ module.exports = {
                 name: JSON.stringify("name")
             }
         }),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/) // 打包时忽略指定的文件 减少打包文件的体积
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), // 打包时忽略指定的文件 减少打包文件的体积
+        new FilePlugin({fileName: 'fileStatistics.txt'}) //文件统计大小插件
     ],
+    resolveLoader:{
+        modules: [ path.resolve(__dirname,"../node_modules"), path.resolve(__dirname,"../loader")]
+        // alias: {
+        //     loader1: path.resolve(__dirname,"../loader", "loader1.js"),
+        //     loader2: path.resolve(__dirname,"../loader", "loader2.js"),
+        //     loader3: path.resolve(__dirname,"../loader", "loader3.js"),
+        // }
+    },
     module: {
         noParse: /jquery|lodash/, // 明确告诉webpack这俩包不依赖任何其他包，可以提高构建性能
-        rules: [
+        rules: [ // 从下往上，从右到左 加载
             // {
             //     test: /\.css$/,
             //     //css-loader把css转成js语法，style-loader把css转成的js语法，插入到页面中
@@ -120,7 +130,34 @@ module.exports = {
                         ]
                     }
                 }]
-            }
+            },
+            // {
+            //     test: /\index.(js)$/,
+            //     use:{
+            //         loader: 'loader1'
+            //     },
+            //     enforce:"pre" // 设置加载顺序  https://webpack.js.org/configuration/module/#ruleenforce
+            // },
+            // {
+            //     test: /\index.(js)$/,
+            //     use:{
+            //         loader: 'loader2'
+            //     }
+            // },
+            // {
+            //     test: /\index.(js)$/,
+            //     use:{
+            //         loader: 'loader3'
+            //     },
+            //     enforce:"post"
+            // },
+            // {
+            //     test: /3\.less$/,
+            //     use:[
+            //            { loader: 'customstyleloader' },
+            //            { loader: 'customlessloader' }
+            //         ]
+            // }
         ]
     },
     optimization: {
@@ -171,10 +208,8 @@ module.exports = {
         alias:{ // 加快查找速度
             '@utils' : path.resolve(__dirname, '../src/utils')
         },
-        modules: ["node_modules"] //引入模块默认查找位置
+        modules: [ path.resolve(__dirname,"../node_modules")] //引入模块默认查找位置
         // modules: [path.resolve(__dirname, "src"), "node_modules"] 如果你想要添加一个目录到模块搜索目录，此目录优先于 node_modules
-
-
     }
 };
 //单入口

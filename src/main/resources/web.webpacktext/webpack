@@ -31,3 +31,22 @@ loader 让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身�
 loader 可以将所有类型的文件转换为 webpack 能够处理的有效模块，然后你就可以利用 webpack 的打包能力，对它们进行处理。
 
 url-loader 功能类似于 file-loader，但是在文件大小（单位 byte）低于指定的限制时，可以返回一个 DataURL。
+
+
+https://www.webpackjs.com/contribute/writing-a-loader/
+loader的原理和实现
+1.设置loader的默认配置，lib/webpack.js
+2.解析loader的模块路径  node_modules
+3.根据rule.modules创建RulesSet规则集
+4.使用loader-runner运行loader
+
+解析webpack中loader的方式
+1.直接把loader放到node_modules下
+2.resolveLoader 设置loader别名
+3.resolveLoader.modules
+
+loader执行顺序pre,normal,inline, post
+例如导入index.js写法
+require("inline-loader!./index")  只使用inline-loader 处理index.js
+require("!!inline-loader!./index")  不要其他的loader处理，只要inline-loader处理index.js
+require("-!inline-loader!./index")  不要执行当前inline-loader前面的loader  处理index.js
