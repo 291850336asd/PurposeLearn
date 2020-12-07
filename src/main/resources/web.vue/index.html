@@ -14,6 +14,7 @@
        <h1  v-text="name1"></h1>
        <h1  v-html="name1"></h1>
        <input v-model="name1">
+       <img v-bind:src="url" alt="">  <!-- v-bind 处理行内属性 -->
    </div>
 </body>
 </html>
@@ -24,7 +25,8 @@
         data:{
             name:'123',
             name1:'<i>123</i>',
-            age:23
+            age:23,
+            url: 'www'
         }
     });
 </script>
