@@ -17,3 +17,17 @@ $refs 也不是响应式的，因此你不应该试图用它在模板中做数�
   数据对象重新赋值
   强制更新界面
   更过其他字段更新触发界面刷新
+
+
+// 加载执行
+watch:{
+    name:{
+        immediate:true,
+        deep: true,
+        handler(newVal, oldVal){
+        }
+    }
+}
+deep
+immediate
+https://cn.vuejs.org/v2/api/#vm-watch
