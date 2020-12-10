@@ -31,3 +31,9 @@ watch:{
 deep
 immediate
 https://cn.vuejs.org/v2/api/#vm-watch
+
+
+//组件复用保证数据对立性
+data(){
+ return {}
+}
