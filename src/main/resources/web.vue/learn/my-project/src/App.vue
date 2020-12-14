@@ -1,6 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
+    <myvue></myvue>
     <HelloWorld msg="Welcome to Your Vue.js App">
 <!-- 老写法     <template v-slot:hwheader ='userScope'>-->
      <template slot='hwheader' slot-scope='userScope'>
@@ -18,6 +19,7 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import myvue from './components/myvue.vue'
 
 export default {
   name: 'App',
@@ -26,7 +28,7 @@ export default {
     }
   },
   components: {
-    HelloWorld
+    HelloWorld,myvue
   }
 }
 </script>
