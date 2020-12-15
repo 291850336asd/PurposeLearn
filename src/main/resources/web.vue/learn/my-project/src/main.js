@@ -1,7 +1,12 @@
 import Vue from 'vue'
+
 import App from './App.vue'
 import '@/globalvue/myapp.js'
+import store from './store/store'
 Vue.config.productionTip = false;
+
+
+
 
 
 //全局自定义指令  //必须在界面渲染前执行
@@ -26,6 +31,7 @@ Vue.directive('permission',{
 });
 
 new Vue({
+  store: store,
   render: h => h(App),
 }).$mount('#app')
 

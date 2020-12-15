@@ -1,5 +1,8 @@
 <template>
   <div class="hello">
+
+    <h1>{{ $store.state.count }}</h1>
+    <h1>{{ $store.getters.colorCount }}</h1>
     <h1>{{ msg }}</h1>
     <slot name="hwheader" :user="user" aa="1">
     </slot>
@@ -42,7 +45,11 @@ export default {
     }
   },
   created() {
-    console.log(Bus.aa);
+      console.log(Bus.aa);
+      console.log('hello',this)
+      console.log( this.$store.getters.colorCount)
+      this.$store.commit('changeCount', 1111)
+      this.$store.dispatch('increment', 1111)
   }
 }
 </script>
