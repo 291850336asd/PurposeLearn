@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import moduleA from '../modules/moduleA'
+import moduleB from '../modules/moduleB'
 Vue.use(Vuex)
 var store = new Vuex.Store(
     {
@@ -39,7 +41,9 @@ var store = new Vuex.Store(
             }
         },
         modules:{
-
+            //如果没设置命名空间，存在重名的方法则都会执行
+            moduleA: moduleA,
+            moduleB: moduleB
         }
     }
 );

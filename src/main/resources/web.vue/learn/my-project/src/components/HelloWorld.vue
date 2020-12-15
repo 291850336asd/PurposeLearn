@@ -2,6 +2,8 @@
   <div class="hello">
 
     <h1>{{ $store.state.count }}</h1>
+    <h1>{{ $store.state.moduleA.colorA }}</h1>
+    <h1>{{ $store.state.moduleB.colorA }}</h1>
     <h1>{{ $store.getters.colorCount }}</h1>
     <h1>{{ msg }}</h1>
     <slot name="hwheader" :user="user" aa="1">
@@ -50,6 +52,8 @@ export default {
       console.log( this.$store.getters.colorCount)
       this.$store.commit('changeCount', 1111)
       this.$store.dispatch('increment', 1111)
+      // this.$store.dispatch('changeColorAAsync', 1111) //没有命名空间 则moduleA 和moduleB 都会被调用
+      this.$store.dispatch('moduleA/changeColorAAsync', 1111) //没有命名空间 则moduleA 和moduleB 都会被调用
   }
 }
 </script>
