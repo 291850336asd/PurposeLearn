@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import Bus from '../bus';
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -38,6 +40,9 @@ export default {
         name:"meng"
       }
     }
+  },
+  created() {
+    console.log(Bus.aa);
   }
 }
 </script>

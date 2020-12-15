@@ -9,6 +9,7 @@
 </template>
 
 <script>
+    import Bus from '../bus';
     export default {
         name: "myvue",
         data(){
@@ -21,6 +22,9 @@
             color(el, obj){
                 el.style.color = obj.value;
             }
+        },
+        created() {
+            console.log(Bus.aa);
         }
     }
 </script>
