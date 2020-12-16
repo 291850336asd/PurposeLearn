@@ -2,6 +2,14 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import moduleA from '../modules/moduleA'
 import moduleB from '../modules/moduleB'
+// const modulesAll  = require.context('../modules', false, /\.js$/)
+// modulesAll.keys().forEach(item => {
+//     console.log(item)
+//     console.log(modulesAll(item).default)
+//
+//     modulesAll(item).default
+// })
+// console.log(modulesAll.keys())
 Vue.use(Vuex)
 var store = new Vuex.Store(
     {

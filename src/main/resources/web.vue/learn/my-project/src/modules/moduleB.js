@@ -6,6 +6,10 @@ export default {
     mutations:{
         changeAColor(state){
             state.colorA = 'blueB'
+        },
+        changeB(state){
+            state.colorA = 'blueB'
+            console.log("BBBBB");
         }
     },
     actions:{
