@@ -3,6 +3,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import '@/globalvue/myapp.js'
 import store from './store/store'
+import router from './router'
 Vue.config.productionTip = false;
 
 
@@ -32,6 +33,7 @@ Vue.directive('permission',{
 
 new Vue({
   store: store,
+  router,
   render: h => h(App),
 }).$mount('#app')
 
