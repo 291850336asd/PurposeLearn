@@ -3,9 +3,15 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import Home from '../components/Home';
 import List from '../components/List';
-const routes = [
+import Error404 from "../components/Error404";
+import Detail from "../components/Detail";
+const routes = [  //匹配规则从上到下
     {
-        path: '/',
+        path:'/',
+        redirect:'/home'
+    },
+    {
+        path: '/home',
         name: "Home",
         component: Home
     },
@@ -13,6 +19,19 @@ const routes = [
         path: "/list",
         name: 'list',
         component: List
+    },
+    {
+        path: "/detail/:qqq/:www",
+        name: 'detail',
+        component: Detail
+    },
+    {
+        path:'/404',
+        component:Error404
+    },
+    {
+        path:'/*',
+        redirect: "/404"
     }
 ];
 
@@ -24,4 +43,7 @@ const router = new VueRouter({
     linkExactActiveClass: 'router-link-active-class' //默认值
     }
 );
+router.beforeEach((to,from,next) => {
+    next();
+})
 export default router;

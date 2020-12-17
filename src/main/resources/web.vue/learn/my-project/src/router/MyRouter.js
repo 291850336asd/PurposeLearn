@@ -27,8 +27,7 @@ function install(_Vue) {
     });
     Vue.component('router-view', {
         render(h){
-            this.$router.routerMap[this.$router._route]
-            return h('h1')
+            return h(this.$router.routerMap[this.$router._route])
         }
     });
 }
@@ -45,6 +44,7 @@ class VueRouter {
             this._route = location.hash.slice(1);
         })
         this._route = location.hash.slice(1);
+        Vue.util.defineReactive(this, '_router', '/');
         window.onhashchange = ()=> {
             this._route = location.hash.slice(1);
         }

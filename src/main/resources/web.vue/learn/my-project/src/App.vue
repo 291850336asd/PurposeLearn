@@ -1,8 +1,9 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div id="app">
       <img alt="Vue logo" src="./assets/logo.png">
-      <router-link to="/list">Go to List</router-link>
-      <router-link active-class="router-link-active" to="/home">Go to home</router-link>
+      <router-link to="/list?aa=1">Go to List</router-link>
+      <router-link :to="{ name:'detail', params:{ qqq:111, www:222 } }">Go to detail</router-link>
+      <router-link active-class="router-link-active" :to="{ path:'/home', query:obj }">Go to home</router-link>
       <router-view></router-view>
     <myvue></myvue>
     <HelloWorld msg="Welcome to Your Vue.js App">
@@ -28,6 +29,9 @@ export default {
   name: 'App',
   data(){
     return {
+        obj:{
+            name:'hah'
+        }
     }
   },
   components: {
