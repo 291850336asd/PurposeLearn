@@ -6,7 +6,7 @@ spi          com.meng.coding.spi
 
 原生JS 高级教程 插件封装 
 webpack系统学习  
-VUE VUEX ROUTER 
+VUE VUEX ROUTER  
 查找压缩文件中的内容  
 zcat xxx.tar.gz|grep --binary-files=text '17759111701'
 
