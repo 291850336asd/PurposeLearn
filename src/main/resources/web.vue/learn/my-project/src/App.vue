@@ -24,7 +24,7 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import myvue from './components/myvue.vue'
-
+import Message from './globalvue/Message.js'
 export default {
   name: 'App',
   data(){
@@ -33,6 +33,12 @@ export default {
             name:'hah'
         }
     }
+  },
+  mounted: ()=> {
+    Message.info({
+        message:'nihao',
+        duration: 2000
+    })
   },
   components: {
     HelloWorld,myvue
