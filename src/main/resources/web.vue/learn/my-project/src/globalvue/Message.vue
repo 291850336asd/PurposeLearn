@@ -22,7 +22,7 @@
                 let layer = {...options,id}
                 this.messages.push(layer);
                 layer.timer = setTimeout(()=> {
-
+                    this.remove(layer);
                 }, options.duration);
             },
             remove(layer){
