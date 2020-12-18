@@ -9,8 +9,8 @@ export default new Vue({
     },
     template: `
     <div>
-      <listSkeleton id="listSkeleton" style="display:none;" />
-      <detailSkeleton id="detailSkeleton" style="display:none;" />
+      <listSkeleton id="listSkeleton" />
+      <detailSkeleton id="detailSkeleton" />
     </div>
   `
 })

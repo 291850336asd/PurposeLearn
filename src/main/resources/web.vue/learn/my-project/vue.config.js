@@ -13,8 +13,8 @@ module.exports = {
             router: {
                 mode: 'hash',
                 routes: [
-                    { path: '/*', skeletonId: 'listSkeleton' },
-                    { path: /^\/detail/, skeletonId: 'detailSkeleton' }
+                    { path: '/', skeletonId: 'listSkeleton' },
+                    { path: /^\/detail/i, skeletonId: 'detailSkeleton' }
                 ]
             }
         }))
