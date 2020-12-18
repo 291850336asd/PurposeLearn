@@ -37,3 +37,35 @@ https://cn.vuejs.org/v2/api/#vm-watch
 data(){
  return {}
 }
+
+
+
+优化：
+1.data扁平化
+2.Object.freeze 处理不需要监听或修改的数据
+3.v-if v-show 区分场景
+4.v-for key的左右
+5.v-pre 静态html
+6.vue-virtual-scroll-list  长列表中不去直接渲染，而是采用虚拟列表去渲染
+7.组件懒加载+骨架屏 优化首页加载速度
+8.对于图片，采用懒加载  vue-lazyload
+9.对于切换时，不用销毁的组件采用keep-alive
+10.UI组件库按需加载
+11.使用alias 减少文件搜索，提升搜索效率
+12.异步组件 路由懒加载（）=》   骨架屏
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
