@@ -23,6 +23,7 @@
                 this.messages.push(layer);
                 layer.timer = setTimeout(()=> {
                     this.remove(layer);
+                    document.body.removeChild(this);
                 }, options.duration);
             },
             remove(layer){
@@ -35,5 +36,12 @@
 </script>
 
 <style scoped>
-
+.message{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: gray;
+    top: 0px;
+    left: 0px;
+}
 </style>

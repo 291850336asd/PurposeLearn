@@ -1,5 +1,5 @@
 //渲染 message.vue到body,并调用核心方法
-import MessageVue from 'Message.vue';
+import MessageVue from './Message.vue';
 import Vue from 'vue';
 let getInstance = ()=> {
     let vm = new Vue({
@@ -33,10 +33,11 @@ const Message = {
 }
 
 Message.install = (Vue) => {
-    let $messages = {};
+    let $message = {};
     Object.keys(Message).forEach(key => {
-
+        $message[key] = Message[key];
     })
+    Vue.prototype.$message = $message;
 }
 export {
     Message

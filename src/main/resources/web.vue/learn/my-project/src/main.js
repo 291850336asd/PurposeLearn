@@ -6,10 +6,10 @@ import store from './store/store'
 import router from './router'
 Vue.config.productionTip = false;
 
+import { Message } from './globalvue/Message.js';
 
 
-
-
+Vue.use(Message);
 //全局自定义指令  //必须在界面渲染前执行
 Vue.directive('myclick',function (el, obj) {
   console.log(arguments)
