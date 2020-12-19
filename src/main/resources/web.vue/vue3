@@ -1,0 +1,23 @@
+重写虚拟dom的实现 跳过静态节点，只处理动态节点
+update性能提高1.3-2倍
+ssr速度提高2-3倍
+
+tree shaking 可以将无用模块剪辑，仅打包需要的需要
+
+fragment 不载限制模板中的单个节点数
+
+teleport 以前称为portal,传送门
+
+suspense 可在嵌套层级中等待嵌套的异步依赖项
+
+typescript 更好的支持
+
+custom renderer api  自定义渲染api   用户可以尝试webgl自定义渲染器
+
+composition api
+组合api,替换原有的option api
+  根据逻辑相干性组织代码，提高可读性和可维护性
+  更好的重用逻辑代码，避免minxins混入时的命名冲突问题
+但是依然可以沿用options api
+
+proxy
