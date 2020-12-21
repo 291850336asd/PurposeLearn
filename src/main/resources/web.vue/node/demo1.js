@@ -1,3 +1,12 @@
+const env = process.env.NODE_ENV || 'dev';
+if(env === 'dev'){
+    console.log("开发环境");
+} else {
+    console.log("生产环境");
+}
+
+
+
 const http = require('http');
 
 const hostname = '127.0.0.1';
