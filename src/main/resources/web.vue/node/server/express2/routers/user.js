@@ -8,7 +8,7 @@ route.get("/list",(req, res) => {
     let { page = 1, size=5 } = req.query;
     res.send(listInfos.slice((page-1)*size, page*size));
 });
-app.post('/add',(req, res)=> {
+route.post('/add',(req, res)=> {
     let { id, name} = req.body;
     listInfos.splice(0,0,{id:id, name:name });
     res.send(listInfos);
