@@ -1,9 +1,9 @@
 module.exports = {
     PORT: 9000,
-    cros:{
-        // ALLOW_ORIGIN: 'http://127.0.0.1:3000',
+    CROS:{
+        // ALLOW_ORIGIN: 'http://127.0.0.1:3000',//一旦设置*则不能携带cookie
         ALLOW_ORIGIN: '*',
-        ALLOW_METHODS:'PUT,POST,GET,DELETE,OPTIONS,HEAD'
+        ALLOW_METHODS:'PUT,POST,GET,DELETE,OPTIONS,HEAD',
         HEADERS:'Content-Type,Content-Length,Authorization,Accept,X-Request-With',
         CREDENTIALS:true
     },
