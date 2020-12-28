@@ -10,10 +10,14 @@ route.post('/login',(req, res)=> {
 //校验是否登录
 route.get('/login',(req, res)=> {
     let { account, password, yupe} = req.body;
+
     res.send({id:1, name:'usertest',phone:'134xxxxxxxx'});
 });
 route.get("/list",(req, res) => {
     let { page = 1, size=5 } = req.query;
+    console.log('userid',req.session.userId)
+    req.session.userId = 1;
+   throw new TypeError("iiiiiiiiiiiiiiiii");
     res.send(listInfos.slice((page-1)*size, page*size));
 });
 route.post('/add',(req, res)=> {

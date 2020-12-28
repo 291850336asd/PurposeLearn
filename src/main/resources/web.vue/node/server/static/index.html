@@ -3,12 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>server node</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
 <div>
     梳理也
 
     <img style="width: 100px;height: 100px" src="close.png">
+
+    <!--<script>-->
+        <!--const teacherBaseApiUrl = "http://localhost:9000/";-->
+        <!--// const teacherBaseApiUrl = "http://localhost:8060/";-->
+
+        <!--const teacherBaseAxios = axios.create({-->
+            <!--baseURL: teacherBaseApiUrl,-->
+            <!--headers: {-->
+                <!--Accept: "application/json; charset=utf-8"-->
+            <!--}-->
+        <!--});-->
+        <!--// 添加请求拦截器-->
+        <!--teacherBaseAxios.interceptors.request.use(function (config) {-->
+<!--//            console.log("request1 config", config);-->
+            <!--return config;-->
+        <!--}, function (error) {-->
+<!--//            console.log("request1 error1", error);-->
+            <!--return Promise.reject(error);-->
+        <!--});-->
+
+        <!--teacherBaseAxios.interceptors.response.use(response => {-->
+<!--//               console.log("response1", response);-->
+               <!--return response;-->
+            <!--}, function (error) {-->
+                <!--console.log('1111');-->
+<!--//                console.log( error);-->
+                <!--console.dir( error);-->
+<!--//                console.log( error.toString());-->
+<!--//                console.log( typeof error);-->
+<!--//                return Promise.reject(error);-->
+            <!--}-->
+        <!--);-->
+
+        <!--teacherBaseAxios.get('/user/list')-->
+            <!--.then(function(response) {-->
+                <!--console.log('list',response.data);-->
+                <!--console.log('list',response.status);-->
+                <!--console.log('list',response.statusText);-->
+                <!--console.log('list',response.headers);-->
+                <!--console.log('list',response.config);-->
+
+
+
+
+<!--//                teacherBaseAxios.get('/user/list')-->
+<!--//                    .then(function(response) {-->
+<!--//                    }).catch(resolve => {-->
+<!--//                    console.log('resolve1', resolve)-->
+<!--//                });-->
+            <!--}).catch(resolve => {-->
+<!--//                console.log('resolve1', resolve)-->
+        <!--});-->
+    <!--</script>-->
 </div>
 </body>
 </html>
