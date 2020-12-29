@@ -1,0 +1,7 @@
+vue Nuxt.js
+react next.js
+
+影响vue生命周期
+
+vue crate ssr
+npm install vue vue-server-renderer express -D  三者版本最好一致
