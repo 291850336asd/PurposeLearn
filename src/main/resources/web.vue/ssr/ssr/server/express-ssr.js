@@ -31,7 +31,6 @@ server.use(favicon('../public/favicon.ico'));
 server.use(express.static('../dist/client', { index: false }));
 
 server.get('*',async (req, res) => {
-    console.log(req.url)
    const context = {
        title:"ssr test",
        url:req.url

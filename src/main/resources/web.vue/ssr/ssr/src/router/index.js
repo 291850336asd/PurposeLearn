@@ -6,6 +6,7 @@ import HelloWorld from "@/components/HelloWorld.vue";
 Vue.use(VueRouter);
 export function createRouter() {
     return new VueRouter({
+       mode: 'history',
        routes:[
            {
                path:'/',
