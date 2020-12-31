@@ -1,6 +1,6 @@
 import { createApp } from "./main";
 
-const { app, router } = createApp()
+const { app, router } = createApp();
 
 //检测路由就绪
 router.onReady(()=>{

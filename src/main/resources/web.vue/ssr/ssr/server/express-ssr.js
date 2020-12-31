@@ -2,7 +2,6 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const server = express();
-const Vue = require('vue');
 
 function resolve(dir) {
     return path.resolve(__dirname, dir);
@@ -16,22 +15,23 @@ const clientManifest = require(resolve("../dist/client/vue-ssr-client-manifest.j
 
 const render = createBundleRenderer(bundleServer,{
     runInNewContext: false,
-    template,
-    clientManifest
+    template: template,
+    clientManifest: clientManifest
 });
 
 
 //处理favicon
 const favicon = require('serve-favicon');
-server.use(favicon('../public/favicon.ico'))
+server.use(favicon('../public/favicon.ico'));
 
 
 /**
  * 静态资源文件的处理
  */
-express().use(express.static('../dist/client', { index: false }));
+server.use(express.static('../dist/client', { index: false }));
 
 server.get('*',async (req, res) => {
+    console.log(req.url)
    const context = {
        title:"ssr test",
        url:req.url
