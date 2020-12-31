@@ -26,7 +26,7 @@ module.exports = {
     // https://webpack.js.org/configuration/externals/#function
     //外置化应用程序依赖模块，可以是服务器侯建速度更快，并生成娇小的打包文件
     externals: TARGET_NODE ? nodeExternals({
-        whitelist:[/\.css$/]
+      allowlist:[/\.css$/]
     }): undefined,
     optimization:{
       splitChunks: undefined
