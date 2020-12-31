@@ -4,40 +4,44 @@ const path = require('path');
 const server = express();
 const Vue = require('vue');
 
+function resolve(dir) {
+    return path.resolve(__dirname, dir);
+}
+
 //获取渲染实例
-const { createRenderer } = require("vue-server-renderer");
-const render = createRenderer({});
+const { createBundleRenderer } = require("vue-server-renderer");
+const bundleServer = require(resolve("../dist/server/vue-ssr-server-bundle.json"));
+const template = fs.readFileSync(resolve("../public/index.html"), "utf-8");
+const clientManifest = require(resolve("../dist/client/vue-ssr-client-manifest.json"));
+
+const render = createBundleRenderer(bundleServer,{
+    runInNewContext: false,
+    template,
+    clientManifest
+});
 
 
 //处理favicon
 const favicon = require('serve-favicon');
 server.use(favicon('../public/favicon.ico'))
-server.get('*', (req, res) => {
-    const template = req.url.substr(1) || 'index';
-    // console.log( req.url,template)
-    // 加载模板
-    const buffer = fs.readFileSync(path.resolve(__dirname, '../public/' + template + '.html'));
 
-   const app = new Vue({
-       // template:"<div @click='onClick'> {{msg}} </div>",  //无法交互
-       template: buffer.toString(),  //无法交互
-       data(){
-           return {
-             msg: "vue ssr"
-           };
-       },
-       methods:{
-           onClick(){
-               console.log('do something');
-           }
-       }
-   });
-   render.renderToString(app).then(html =>{
-       res.send(html);
-   }).catch(err => {
-       res.status(500);
-       res.send('Internal Server Error, 500!');
-   })
+
+/**
+ * 静态资源文件的处理
+ */
+express().use(express.static('../dist/client', { index: false }));
+
+server.get('*',async (req, res) => {
+   const context = {
+       title:"ssr test",
+       url:req.url
+   }
+   try{
+       const html = await render.renderToString(context);
+       res.send(html)
+   }catch (err){
+       res.status(500).send('服务器异常：' + err.toString());
+   }
 });
 
 server.listen(3000, ()=> {
