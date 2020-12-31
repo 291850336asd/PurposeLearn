@@ -5,7 +5,7 @@ import { createApp } from "./main";
 export default context => {
     //返回promise，确保异步的操作都结束
     return new Promise((resolve, reject)=>{
-        const { app, router } = createApp(context)
+        const { app, router,store } = createApp(context)
         //显示首屏
         router.push(context.url);
         //检测路由就绪
@@ -15,6 +15,7 @@ export default context => {
             if (!matchedComponents.length) {
                 return reject({ code: 404 })
             }
+            context.state = store.state;
             resolve(app);
         }, reject)
     });
