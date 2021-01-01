@@ -5,3 +5,20 @@ react next.js
 
 vue crate ssr
 npm install vue vue-server-renderer express -D  三者版本最好一致
+
+
+
+
+
+
+优点：
+seo
+首屏显示时间
+缺点：
+开发逻辑复杂
+开发条件限制：比如一些生命周期不能用，一些第三方库会不能用
+服务器负载大
+
+已经存在spa需要seo页面是否只是少数几个营销页面预渲染(prerender-spa-plugin)是否可以考虑
+确实需要做ssr改造，利用服务器端爬虫技术puppeteer
+最后选择重构

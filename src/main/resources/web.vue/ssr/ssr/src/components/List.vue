@@ -8,7 +8,12 @@
 
 <script>
     export default {
-        name: "List"
+        name: "List",
+        //触发action后，返回Promise以便确定请求结果
+        asyncData({store, route}){
+            //触发action后，返回Promise以便确定请求结果
+            return store.dispatch('getCount');
+        }
     }
 </script>
 

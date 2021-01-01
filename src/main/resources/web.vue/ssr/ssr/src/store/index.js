@@ -15,6 +15,16 @@ export function createStore() {
             init(state, count){
                 state.count = count;
             }
+        },
+        actions:{
+            getCount({commit}){
+                return new Promise(resolve => {
+                    setTimeout(()=>{
+                        commit('init', 10000);
+                        resolve()
+                    },3000);
+                })
+            }
         }
     });
 }
