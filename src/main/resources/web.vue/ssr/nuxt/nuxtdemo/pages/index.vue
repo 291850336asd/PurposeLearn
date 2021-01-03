@@ -3,7 +3,7 @@
     <div>
       <app-logo/>
       <h1 class="title">
-        nuxtdemo
+        nuxtdemo   {{ a }} -  {{ b }}
       </h1>
       <h2 class="subtitle">
         Nuxt.js project
@@ -28,7 +28,58 @@ import AppLogo from '~/components/AppLogo.vue'
 export default {
 //  middleware:'auth',
   middleware(context){
-    console.log("middleware pages index.vue")
+    //服务器端this为undefined
+    console.log("middleware pages index.vue", this)
+  },
+  //参数有效性
+//  validate(context){
+  validate({params, query}){
+    // 校验业务
+//    console.log('validate pages index.vue',window);//服务器端没有window报错
+    console.log('validate pages index.vue')
+    return true;
+  },
+  data(){
+    return { a:1 }
+  },
+  //读取数据，返回给组件
+  asyncData(context){
+    console.log('asyncData pages index.vue')
+    //异步业务逻辑，读取数据，返回数据跟data合并
+    return { b:2 }
+  },
+  //读取数据，读取数据提交给vuex
+  fetch({store}){
+    console.log('fetch pages index.vue')
+  },
+  //ssr & csr
+  beforeCreate(){
+    console.log('beforeCreate pages index.vue')
+  },
+  //ssr & csr
+  created(){
+    console.log('created pages index.vue')
+  },
+
+  //csr
+  beforeMount(){
+    console.log('beforeMount pages index.vue')
+  },
+  mounted(){
+    // this指向组件本身
+    console.log('mounted pages index.vue', window, this)
+  },
+  beforeUpdate(){
+    console.log('beforeUpdate pages index.vue')
+  },
+  updated(){
+    console.log('updated pages index.vue')
+  },
+  beforeDestory(){
+    console.log('beforeDestory pages index.vue')
+  },
+  destoryed(){
+    console.log('destoryed pages index.vue')
   },
   components: {
     AppLogo
