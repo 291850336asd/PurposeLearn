@@ -7,7 +7,7 @@
 <script>
   export default {
 //    middleware:'auth'
-    middleware(){
+    middleware(context){
       console.log('middleware layouts default.vue')
     }
   }

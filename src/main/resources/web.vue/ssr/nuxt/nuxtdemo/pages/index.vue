@@ -27,7 +27,7 @@ import AppLogo from '~/components/AppLogo.vue'
 
 export default {
 //  middleware:'auth',
-  middleware(){
+  middleware(context){
     console.log("middleware pages index.vue")
   },
   components: {
