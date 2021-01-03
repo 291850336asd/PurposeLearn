@@ -4,6 +4,15 @@
   </div>
 </template>
 
+<script>
+  export default {
+//    middleware:'auth'
+    middleware(){
+      console.log('middleware layouts default.vue')
+    }
+  }
+</script>
+
 <style>
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
