@@ -1,5 +1,10 @@
 <template>
   <div>
+    <nuxt-link to="/">首页</nuxt-link>
+    <nuxt-link to="/goods">商品</nuxt-link>
+    <nuxt-link to="/user">用户</nuxt-link>
+    <nuxt-link to="/reg">注册</nuxt-link>
+    <nuxt-link to="/login">登录</nuxt-link>
     <nuxt/>
   </div>
 </template>
