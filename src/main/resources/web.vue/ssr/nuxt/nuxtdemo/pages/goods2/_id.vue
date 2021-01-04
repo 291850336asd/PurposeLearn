@@ -5,11 +5,3 @@
       {{ this.$route.query }}
     </div>
 </template>
-<script>
-  export default {
-    validate({params, query}){
-      return params.id;
-    }
-  }
-
-</script>

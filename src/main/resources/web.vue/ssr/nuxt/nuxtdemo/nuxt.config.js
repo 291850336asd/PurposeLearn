@@ -15,7 +15,15 @@ module.exports = {
   },
 
   router:{
-    middleware:'auth'
+    middleware:'auth',
+    extendRoutes(routes, resolve){
+      console.log("extendRoutes", routes);
+      routes.push({
+        name: 'root',
+        path:'/index',
+        component:resolve(__dirname, "pages/index.vue")
+      });
+    }
   },
 
 
