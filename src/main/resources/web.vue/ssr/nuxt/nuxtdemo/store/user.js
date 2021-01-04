@@ -6,17 +6,17 @@ export const state = ()=>({
 });
 
 
-export const mutations = ()=>({
+export const mutations = {
   M_UPDATE_USER(state, payload){
     state.err = payload.err;
     state.msg = payload.msg;
     state.token = payload.token;
     state.data = payload.data;
   }
-});
+};
 
-export const actions = ()=>({
+export const actions = {
   A_UPDATE_USER({commit,state}, payload){
     commit('M_UPDATE_USER', payload)
   }
-});
+};

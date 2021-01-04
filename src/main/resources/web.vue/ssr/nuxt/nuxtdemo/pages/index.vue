@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import {mapActions, mapGetters, mapState, mapMutations} from 'vuex';
 import AppLogo from '~/components/AppLogo.vue'
 
 export default {
@@ -64,9 +65,19 @@ export default {
   async fetch({store,$axios}){
     console.log('fetch pages index.vue')
   },
+  computed:{
+    ...mapGetters(['getNav']),
+    ...mapState(['bNav']),
+    ...mapState('user',['data']),
+//    ...mapState('home',['data']),//命名冲突
+    ...mapState({home:state =>{state.home.data}}),//命名冲突解决
+  },
   methods:{
+
+//    ...mapActions('user',['A_UPDATE_USER']), //使用方式 this.A_UPDATE_USER({});
     getStore(){
-      this.$store.dispatch('user/A_UPDATE_USER',{err:0,msg:'登录成功',token:'假token', data:{title:'user 模块actions所传递的数据'}});
+//      this.$store.dispatch('user/A_UPDATE_USER',{err:0,msg:'登录成功',token:'假token', data:{title:'user 模块actions所传递的数据'}});
+      this.$store.commit('user/M_UPDATE_USER',{err:0,msg:'登录成功',token:'假token', data:{title:'user 模块actions所传递的数据'}});
     }
   },
   //ssr & csr
