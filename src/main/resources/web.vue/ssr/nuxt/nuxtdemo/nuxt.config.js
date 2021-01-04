@@ -27,7 +27,11 @@ module.exports = {
   },
 
   plugins:[
-    '~/plugins/router'
+    '~/plugins/router',
+    {
+      src:'~/plugins/axios',
+      ssr: true
+    }
   ],
 
   /*
