@@ -1,3 +1,14 @@
+export const state = ()=>({
+  bNav: false,
+  bLoading:false
+});
+export const mutations = ()=>({
+  M_UPDATE_NAV(state, payload){
+
+  }
+});
+
+
 export const actions ={
   nuxtServerInit(store, context){
     //初始化东西到store中
