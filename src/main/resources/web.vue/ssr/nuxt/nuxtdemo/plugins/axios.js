@@ -1,5 +1,5 @@
 export default function ({$axios, redirect,route, store}) {
-  $axios.default.timeout = 10000;
+  // $axios.default.timeout = 10000;
   $axios.onRequest(config => {
     // config.headers.token = '加token';
     return config;
