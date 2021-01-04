@@ -7,3 +7,17 @@
       <nuxt/>
     </div>
 </template>
+<script>
+  export default {
+    transition:'test'
+  }
+</script>
+
+<style scoped>
+  .test-enter-active, .test-leave-active{
+    transition: .5s ease all;
+  }
+  .test-enter, .test-leave-active{
+    margin-left: -100px;
+  }
+</style>

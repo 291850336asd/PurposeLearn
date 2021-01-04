@@ -26,12 +26,17 @@ module.exports = {
     }
   },
 
-
+  plugins:[
+    '~/plugins/router'
+  ],
 
   /*
   ** Customize the progress bar color
   */
   loading: { color: '#3B8070' },
+  css:[
+    'assets/css/transition.css'
+  ],
   /*
   ** Build configuration
   */

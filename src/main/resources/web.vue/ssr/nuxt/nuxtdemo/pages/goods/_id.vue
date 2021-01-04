@@ -8,7 +8,11 @@
 <script>
   export default {
     validate({params, query}){
-      return params.id;
+      // return params.id > 0;
+      if(params.id){
+        return params.id > 0;
+      }
+      return true;
     }
   }
 
