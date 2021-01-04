@@ -4,7 +4,16 @@ export const state = ()=>({
 });
 export const mutations = ()=>({
   M_UPDATE_NAV(state, payload){
+    state.bNav = payload;
+  },
+  M_UPDATE_LOADING(state,payload){
+    state.bLoading = payload;
+  }
+});
 
+export const getters = ()=>({
+  getNav(state){
+    return state.bNav ? '显示':'隐藏'
   }
 });
 

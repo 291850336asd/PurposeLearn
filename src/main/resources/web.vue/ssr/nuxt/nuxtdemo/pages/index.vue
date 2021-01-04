@@ -3,6 +3,10 @@
     <div>
       <h3>首页</h3>
       {{title}}
+      <div>
+        <h4>vuex操作</h4>
+        <button @click="getStore">编程式操作</button>
+      </div>
       <app-logo/>
       <!--<h1 class="title">-->
         <!--nuxtdemo   {{ a }} -  {{ b }}-->
@@ -59,6 +63,11 @@ export default {
   //读取数据，读取数据提交给vuex
   async fetch({store,$axios}){
     console.log('fetch pages index.vue')
+  },
+  methods:{
+    getStore(){
+      this.$store.dispatch('user/A_UPDATE_USER',{err:0,msg:'登录成功',token:'假token', data:{title:'user 模块actions所传递的数据'}});
+    }
   },
   //ssr & csr
   beforeCreate(){
