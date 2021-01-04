@@ -44,7 +44,8 @@ module.exports = {
   ],
 
   modules:[
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    'cookie-universal-nuxt',
   ],
   axios:{
     proxy: true
