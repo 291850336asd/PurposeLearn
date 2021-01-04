@@ -37,6 +37,22 @@ module.exports = {
   css:[
     'assets/css/transition.css'
   ],
+
+  modules:[
+    '@nuxtjs/axios'
+  ],
+  axios:{
+    proxy: true
+  },
+  proxy:{
+    '/api/':{
+      target:"http://www.baidu.com",
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api':''
+      }
+    }
+  },
   /*
   ** Build configuration
   */

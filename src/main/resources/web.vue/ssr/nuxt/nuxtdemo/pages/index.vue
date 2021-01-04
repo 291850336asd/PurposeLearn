@@ -2,6 +2,7 @@
   <section class="container">
     <div>
       <h3>首页</h3>
+      {{title}}
       <app-logo/>
       <!--<h1 class="title">-->
         <!--nuxtdemo   {{ a }} -  {{ b }}-->
@@ -44,13 +45,19 @@ export default {
     return { a:1 }
   },
   //读取数据，返回给组件
-  asyncData(context){
-    console.log('asyncData pages index.vue')
+  async asyncData({ $axios }){
+    console.log('asyncData pages index.vue');
     //异步业务逻辑，读取数据，返回数据跟data合并
-    return { b:2 }
+    let res = await $axios({url:"/data.json"});
+    console.log('读取到静态资源信息', res);
+
+    let res2 = await $axios({url:'/api/home/msg/data/personalcontent?num=8'});
+    console.log('读取到跨域资源信息', res2);
+
+    return { b:2 , title:res.data.title}
   },
   //读取数据，读取数据提交给vuex
-  fetch({store}){
+  async fetch({store,$axios}){
     console.log('fetch pages index.vue')
   },
   //ssr & csr

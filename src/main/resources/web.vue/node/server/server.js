@@ -59,7 +59,7 @@ const server = http.createServer((req, res) => {
         if(pathname === '/api/add' && method === 'POST'){
             //获取请求主体中的信息
             let textInfo = '';
-            req.on('data', chunk => {
+            req.on('web.vue.ssr.nuxt.nuxtdemo.static.data', chunk => {
                 textInfo += chunk;
             });
             req.on('end', () => {
