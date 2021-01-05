@@ -7,7 +7,12 @@
         <h4>vuex操作</h4>
         <button @click="getStore">编程式操作</button>
       </div>
-      <app-logo/>
+      <!--<el-carousel>-->
+        <!--<el-carousel-item v-for="item of banner" :key="item.id" >-->
+          <!--<nuxt-link :to="{name:'goods-id',parmas:{id:item.id}, query:{name:item.name}}"></nuxt-link>-->
+        <!--</el-carousel-item>-->
+      <!--</el-carousel>-->
+      <!--<app-logo/>-->
       <!--<h1 class="title">-->
         <!--nuxtdemo   {{ a }} -  {{ b }}-->
       <!--</h1>-->
