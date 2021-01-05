@@ -8,7 +8,23 @@
   export default {
     methods:{
       login(){
-
+        //调用登录接口返回数据时同步token和vuex
+        this.$axios({
+          url:'/api/login',
+          method:'post',
+          data:{
+            name:'xxx',
+            password:'xxxx'
+          }
+        }).then(res=>{
+          this.$cookies.set('user', res.data);
+          this.$store.commit('user/M_UPDARTE_USER',res.data);
+          if(!this.$route.query.path || /login|reg/.test(this.$route.query.path)){
+            this.$route,replace('/user');
+          }else{
+            this.$route,replace(this.$route.query.path);
+          }
+        });
       }
     }
   }
