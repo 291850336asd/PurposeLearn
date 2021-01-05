@@ -31,6 +31,11 @@ module.exports = {
     {
       src:'~/plugins/axios',
       ssr: true
+    },
+    {
+      src:'~/plugins/element-ui',
+      ssr: true,
+      // mode:'server',// client
     }
   ],
 
@@ -40,7 +45,8 @@ module.exports = {
   // loading: { color: '#3B8070', height: '5px' },
   loading: '~/components/loading.vue',
   css:[
-    'assets/css/transition.css'
+    'assets/css/transition.css',
+    'element-ui/lib/theme-chalk/index.css',
   ],
 
   modules:[
@@ -63,6 +69,9 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    transpile:[
+      /^element-ui/
+    ],
     /*
     ** Run ESLint on save
     */
