@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-header></app-header>
+    <app-header v-if="isNav"></app-header>
     <nuxt/>
   </div>
 </template>
@@ -11,6 +11,23 @@
 //    middleware:'auth'
     middleware(context){
       console.log('middleware layouts default.vue')
+    },
+    data(){
+      return {
+        isNav: true
+      }
+    },
+    watch:{
+      $route:{
+        immediate: true,
+        handler(route){
+          if(/login|reg/.test(route.fullPath)){
+            this.isNav = false;
+          } else {
+            this.isNav = true;
+          }
+        }
+      }
     },
     components:{
       AppHeader
