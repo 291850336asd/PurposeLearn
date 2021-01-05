@@ -3,6 +3,7 @@
       <el-menu :default-active="activeIndex" @select="handlerSelect" mode="horizontal">
         <el-menu-item v-for="(item,index) of navs" :key="index" :index="index.toString()" >{{item.title}}</el-menu-item>
       </el-menu>
+      <el-input v-for="(item,index) of navs" :key="index" model="`${index}`" >{{item.title}}</el-input>
       <nuxt-link to="/index" active-class="app_header--active">首页</nuxt-link>
       <nuxt-link to="/goods" active-class="app_header--active">商品</nuxt-link>
       <nuxt-link to="/goods2" active-class="app_header--active">商品2同级展示</nuxt-link>

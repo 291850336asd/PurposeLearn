@@ -16,7 +16,7 @@ public class Test {
 //        System.out.println(Math.abs("C1250000000082126007".hashCode())%32 + 1);//1001033779
 ////        System.out.println(Math.abs("15015166536".hashCode())%32 + 1);
 //
-//        System.out.println(2394614%32 + 1);
+        System.out.println(1106912642%32 + 1);
     }
 
 
