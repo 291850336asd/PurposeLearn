@@ -20,9 +20,9 @@
           this.$cookies.set('user', res.data);
           this.$store.commit('user/M_UPDARTE_USER',res.data);
           if(!this.$route.query.path || /login|reg/.test(this.$route.query.path)){
-            this.$route,replace('/user');
+            this.$router.replace('/user');
           }else{
-            this.$route,replace(this.$route.query.path);
+            this.$router.replace(this.$route.query.path);
           }
         });
       }

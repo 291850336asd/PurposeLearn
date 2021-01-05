@@ -1,7 +1,7 @@
 <template>
     <nav>
-      <el-menu default-active="activeIndex" @select="handlerSelect" mode="horizontal">
-        <el-menu-item v-for="(item,index) of navs" :key="index" >{{item.title}}</el-menu-item>
+      <el-menu :default-active="activeIndex" @select="handlerSelect" mode="horizontal">
+        <el-menu-item v-for="(item,index) of navs" :key="index" :index="index.toString()" >{{item.title}}</el-menu-item>
       </el-menu>
       <nuxt-link to="/index" active-class="app_header--active">首页</nuxt-link>
       <nuxt-link to="/goods" active-class="app_header--active">商品</nuxt-link>
@@ -47,7 +47,7 @@
     },
     methods:{
       handlerSelect(key){
-        this.$router.push(this.navs[parseInt(key)].path);
+        this.$router.push(this.navs[key].path);
       }
     }
   }
