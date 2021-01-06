@@ -36,7 +36,8 @@ module.exports = {
       src:'~/plugins/element-ui',
       ssr: true,
       // mode:'server',// client
-    }
+    },
+    '~/plugins/mixins',
   ],
 
   /*
