@@ -11,3 +11,6 @@ import * as filters from '../assets/script/filters';
 Object.keys(filters).forEach(key=>{
   Vue.filter(key, filters[key]);
 });
+
+import directice1 from '../assets/script/directives/directive1'
+import directice2 from '../assets/script/directives/directive2'
