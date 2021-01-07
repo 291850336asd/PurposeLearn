@@ -47,6 +47,7 @@ module.exports = {
   loading: '~/components/loading.vue',
   css:[
     'assets/css/transition.css',
+    'assets/css/base.css',
     'element-ui/lib/theme-chalk/index.css',
   ],
 

@@ -11,6 +11,13 @@ import * as filters from '../assets/script/filters';
 Object.keys(filters).forEach(key=>{
   Vue.filter(key, filters[key]);
 });
+//全局指令
+import directive1 from '../assets/script/directives/directive1'
+import directive2 from '../assets/script/directives/directive2'
 
-import directice1 from '../assets/script/directives/directive1'
-import directice2 from '../assets/script/directives/directive2'
+Vue.directive('directive1', directive1);
+Vue.directive('directive2', directive2);
+
+//全局组件
+import  UcButton from  '../components/global/uc-button.vue';
+Vue.component('uc-button', UcButton);
