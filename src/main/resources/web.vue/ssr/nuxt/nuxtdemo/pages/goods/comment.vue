@@ -9,7 +9,16 @@
 </template>
 <script>
   export default {
-    transition:'test'
+    transition:'test',
+    data(){
+      return {
+        title:'xxx',
+        content:'xxxx'
+      }
+    },
+    head(){
+      return this.$seo(this.data.title, this.data.content, [{}]);
+    },
   }
 </script>
 

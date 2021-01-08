@@ -21,3 +21,22 @@ Vue.directive('directive2', directive2);
 //全局组件
 import  UcButton from  '../components/global/uc-button.vue';
 Vue.component('uc-button', UcButton);
+
+
+//混入methods
+Vue.mixin({
+  methods:{
+    $seo(title,content,payload=[]){
+      return {
+        title,
+        meta:[
+          {
+            hid:'discription',
+            name:'keywords',
+            content
+          }
+        ].concat(payload)
+      }
+    }
+  }
+});
