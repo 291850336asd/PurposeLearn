@@ -54,7 +54,13 @@ module.exports = {
   modules:[
     '@nuxtjs/axios',
     'cookie-universal-nuxt',
+    '@nuxtjs/style-resources'
   ],
+  styleResources:{
+    scss:[
+      './assets/scss/globals.scss'
+    ]
+  },
   axios:{
     proxy: true
   },
