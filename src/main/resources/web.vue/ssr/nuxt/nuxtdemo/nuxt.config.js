@@ -58,7 +58,7 @@ module.exports = {
   ],
   styleResources:{
     scss:[
-      './assets/scss/globals.scss'
+      'assets/scss/global.scss'
     ]
   },
   axios:{

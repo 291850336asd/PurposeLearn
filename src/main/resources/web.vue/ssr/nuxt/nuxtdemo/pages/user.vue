@@ -27,11 +27,11 @@
   }
 </script>
 <style lang="scss" scoped>
-  $bg: #999;
-  .box{
-    background: $bg;
-  }
-  .box2{
-    background: $theme-bg;
-  }
+$bg:#999;
+.box {
+  background: $bg;
+}
+.box2 {
+  background: $theme-bg;
+}
 </style>
