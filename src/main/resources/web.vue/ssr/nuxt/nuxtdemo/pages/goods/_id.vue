@@ -12,6 +12,11 @@
       return {
         meta:[
           { name: 'keywords', content: this.content }
+        ],
+        script:[
+          {
+            src:'外部资源'
+          }
         ]
       }
     },
