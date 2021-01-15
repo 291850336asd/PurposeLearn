@@ -26,8 +26,8 @@ module.exports = merge(baseconfig, {
             title: '首页',
             // Load a custom template (lodash by default)
             template: './index.html',
-            filename:'web.vue.demo.index.html',
-            chunks:['web.vue.demo.index','common']
+            filename:'index.html',
+            chunks:['index','common']
             // hash: true,
             // minify: true  //压缩
         }),
