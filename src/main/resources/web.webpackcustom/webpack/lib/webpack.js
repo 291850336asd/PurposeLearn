@@ -31,7 +31,16 @@ module.exports = class webpack {
             }
 
         })
-        console.log( this.modules)
+        // console.log( this.modules);
+        const obj = {};
+        this.modules.forEach(item =>{
+           obj[item.entryFile] = {
+               dependencies: item.dependencies,
+               code: item.code
+           }
+        });
+        // console.log( this.obj);
+        this.file(obj);
     }
 
     parse(entryFile){
@@ -57,5 +66,28 @@ module.exports = class webpack {
        return {
             entryFile,dependencies, code
        };
+    }
+
+    file(objCode){
+        //创建自运行函数,处理require,module,exports
+        //生成main.js => dist/main.js
+        const filepath = path.join(this.output.path, this.output.filename);
+        const newCode = JSON.stringify(objCode);
+        const bundle = `(function(graph){
+            function require(module){
+                function reRequire(relativePath){
+                    return  require(graph[module].dependencies[relativePath]);
+                }
+                var exports = {};
+                (function(require, exports, code){
+                    if(code){
+                        eval(code);
+                    }
+                })(reRequire,exports,graph[module].code)
+                return exports;
+            }
+            require('${this.entry}');
+        })(${newCode})`;
+        fs.writeFileSync(filepath, bundle, 'utf-8');
     }
 }
