@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "html-webpack-plugin": "^4.5.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "thread-loader": "^3.0.1",
     "vue": "^2.6.12",
     "webpack": "^4.43.0",
