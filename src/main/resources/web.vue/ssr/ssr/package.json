@@ -22,7 +22,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "lodash.merge": "^4.6.2",
     "vue": "^2.6.12",
     "vue-server-renderer": "^2.6.11",
